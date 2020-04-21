@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		186105BA244F1332008A863B /* TestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105B8244F1332008A863B /* TestConfig.swift */; };
+		186105BB244F1332008A863B /* TestConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 186105B9244F1332008A863B /* TestConfig.json */; };
 		1874837A244F0E0F00120F73 /* TrefleSwiftSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18748370244F0E0F00120F73 /* TrefleSwiftSDK.framework */; };
 		1874837F244F0E0F00120F73 /* TrefleSwiftSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874837E244F0E0F00120F73 /* TrefleSwiftSDKTests.swift */; };
 		18748381244F0E0F00120F73 /* TrefleSwiftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 18748373244F0E0F00120F73 /* TrefleSwiftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -23,6 +25,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		186105B8244F1332008A863B /* TestConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestConfig.swift; sourceTree = "<group>"; };
+		186105B9244F1332008A863B /* TestConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestConfig.json; sourceTree = "<group>"; };
 		18748370244F0E0F00120F73 /* TrefleSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TrefleSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18748373244F0E0F00120F73 /* TrefleSwiftSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrefleSwiftSDK.h; sourceTree = "<group>"; };
 		18748374244F0E0F00120F73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,6 +57,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		186105B7244F1332008A863B /* Test Config */ = {
+			isa = PBXGroup;
+			children = (
+				186105B8244F1332008A863B /* TestConfig.swift */,
+				186105B9244F1332008A863B /* TestConfig.json */,
+			);
+			path = "Test Config";
+			sourceTree = "<group>";
+		};
 		18748366244F0E0E00120F73 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +99,7 @@
 		1874837D244F0E0F00120F73 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				186105B7244F1332008A863B /* Test Config */,
 				1874837E244F0E0F00120F73 /* TrefleSwiftSDKTests.swift */,
 				18748380244F0E0F00120F73 /* Info.plist */,
 			);
@@ -193,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186105BB244F1332008A863B /* TestConfig.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1874837F244F0E0F00120F73 /* TrefleSwiftSDKTests.swift in Sources */,
+				186105BA244F1332008A863B /* TestConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
