@@ -1,0 +1,184 @@
+//
+//  Trefle.swift
+//  TrefleSwiftSDK
+//
+//  Created by James Barrow on 2020-04-21.
+//  Copyright © 2020 Pig on a Hill Productions. All rights reserved.
+//
+
+import Foundation
+
+public class Trefle {
+    
+    internal static var shared = Trefle()
+    internal static let userDefaultsSuiteName = "com.PigonaHill.TrefleSwiftSDK.userDefaults.suiteName"
+    internal static let userDefaultsKeychainStateUUID = "com.PigonaHill.TrefleSwiftSDK.userDefaults.stateUUID"
+    internal static let keychainServiceName = "com.PigonaHill.TrefleSwiftSDK.keychain"
+    internal static let baseURL = "https://trefle.io"
+    internal static let baseAPIURL = "\(baseURL)/api"
+    
+    // MARK: - Types
+    
+    public enum AuthState: Equatable, CustomStringConvertible {
+        case unknown
+        case authorized
+        case tokenExpired
+        case unauthorized
+        case failed(_ error: Error)
+        
+        public var description: String {
+            switch self {
+            case .unknown:
+                return "Unknown authentication state"
+            case .authorized:
+                return "User authorized"
+            case .tokenExpired:
+                return "Token expired"
+            case .unauthorized:
+                return "User unauthorized"
+            case .failed(let error):
+                return "Authentication error: \(error.localizedDescription)"
+            }
+        }
+        
+        public static func == (lhs: Trefle.AuthState, rhs: Trefle.AuthState) -> Bool {
+            
+            switch (lhs, rhs) {
+            case (.unknown, .unknown):
+                return true
+            case (.authorized, .authorized):
+                return true
+            case (.tokenExpired, .tokenExpired):
+                return true
+            case (.unauthorized, .unauthorized):
+                return true
+            case (let .failed(lhError), let .failed(rhError)):
+                return lhError.localizedDescription == rhError.localizedDescription
+            default:
+                return false
+            }
+        }
+    }
+    
+    // MARK: - Properties
+    
+    internal var accessToken: String = ""
+    internal var uri: String = ""
+    internal var jwt: String?
+    internal var expires: Date?
+    internal var isValid: Bool {
+        guard let expires = self.expires else { return false }
+        return Date() < expires
+    }
+    internal var stateUUID: String?
+    public var authState: AuthState = .unknown {
+        didSet {
+            guard oldValue != authState else { return }
+            authStateListenerQueue.async(flags: .barrier) { [weak self] in
+                guard let self = self else { return }
+                self.authStateDidChangeListeners.values.forEach { (listener) in
+                    DispatchQueue.main.async { listener(self.authState) }
+                }
+            }
+        }
+    }
+    internal lazy var authStateDidChangeListeners = [UUID: ((authState: AuthState) -> Void)]()
+    internal let authStateListenerQueue = DispatchQueue(label: "com.PigonaHill.TrefleSwiftSDK.AuthStateListenerQueue", attributes: .concurrent)
+    
+    // MARK: - Lifecycle
+    
+    private init() { }
+    
+    public static func configure(accessToken: String, uri: String) {
+        
+        // Set access token and URI
+        shared.accessToken = accessToken
+        shared.uri = uri
+        
+        // Load the previous state, otherwise logout to reset state
+        guard let stateUUID = shared.loadStateUUID() else {
+            do {
+                try Trefle.logout()
+            } catch {
+                shared.authState = .failed(error)
+            }
+            return
+        }
+        
+        // Set returned state
+        shared.stateUUID = stateUUID
+        
+        // Load previous JWT state, otherwise logout to reset state
+        guard let keychainAuthState = try? KeychainPasswordItem(service: Trefle.keychainServiceName, account: stateUUID).readObject() as JWTState else {
+            do {
+                try Trefle.logout()
+            } catch {
+                shared.authState = .failed(error)
+            }
+            return
+        }
+        
+        // Set returned JWT state
+        shared.jwt = keychainAuthState.jwt
+        shared.expires = keychainAuthState.expires
+        
+        // Check if JWT state is valid, otherwise refresh token
+        guard keychainAuthState.isValid == false else {
+            shared.authState = .authorized
+            return
+        }
+        
+        // Attempt to claim token
+        Trefle.claimToken { (result) in
+            
+            let authState: AuthState
+            switch result {
+            case .success:
+                authState = .authorized
+            case .failure(let error):
+                do {
+                    try Trefle.logout()
+                    authState = .failed(error)
+                } catch {
+                    authState = .failed(error)
+                }
+            }
+            
+            shared.authState = authState
+        }
+    }
+    
+    // MARK: - State UUID
+    
+    internal func loadStateUUID() -> String? {
+        
+        guard let userDefaults = UserDefaults(suiteName: Trefle.userDefaultsSuiteName) else {
+            return nil
+        }
+        return userDefaults.object(forKey: Trefle.userDefaultsKeychainStateUUID) as? String
+    }
+    
+    @discardableResult
+    internal func saveStateUUID(_ uuid: String) -> Bool {
+        
+        guard let userDefaults = UserDefaults(suiteName: Trefle.userDefaultsSuiteName) else {
+            return false
+        }
+        
+        userDefaults.set(uuid, forKey: Trefle.userDefaultsKeychainStateUUID)
+        userDefaults.synchronize()
+        return true
+    }
+    
+    @discardableResult
+    internal func removeStateUUID() -> Bool {
+        
+        guard let userDefaults = UserDefaults(suiteName: Trefle.userDefaultsSuiteName) else {
+            return false
+        }
+        userDefaults.removeObject(forKey: Trefle.userDefaultsKeychainStateUUID)
+        userDefaults.synchronize()
+        return true
+    }
+    
+}

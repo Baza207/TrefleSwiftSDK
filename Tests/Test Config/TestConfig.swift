@@ -15,6 +15,7 @@ struct TestConfig: Decodable {
     // MARK: - Properties
     
     let accessToken: String
+    let uri: String
     
     static func load(_ overrideUrl: URL? = nil) throws -> TestConfig? {
         
