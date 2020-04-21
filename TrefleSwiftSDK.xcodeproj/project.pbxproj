@@ -14,8 +14,10 @@
 		186105C4244F1B92008A863B /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105C3244F1B92008A863B /* Authentication.swift */; };
 		186105C7244F1C45008A863B /* JWTState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105C6244F1C45008A863B /* JWTState.swift */; };
 		186105C9244F21F0008A863B /* TrefleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105C8244F21F0008A863B /* TrefleError.swift */; };
+		186105CD244F8C1E008A863B /* JSONDecoderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105CB244F8C1E008A863B /* JSONDecoderExtensions.swift */; };
+		186105CE244F8C1E008A863B /* URLRequestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105CC244F8C1E008A863B /* URLRequestExtensions.swift */; };
 		1874837A244F0E0F00120F73 /* TrefleSwiftSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18748370244F0E0F00120F73 /* TrefleSwiftSDK.framework */; };
-		1874837F244F0E0F00120F73 /* TrefleManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874837E244F0E0F00120F73 /* TrefleManagerTests.swift */; };
+		1874837F244F0E0F00120F73 /* TrefleAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874837E244F0E0F00120F73 /* TrefleAuthTests.swift */; };
 		18748381244F0E0F00120F73 /* TrefleSwiftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 18748373244F0E0F00120F73 /* TrefleSwiftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -37,11 +39,13 @@
 		186105C3244F1B92008A863B /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		186105C6244F1C45008A863B /* JWTState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTState.swift; sourceTree = "<group>"; };
 		186105C8244F21F0008A863B /* TrefleError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrefleError.swift; sourceTree = "<group>"; };
+		186105CB244F8C1E008A863B /* JSONDecoderExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoderExtensions.swift; sourceTree = "<group>"; };
+		186105CC244F8C1E008A863B /* URLRequestExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestExtensions.swift; sourceTree = "<group>"; };
 		18748370244F0E0F00120F73 /* TrefleSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TrefleSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18748373244F0E0F00120F73 /* TrefleSwiftSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrefleSwiftSDK.h; sourceTree = "<group>"; };
 		18748374244F0E0F00120F73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18748379244F0E0F00120F73 /* TrefleSwiftSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrefleSwiftSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1874837E244F0E0F00120F73 /* TrefleManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrefleManagerTests.swift; sourceTree = "<group>"; };
+		1874837E244F0E0F00120F73 /* TrefleAuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrefleAuthTests.swift; sourceTree = "<group>"; };
 		18748380244F0E0F00120F73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1874838B244F100C00120F73 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		1874838D244F104A00120F73 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -110,6 +114,15 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
+		186105CA244F8C1E008A863B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				186105CC244F8C1E008A863B /* URLRequestExtensions.swift */,
+				186105CB244F8C1E008A863B /* JSONDecoderExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		18748366244F0E0E00120F73 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +151,7 @@
 				186105BC244F140C008A863B /* Manager */,
 				186105BD244F1416008A863B /* Models */,
 				186105C0244F1AD1008A863B /* Helpers */,
+				186105CA244F8C1E008A863B /* Extensions */,
 				18748374244F0E0F00120F73 /* Info.plist */,
 			);
 			path = Source;
@@ -147,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				186105B7244F1332008A863B /* Test Config */,
-				1874837E244F0E0F00120F73 /* TrefleManagerTests.swift */,
+				1874837E244F0E0F00120F73 /* TrefleAuthTests.swift */,
 				18748380244F0E0F00120F73 /* Info.plist */,
 			);
 			path = Tests;
@@ -287,9 +301,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				186105C9244F21F0008A863B /* TrefleError.swift in Sources */,
+				186105CE244F8C1E008A863B /* URLRequestExtensions.swift in Sources */,
 				186105BF244F14BF008A863B /* Trefle.swift in Sources */,
 				186105C2244F1AD1008A863B /* KeychainPasswordItem.swift in Sources */,
 				186105C4244F1B92008A863B /* Authentication.swift in Sources */,
+				186105CD244F8C1E008A863B /* JSONDecoderExtensions.swift in Sources */,
 				186105C7244F1C45008A863B /* JWTState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,7 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1874837F244F0E0F00120F73 /* TrefleManagerTests.swift in Sources */,
+				1874837F244F0E0F00120F73 /* TrefleAuthTests.swift in Sources */,
 				186105BA244F1332008A863B /* TestConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

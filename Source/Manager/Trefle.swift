@@ -95,10 +95,11 @@ public class Trefle {
         shared.accessToken = accessToken
         shared.uri = uri
         
-        // Load the previous state, otherwise logout to reset state
+        // Load the previous state, otherwise logout to reset state and re-authorize
         guard let stateUUID = shared.loadStateUUID() else {
             do {
                 try Trefle.logout()
+                Trefle.authorize()
             } catch {
                 shared.authState = .failed(error)
             }
@@ -108,10 +109,11 @@ public class Trefle {
         // Set returned state
         shared.stateUUID = stateUUID
         
-        // Load previous JWT state, otherwise logout to reset state
+        // Load previous JWT state, otherwise logout to reset state and re-authorize
         guard let keychainAuthState = try? KeychainPasswordItem(service: Trefle.keychainServiceName, account: stateUUID).readObject() as JWTState else {
             do {
                 try Trefle.logout()
+                Trefle.authorize()
             } catch {
                 shared.authState = .failed(error)
             }
@@ -128,24 +130,7 @@ public class Trefle {
             return
         }
         
-        // Attempt to claim token
-        Trefle.claimToken { (result) in
-            
-            let authState: AuthState
-            switch result {
-            case .success:
-                authState = .authorized
-            case .failure(let error):
-                do {
-                    try Trefle.logout()
-                    authState = .failed(error)
-                } catch {
-                    authState = .failed(error)
-                }
-            }
-            
-            shared.authState = authState
-        }
+        Trefle.authorize()
     }
     
     // MARK: - State UUID

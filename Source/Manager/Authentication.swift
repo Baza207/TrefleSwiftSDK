@@ -14,39 +14,43 @@ extension Trefle {
     
     static func authorize(_ completed: ((Result<AuthState, Error>) -> Void)? = nil) {
         
+        // Check if JWT state is valid, otherwise refresh token
+        guard shared.isValid == false else {
+            
+            shared.authState = .authorized
+            completed?(Result.success(shared.authState))
+            return
+        }
+        
         // Attempt to claim token
         Trefle.claimToken { (result) in
             
-            let authState: AuthState
             switch result {
-            case .success:
-                authState = .authorized
-            case .failure(let error):
-                do {
-                    try Trefle.logout()
-                    authState = .failed(error)
-                } catch {
-                    authState = .failed(error)
+            case .success(let state):
+                shared.jwt = state.jwt
+                shared.expires = state.expires
+                shared.authState = .authorized
+                
+                guard let stateUUID = shared.stateUUID else {
+                    return
                 }
+                
+                shared.saveStateUUID(stateUUID)
+                try? KeychainPasswordItem(service: Trefle.keychainServiceName, account: stateUUID)
+                    .saveJSON(state)
+                
+            case .failure(let error):
+                shared.authState = .failed(error)
+                completed?(Result.failure(error))
             }
-            
-            shared.authState = authState
         }
     }
     
     // MARK: - Token
     
-    static internal func claimToken(_ completed: @escaping (Result<AuthState, Error>) -> Void) {
+    static internal func claimToken(_ completed: @escaping (Result<JWTState, Error>) -> Void) {
         
-        // Check if JWT state is valid, otherwise refresh token
-        guard shared.isValid == false else {
-            
-            shared.authState = .authorized
-            completed(Result.success(shared.authState))
-            return
-        }
-        
-        guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/api/auth/claim") else {
+        guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/auth/claim") else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
@@ -61,7 +65,12 @@ extension Trefle {
             return
         }
         
-        let urlRequest = URLRequest(url: url)
+        if shared.stateUUID == nil {
+            shared.stateUUID = UUID().uuidString
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
             
             if let error = error {
@@ -74,7 +83,7 @@ extension Trefle {
                 return
             }
             
-            let decoder = JSONDecoder()
+            let decoder = JSONDecoder.secondsSince1970JSONDecoder
             let result: JWTState?
             do {
                 result = try decoder.decode(JWTState.self, from: data)
@@ -83,20 +92,17 @@ extension Trefle {
                 return
             }
             
-            guard let jwtResult = result else {
+            guard let state = result else {
                 completed(Result.failure(TrefleError.generalError))
                 return
             }
             
-            guard jwtResult.isValid == true else {
+            guard state.isValid == true else {
                 completed(Result.failure(TrefleError.generalError))
                 return
             }
             
-            shared.jwt = jwtResult.jwt
-            shared.expires = jwtResult.expires
-            
-            completed(Result.success(.authorized))
+            completed(Result.success(state))
         }
         downloadTask.resume()
     }

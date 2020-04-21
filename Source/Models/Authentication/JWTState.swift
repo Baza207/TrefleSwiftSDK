@@ -17,4 +17,11 @@ struct JWTState: Codable {
         return Date() < expires && jwt.isEmpty == false
     }
     
+    // MARK: - Coding
+    
+    private enum CodingKeys: String, CodingKey {
+        case jwt = "token"
+        case expires = "expiration"
+    }
+    
 }
