@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double TrefleSwiftSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char TrefleSwiftSDKVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <TrefleSwiftSDK/PublicHeader.h>
-
-
