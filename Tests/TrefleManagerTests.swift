@@ -1,5 +1,5 @@
 //
-//  TrefleSwiftSDKTests.swift
+//  TrefleManagerTests.swift
 //  TrefleSwiftSDKTests
 //
 //  Created by James Barrow on 2020-04-21.
