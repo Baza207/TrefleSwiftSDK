@@ -29,6 +29,9 @@
 		18748379244F0E0F00120F73 /* TrefleSwiftSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrefleSwiftSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1874837E244F0E0F00120F73 /* TrefleSwiftSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrefleSwiftSDKTests.swift; sourceTree = "<group>"; };
 		18748380244F0E0F00120F73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1874838B244F100C00120F73 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		1874838D244F104A00120F73 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1874838E244F104A00120F73 /* TrefleSwiftSDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TrefleSwiftSDK.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +56,9 @@
 		18748366244F0E0E00120F73 = {
 			isa = PBXGroup;
 			children = (
+				1874838D244F104A00120F73 /* README.md */,
+				1874838B244F100C00120F73 /* Package.swift */,
+				1874838E244F104A00120F73 /* TrefleSwiftSDK.podspec */,
 				18748372244F0E0F00120F73 /* Source */,
 				1874837D244F0E0F00120F73 /* Tests */,
 				18748371244F0E0F00120F73 /* Products */,
@@ -149,6 +155,7 @@
 				TargetAttributes = {
 					1874836F244F0E0F00120F73 = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1140;
 					};
 					18748378244F0E0F00120F73 = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -363,6 +370,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = M5BBZ59SV2;
@@ -381,6 +389,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.PigonaHill.TrefleSwiftSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -390,6 +399,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = M5BBZ59SV2;
