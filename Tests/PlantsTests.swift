@@ -45,4 +45,68 @@ class PlantsTests: XCTestCase {
         }
     }
     
+    func testGetPlantRefsPageSize() throws {
+        
+        guard let config = self.config else {
+            XCTFail("Requires a test config to be setup before calling login!")
+            return
+        }
+        
+        guard let url = Plants.getPlantsURL(pageSize: 100, page: nil, query: nil) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
+        
+        let expectation = self.expectation(description: #function)
+        
+        Plants.getPlants(jwt: config.accessToken, url: url) { (result) in
+            
+            switch result {
+            case .success(let page):
+                XCTAssert(page.perPage == 100 && page.items.count == 100, "Wrong page count returned!")
+                
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 60) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
+        }
+    }
+    
+    func testGetPlantRefsPage() throws {
+        
+        guard let config = self.config else {
+            XCTFail("Requires a test config to be setup before calling login!")
+            return
+        }
+        
+        guard let url = Plants.getPlantsURL(pageSize: nil, page: 2, query: nil) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
+        
+        let expectation = self.expectation(description: #function)
+        
+        Plants.getPlants(jwt: config.accessToken, url: url) { (result) in
+            
+            switch result {
+            case .success(let page):
+                XCTAssert(page.pageNumber == 2, "Wrong page returned!")
+                
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 60) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
+        }
+    }
+    
 }
