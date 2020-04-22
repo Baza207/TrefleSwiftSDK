@@ -12,6 +12,8 @@ public enum TrefleError: Error, LocalizedError {
     case badURL
     case noData
     case generalError
+    case noAccessToken
+    case noJWT
     
     public var errorDescription: String? {
         
@@ -22,6 +24,10 @@ public enum TrefleError: Error, LocalizedError {
             return "No Data"
         case .generalError:
             return "General Error"
+        case .noAccessToken:
+            return "No Access Token"
+        case .noJWT:
+            return "No JWT"
         }
     }
 }
