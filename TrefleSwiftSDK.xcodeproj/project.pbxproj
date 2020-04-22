@@ -18,6 +18,8 @@
 		186105CE244F8C1E008A863B /* URLRequestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105CC244F8C1E008A863B /* URLRequestExtensions.swift */; };
 		186105D024507687008A863B /* Plants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105CF24507687008A863B /* Plants.swift */; };
 		186105D324507C37008A863B /* PlantRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105D224507C37008A863B /* PlantRef.swift */; };
+		186105D52450D01A008A863B /* PlantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105D42450D01A008A863B /* PlantsTests.swift */; };
+		186105DA2450DE71008A863B /* BasePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105D92450DE71008A863B /* BasePage.swift */; };
 		1874837A244F0E0F00120F73 /* TrefleSwiftSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18748370244F0E0F00120F73 /* TrefleSwiftSDK.framework */; };
 		1874837F244F0E0F00120F73 /* TrefleAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874837E244F0E0F00120F73 /* TrefleAuthTests.swift */; };
 		18748381244F0E0F00120F73 /* TrefleSwiftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 18748373244F0E0F00120F73 /* TrefleSwiftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -45,6 +47,8 @@
 		186105CC244F8C1E008A863B /* URLRequestExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestExtensions.swift; sourceTree = "<group>"; };
 		186105CF24507687008A863B /* Plants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plants.swift; sourceTree = "<group>"; };
 		186105D224507C37008A863B /* PlantRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRef.swift; sourceTree = "<group>"; };
+		186105D42450D01A008A863B /* PlantsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsTests.swift; sourceTree = "<group>"; };
+		186105D92450DE71008A863B /* BasePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePage.swift; sourceTree = "<group>"; };
 		18748370244F0E0F00120F73 /* TrefleSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TrefleSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18748373244F0E0F00120F73 /* TrefleSwiftSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrefleSwiftSDK.h; sourceTree = "<group>"; };
 		18748374244F0E0F00120F73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				186105C5244F1C3D008A863B /* Authentication */,
+				186105D62450DCC2008A863B /* Base */,
 				186105D124507C2A008A863B /* Plants */,
 			);
 			path = Models;
@@ -135,6 +140,14 @@
 				186105D224507C37008A863B /* PlantRef.swift */,
 			);
 			path = Plants;
+			sourceTree = "<group>";
+		};
+		186105D62450DCC2008A863B /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				186105D92450DE71008A863B /* BasePage.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		18748366244F0E0E00120F73 = {
@@ -176,6 +189,7 @@
 			children = (
 				186105B7244F1332008A863B /* Test Config */,
 				1874837E244F0E0F00120F73 /* TrefleAuthTests.swift */,
+				186105D42450D01A008A863B /* PlantsTests.swift */,
 				18748380244F0E0F00120F73 /* Info.plist */,
 			);
 			path = Tests;
@@ -319,6 +333,7 @@
 				186105CE244F8C1E008A863B /* URLRequestExtensions.swift in Sources */,
 				186105BF244F14BF008A863B /* Trefle.swift in Sources */,
 				186105C2244F1AD1008A863B /* KeychainPasswordItem.swift in Sources */,
+				186105DA2450DE71008A863B /* BasePage.swift in Sources */,
 				186105C4244F1B92008A863B /* Authentication.swift in Sources */,
 				186105D324507C37008A863B /* PlantRef.swift in Sources */,
 				186105CD244F8C1E008A863B /* JSONDecoderExtensions.swift in Sources */,
@@ -330,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186105D52450D01A008A863B /* PlantsTests.swift in Sources */,
 				1874837F244F0E0F00120F73 /* TrefleAuthTests.swift in Sources */,
 				186105BA244F1332008A863B /* TestConfig.swift in Sources */,
 			);

@@ -10,7 +10,7 @@ import Foundation
 
 public class Plants {
     
-    public static func getPlants(query: String? = nil, completed: @escaping (Result<[PlantRef], Error>) -> Void) {
+    public static func getPlants(query: String? = nil, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -38,7 +38,7 @@ public class Plants {
         }
     }
     
-    private static func getPlantsURL(query: String?) -> URL? {
+    internal static func getPlantsURL(query: String?) -> URL? {
         
         guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/plants") else {
             return nil
@@ -55,7 +55,7 @@ public class Plants {
         return urlComponents.url
     }
     
-    private static func getPlants(jwt: String, url: URL, completed: @escaping (Result<[PlantRef], Error>) -> Void) {
+    internal static func getPlants(jwt: String, url: URL, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
@@ -79,7 +79,15 @@ public class Plants {
                 return
             }
             
-            completed(Result.success(result ?? []))
+            guard
+                let response = response as? HTTPURLResponse,
+                let page = Page(items: result ?? [], response: response)
+            else {
+                completed(Result.failure(TrefleError.generalError))
+                return
+            }
+            
+            completed(Result.success(page))
         }
         downloadTask.resume()
     }
