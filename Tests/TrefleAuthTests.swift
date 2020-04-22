@@ -20,14 +20,14 @@ class TrefleSwiftSDKTests: XCTestCase {
     func testConfigure() throws {
         
         guard let config = self.config else {
-            XCTAssertFalse(true, "Requires a test config to be setup before calling login!")
+            XCTFail("Requires a test config to be setup before calling login!")
             return
         }
         
         Trefle.configure(accessToken: config.accessToken, uri: config.uri)
         
         guard Trefle.shared.isValid == false else {
-            XCTAssertTrue(true, "Already valid")
+            XCTFail("Already valid")
             return
         }
         
