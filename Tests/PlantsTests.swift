@@ -20,7 +20,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.getPlantsURL(query: nil) else {
+        guard let url = Plants.getPlantsURL(pageSize: nil, page: nil, query: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
