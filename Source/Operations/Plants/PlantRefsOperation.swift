@@ -11,7 +11,9 @@ import Foundation
 public class PlantRefsOperation: Operation {
     
     public var plantRefsCompletionBlock: ((_ result: Result<Page<PlantRef>, Error>) -> Void)?
-    public var queryString: String
+    public var pageSize: Int?
+    public var pageNumber: Int?
+    public var query: String
     public var page: Page<PlantRef>?
     public var error: Error?
     public override var isAsynchronous: Bool {
@@ -35,8 +37,10 @@ public class PlantRefsOperation: Operation {
         return _isFinished
     }
     
-    public init(queryString: String, completionBlock: ((_ result: Result<Page<PlantRef>, Error>) -> Void)? = nil) {
-        self.queryString = queryString
+    public init(pageSize: Int? = nil, pageNumber: Int? = nil, query: String, completionBlock: ((_ result: Result<Page<PlantRef>, Error>) -> Void)? = nil) {
+        self.pageSize = pageSize
+        self.pageNumber = pageNumber
+        self.query = query
         self.plantRefsCompletionBlock = completionBlock
     }
     
@@ -56,7 +60,7 @@ public class PlantRefsOperation: Operation {
         
         _isExecuting = true
         
-        Plants.getPlants(pageSize: nil, page: nil, query: queryString) { [weak self] (result) in
+        Plants.getPlants(pageSize: pageSize, page: pageNumber, query: query) { [weak self] (result) in
             
             guard let self = self else {
                 return
