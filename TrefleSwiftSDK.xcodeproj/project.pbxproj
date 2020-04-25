@@ -23,6 +23,7 @@
 		1874837A244F0E0F00120F73 /* TrefleSwiftSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18748370244F0E0F00120F73 /* TrefleSwiftSDK.framework */; };
 		1874837F244F0E0F00120F73 /* TrefleAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874837E244F0E0F00120F73 /* TrefleAuthTests.swift */; };
 		18748381244F0E0F00120F73 /* TrefleSwiftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 18748373244F0E0F00120F73 /* TrefleSwiftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF92652454D9800034A058 /* PlantRefsOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		1874838B244F100C00120F73 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		1874838D244F104A00120F73 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1874838E244F104A00120F73 /* TrefleSwiftSDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TrefleSwiftSDK.podspec; sourceTree = "<group>"; };
+		18DF92652454D9800034A058 /* PlantRefsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRefsOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				18748373244F0E0F00120F73 /* TrefleSwiftSDK.h */,
 				186105BC244F140C008A863B /* Manager */,
 				186105BD244F1416008A863B /* Models */,
+				18DF92632454D94B0034A058 /* Operations */,
 				186105C0244F1AD1008A863B /* Helpers */,
 				186105CA244F8C1E008A863B /* Extensions */,
 				18748374244F0E0F00120F73 /* Info.plist */,
@@ -193,6 +196,22 @@
 				18748380244F0E0F00120F73 /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		18DF92632454D94B0034A058 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				18DF92642454D9640034A058 /* Plants */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		18DF92642454D9640034A058 /* Plants */ = {
+			isa = PBXGroup;
+			children = (
+				18DF92652454D9800034A058 /* PlantRefsOperation.swift */,
+			);
+			path = Plants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,6 +353,7 @@
 				186105BF244F14BF008A863B /* Trefle.swift in Sources */,
 				186105C2244F1AD1008A863B /* KeychainPasswordItem.swift in Sources */,
 				186105DA2450DE71008A863B /* Page.swift in Sources */,
+				18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */,
 				186105C4244F1B92008A863B /* Authentication.swift in Sources */,
 				186105D324507C37008A863B /* PlantRef.swift in Sources */,
 				186105CD244F8C1E008A863B /* JSONDecoderExtensions.swift in Sources */,
