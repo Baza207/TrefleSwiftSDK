@@ -35,7 +35,7 @@ public class PlantRefsOperation: Operation {
         return _isFinished
     }
     
-    init(queryString: String, completionBlock: ((_ result: Result<Page<PlantRef>, Error>) -> Void)? = nil) {
+    public init(queryString: String, completionBlock: ((_ result: Result<Page<PlantRef>, Error>) -> Void)? = nil) {
         self.queryString = queryString
         self.plantRefsCompletionBlock = completionBlock
     }
