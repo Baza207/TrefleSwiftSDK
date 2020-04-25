@@ -10,14 +10,14 @@ import Foundation
 
 public class Plants {
     
-    public static func getPlants(pageSize: Int? = nil, page: Int? = nil, query: String? = nil, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
+    public static func getPlants(pageSize: Int? = nil, pageNumber: Int? = nil, query: String? = nil, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = getPlantsURL(pageSize: pageSize, page: page, query: query) else {
+        guard let url = getPlantsURL(pageSize: pageSize, pageNumber: pageNumber, query: query) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
@@ -38,7 +38,7 @@ public class Plants {
         }
     }
     
-    internal static func getPlantsURL(pageSize: Int?, page: Int?, query: String?) -> URL? {
+    internal static func getPlantsURL(pageSize: Int?, pageNumber: Int?, query: String?) -> URL? {
         
         guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/plants") else {
             return nil
@@ -54,8 +54,8 @@ public class Plants {
             queryItems.append(URLQueryItem(name: "page_size", value: "\(pageSize)"))
         }
         
-        if let page = page {
-            queryItems.append(URLQueryItem(name: "page", value: "\(page)"))
+        if let pageNumber = pageNumber {
+            queryItems.append(URLQueryItem(name: "page", value: "\(pageNumber)"))
         }
         
         urlComponents.queryItems = queryItems
