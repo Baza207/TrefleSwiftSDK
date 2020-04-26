@@ -20,7 +20,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.fetchPlantsURL(pageSize: nil, pageNumber: nil, query: nil, queryParams: nil) else {
+        guard let url = Plants.plantsURL(pageSize: nil, pageNumber: nil, query: nil, queryParams: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -52,7 +52,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.fetchPlantsURL(pageSize: 100, pageNumber: nil, query: nil, queryParams: nil) else {
+        guard let url = Plants.plantsURL(pageSize: 100, pageNumber: nil, query: nil, queryParams: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -84,7 +84,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.fetchPlantsURL(pageSize: nil, pageNumber: 2, query: nil, queryParams: nil) else {
+        guard let url = Plants.plantsURL(pageSize: nil, pageNumber: 2, query: nil, queryParams: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -116,7 +116,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.fetchPlantsURL(pageSize: nil, pageNumber: nil, query: nil, queryParams: ["complete_data": "true"]) else {
+        guard let url = Plants.plantsURL(pageSize: nil, pageNumber: nil, query: nil, queryParams: ["complete_data": "true"]) else {
             XCTFail("Failed to create URL!")
             return
         }
