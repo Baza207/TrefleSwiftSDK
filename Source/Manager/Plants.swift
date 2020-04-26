@@ -10,20 +10,22 @@ import Foundation
 
 public class Plants {
     
-    public static func getPlants(pageSize: Int? = nil, pageNumber: Int? = nil, query: String? = nil, queryParams: [String: String]? = nil, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
+    // MARK: - Plants
+    
+    public static func fetchPlants(pageSize: Int? = nil, pageNumber: Int? = nil, query: String? = nil, queryParams: [String: String]? = nil, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = getPlantsURL(pageSize: pageSize, pageNumber: pageNumber, query: query, queryParams: queryParams) else {
+        guard let url = fetchPlantsURL(pageSize: pageSize, pageNumber: pageNumber, query: query, queryParams: queryParams) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            Plants.getPlants(jwt: jwt, url: url, completed: completed)
+            Plants.fetchPlants(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -31,14 +33,14 @@ public class Plants {
             
             switch result {
             case .success:
-                Plants.getPlants(jwt: jwt, url: url, completed: completed)
+                Plants.fetchPlants(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
         }
     }
     
-    internal static func getPlantsURL(pageSize: Int?, pageNumber: Int?, query: String?, queryParams: [String: String]?) -> URL? {
+    internal static func fetchPlantsURL(pageSize: Int?, pageNumber: Int?, query: String?, queryParams: [String: String]?) -> URL? {
         
         guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/plants") else {
             return nil
@@ -69,7 +71,7 @@ public class Plants {
         return urlComponents.url
     }
     
-    internal static func getPlants(jwt: String, url: URL, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
+    internal static func fetchPlants(jwt: String, url: URL, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in

@@ -20,14 +20,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.getPlantsURL(pageSize: nil, pageNumber: nil, query: nil, queryParams: nil) else {
+        guard let url = Plants.fetchPlantsURL(pageSize: nil, pageNumber: nil, query: nil, queryParams: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.getPlants(jwt: config.accessToken, url: url) { (result) in
+        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -52,14 +52,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.getPlantsURL(pageSize: 100, pageNumber: nil, query: nil, queryParams: nil) else {
+        guard let url = Plants.fetchPlantsURL(pageSize: 100, pageNumber: nil, query: nil, queryParams: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.getPlants(jwt: config.accessToken, url: url) { (result) in
+        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -84,14 +84,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.getPlantsURL(pageSize: nil, pageNumber: 2, query: nil, queryParams: nil) else {
+        guard let url = Plants.fetchPlantsURL(pageSize: nil, pageNumber: 2, query: nil, queryParams: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.getPlants(jwt: config.accessToken, url: url) { (result) in
+        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -116,14 +116,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.getPlantsURL(pageSize: nil, pageNumber: nil, query: nil, queryParams: ["complete_data": "true"]) else {
+        guard let url = Plants.fetchPlantsURL(pageSize: nil, pageNumber: nil, query: nil, queryParams: ["complete_data": "true"]) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.getPlants(jwt: config.accessToken, url: url) { (result) in
+        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):

@@ -60,7 +60,7 @@ public class PlantRefsOperation: Operation {
         
         _isExecuting = true
         
-        Plants.getPlants(pageSize: pageSize, pageNumber: pageNumber, query: query) { [weak self] (result) in
+        Plants.fetchPlants(pageSize: pageSize, pageNumber: pageNumber, query: query) { [weak self] (result) in
             
             guard let self = self else {
                 return
