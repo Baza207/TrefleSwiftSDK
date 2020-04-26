@@ -10,7 +10,7 @@ import Foundation
 
 public class Plants {
     
-    // MARK: - Plants
+    // MARK: - Fetch Plants
     
     public static func fetchPlants(pageSize: Int? = nil, pageNumber: Int? = nil, query: String? = nil, queryParams: [String: String]? = nil, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
         
