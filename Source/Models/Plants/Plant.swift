@@ -18,6 +18,7 @@ public struct Plant: Decodable, CustomStringConvertible {
     public let familyCommonName: String?
     public let duration: String?
     public let nativeStatus: String?
+    public let images: [ImageRef]
     
     public var description: String {
         "Plant(identifier: \(identifier), scientificName: \(scientificName), commonName: \(commonName ?? "-"), familyCommonName: \(familyCommonName ?? "-"))"
@@ -32,6 +33,7 @@ public struct Plant: Decodable, CustomStringConvertible {
         case familyCommonName = "family_common_name"
         case duration
         case nativeStatus = "native_status"
+        case images
     }
     
 }
