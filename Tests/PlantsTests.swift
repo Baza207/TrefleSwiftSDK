@@ -20,7 +20,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.getPlantsURL(pageSize: nil, page: nil, query: nil) else {
+        guard let url = Plants.getPlantsURL(pageSize: nil, pageNumber: nil, query: nil, queryParams: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -52,7 +52,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.getPlantsURL(pageSize: 100, page: nil, query: nil) else {
+        guard let url = Plants.getPlantsURL(pageSize: 100, pageNumber: nil, query: nil, queryParams: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -84,7 +84,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.getPlantsURL(pageSize: nil, page: 2, query: nil) else {
+        guard let url = Plants.getPlantsURL(pageSize: nil, pageNumber: 2, query: nil, queryParams: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -96,6 +96,38 @@ class PlantsTests: XCTestCase {
             switch result {
             case .success(let page):
                 XCTAssert(page.pageNumber == 2, "Wrong page returned!")
+                
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 60) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
+        }
+    }
+    
+    func testGetPlantRefsQueryPrams() throws {
+        
+        guard let config = self.config else {
+            XCTFail("Requires a test config to be setup before calling login!")
+            return
+        }
+        
+        guard let url = Plants.getPlantsURL(pageSize: nil, pageNumber: nil, query: nil, queryParams: ["complete_data": "true"]) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
+        
+        let expectation = self.expectation(description: #function)
+        
+        Plants.getPlants(jwt: config.accessToken, url: url) { (result) in
+            
+            switch result {
+            case .success(let page):
+                XCTAssert(page.items.filter { $0.completeData == false }.count == 0, "Returned items should all be complete!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)
