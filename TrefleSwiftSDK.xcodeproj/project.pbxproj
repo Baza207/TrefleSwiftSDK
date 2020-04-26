@@ -24,6 +24,7 @@
 		1874837F244F0E0F00120F73 /* TrefleAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1874837E244F0E0F00120F73 /* TrefleAuthTests.swift */; };
 		18748381244F0E0F00120F73 /* TrefleSwiftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 18748373244F0E0F00120F73 /* TrefleSwiftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF92652454D9800034A058 /* PlantRefsOperation.swift */; };
+		18E787E7245623B80064F78D /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E6245623B80064F78D /* Plant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		1874838D244F104A00120F73 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1874838E244F104A00120F73 /* TrefleSwiftSDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TrefleSwiftSDK.podspec; sourceTree = "<group>"; };
 		18DF92652454D9800034A058 /* PlantRefsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRefsOperation.swift; sourceTree = "<group>"; };
+		18E787E6245623B80064F78D /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				186105D224507C37008A863B /* PlantRef.swift */,
+				18E787E6245623B80064F78D /* Plant.swift */,
 			);
 			path = Plants;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				186105C9244F21F0008A863B /* TrefleError.swift in Sources */,
+				18E787E7245623B80064F78D /* Plant.swift in Sources */,
 				186105D024507687008A863B /* Plants.swift in Sources */,
 				186105CE244F8C1E008A863B /* URLRequestExtensions.swift in Sources */,
 				186105BF244F14BF008A863B /* Trefle.swift in Sources */,
