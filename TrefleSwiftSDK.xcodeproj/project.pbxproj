@@ -26,6 +26,21 @@
 		18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF92652454D9800034A058 /* PlantRefsOperation.swift */; };
 		18E787E7245623B80064F78D /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E6245623B80064F78D /* Plant.swift */; };
 		18E787EA2456278F0064F78D /* ImageRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E92456278F0064F78D /* ImageRef.swift */; };
+		18E787F224562BAF0064F78D /* Kingdom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787F124562BAF0064F78D /* Kingdom.swift */; };
+		18E787F424562C700064F78D /* SubkingdomRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787F324562C700064F78D /* SubkingdomRef.swift */; };
+		18E787F624562C760064F78D /* Subkingdom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787F524562C760064F78D /* Subkingdom.swift */; };
+		18E787F824562CB00064F78D /* KingdomRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787F724562CB00064F78D /* KingdomRef.swift */; };
+		18E787FC24562E050064F78D /* DivisionRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787FB24562E050064F78D /* DivisionRef.swift */; };
+		18E787FE24562E560064F78D /* Division.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787FD24562E560064F78D /* Division.swift */; };
+		18E7880124562F4B0064F78D /* DivisionClassRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787FF24562F4B0064F78D /* DivisionClassRef.swift */; };
+		18E7880224562F4B0064F78D /* DivisionOrderRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7880024562F4B0064F78D /* DivisionOrderRef.swift */; };
+		18E7880424562F530064F78D /* DivisionClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7880324562F530064F78D /* DivisionClass.swift */; };
+		18E7880624562F5B0064F78D /* DivisionOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7880524562F5B0064F78D /* DivisionOrder.swift */; };
+		18E78808245630C20064F78D /* FamilyRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E78807245630C20064F78D /* FamilyRef.swift */; };
+		18E7880A245630C70064F78D /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E78809245630C70064F78D /* Family.swift */; };
+		18E7880E245631FB0064F78D /* Genus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7880D245631FB0064F78D /* Genus.swift */; };
+		18E78810245635350064F78D /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7880F245635350064F78D /* Species.swift */; };
+		18E7881224563AA80064F78D /* GenusRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7881124563AA80064F78D /* GenusRef.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +79,21 @@
 		18DF92652454D9800034A058 /* PlantRefsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRefsOperation.swift; sourceTree = "<group>"; };
 		18E787E6245623B80064F78D /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		18E787E92456278F0064F78D /* ImageRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRef.swift; sourceTree = "<group>"; };
+		18E787F124562BAF0064F78D /* Kingdom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kingdom.swift; sourceTree = "<group>"; };
+		18E787F324562C700064F78D /* SubkingdomRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubkingdomRef.swift; sourceTree = "<group>"; };
+		18E787F524562C760064F78D /* Subkingdom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subkingdom.swift; sourceTree = "<group>"; };
+		18E787F724562CB00064F78D /* KingdomRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KingdomRef.swift; sourceTree = "<group>"; };
+		18E787FB24562E050064F78D /* DivisionRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DivisionRef.swift; sourceTree = "<group>"; };
+		18E787FD24562E560064F78D /* Division.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Division.swift; sourceTree = "<group>"; };
+		18E787FF24562F4B0064F78D /* DivisionClassRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DivisionClassRef.swift; sourceTree = "<group>"; };
+		18E7880024562F4B0064F78D /* DivisionOrderRef.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DivisionOrderRef.swift; sourceTree = "<group>"; };
+		18E7880324562F530064F78D /* DivisionClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionClass.swift; sourceTree = "<group>"; };
+		18E7880524562F5B0064F78D /* DivisionOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionOrder.swift; sourceTree = "<group>"; };
+		18E78807245630C20064F78D /* FamilyRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyRef.swift; sourceTree = "<group>"; };
+		18E78809245630C70064F78D /* Family.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family.swift; sourceTree = "<group>"; };
+		18E7880D245631FB0064F78D /* Genus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genus.swift; sourceTree = "<group>"; };
+		18E7880F245635350064F78D /* Species.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Species.swift; sourceTree = "<group>"; };
+		18E7881124563AA80064F78D /* GenusRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenusRef.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +140,13 @@
 			children = (
 				186105C5244F1C3D008A863B /* Authentication */,
 				186105D62450DCC2008A863B /* Base */,
+				18E787EB24562B1E0064F78D /* Kingdoms */,
+				18E787EC24562B260064F78D /* Subkingdoms */,
+				18E787ED24562B470064F78D /* Divisions */,
+				18E787EE24562B550064F78D /* Families */,
+				18E787EF24562B600064F78D /* Genuses */,
 				186105D124507C2A008A863B /* Plants */,
+				18E787F024562B6D0064F78D /* Species */,
 				18E787E8245627750064F78D /* Image */,
 			);
 			path = Models;
@@ -226,6 +262,63 @@
 				18E787E92456278F0064F78D /* ImageRef.swift */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		18E787EB24562B1E0064F78D /* Kingdoms */ = {
+			isa = PBXGroup;
+			children = (
+				18E787F724562CB00064F78D /* KingdomRef.swift */,
+				18E787F124562BAF0064F78D /* Kingdom.swift */,
+			);
+			path = Kingdoms;
+			sourceTree = "<group>";
+		};
+		18E787EC24562B260064F78D /* Subkingdoms */ = {
+			isa = PBXGroup;
+			children = (
+				18E787F324562C700064F78D /* SubkingdomRef.swift */,
+				18E787F524562C760064F78D /* Subkingdom.swift */,
+			);
+			path = Subkingdoms;
+			sourceTree = "<group>";
+		};
+		18E787ED24562B470064F78D /* Divisions */ = {
+			isa = PBXGroup;
+			children = (
+				18E787FB24562E050064F78D /* DivisionRef.swift */,
+				18E787FD24562E560064F78D /* Division.swift */,
+				18E787FF24562F4B0064F78D /* DivisionClassRef.swift */,
+				18E7880324562F530064F78D /* DivisionClass.swift */,
+				18E7880024562F4B0064F78D /* DivisionOrderRef.swift */,
+				18E7880524562F5B0064F78D /* DivisionOrder.swift */,
+			);
+			path = Divisions;
+			sourceTree = "<group>";
+		};
+		18E787EE24562B550064F78D /* Families */ = {
+			isa = PBXGroup;
+			children = (
+				18E78807245630C20064F78D /* FamilyRef.swift */,
+				18E78809245630C70064F78D /* Family.swift */,
+			);
+			path = Families;
+			sourceTree = "<group>";
+		};
+		18E787EF24562B600064F78D /* Genuses */ = {
+			isa = PBXGroup;
+			children = (
+				18E7881124563AA80064F78D /* GenusRef.swift */,
+				18E7880D245631FB0064F78D /* Genus.swift */,
+			);
+			path = Genuses;
+			sourceTree = "<group>";
+		};
+		18E787F024562B6D0064F78D /* Species */ = {
+			isa = PBXGroup;
+			children = (
+				18E7880F245635350064F78D /* Species.swift */,
+			);
+			path = Species;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,18 +454,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18E7880A245630C70064F78D /* Family.swift in Sources */,
 				186105C9244F21F0008A863B /* TrefleError.swift in Sources */,
+				18E78808245630C20064F78D /* FamilyRef.swift in Sources */,
 				18E787E7245623B80064F78D /* Plant.swift in Sources */,
+				18E7880224562F4B0064F78D /* DivisionOrderRef.swift in Sources */,
+				18E7880424562F530064F78D /* DivisionClass.swift in Sources */,
 				186105D024507687008A863B /* Plants.swift in Sources */,
+				18E787F224562BAF0064F78D /* Kingdom.swift in Sources */,
 				186105CE244F8C1E008A863B /* URLRequestExtensions.swift in Sources */,
 				186105BF244F14BF008A863B /* Trefle.swift in Sources */,
 				186105C2244F1AD1008A863B /* KeychainPasswordItem.swift in Sources */,
 				186105DA2450DE71008A863B /* Page.swift in Sources */,
+				18E7881224563AA80064F78D /* GenusRef.swift in Sources */,
 				18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */,
+				18E787F424562C700064F78D /* SubkingdomRef.swift in Sources */,
+				18E7880E245631FB0064F78D /* Genus.swift in Sources */,
 				186105C4244F1B92008A863B /* Authentication.swift in Sources */,
+				18E78810245635350064F78D /* Species.swift in Sources */,
 				186105D324507C37008A863B /* PlantRef.swift in Sources */,
+				18E787FE24562E560064F78D /* Division.swift in Sources */,
 				186105CD244F8C1E008A863B /* JSONDecoderExtensions.swift in Sources */,
 				186105C7244F1C45008A863B /* JWTState.swift in Sources */,
+				18E787F824562CB00064F78D /* KingdomRef.swift in Sources */,
+				18E787F624562C760064F78D /* Subkingdom.swift in Sources */,
+				18E7880624562F5B0064F78D /* DivisionOrder.swift in Sources */,
+				18E7880124562F4B0064F78D /* DivisionClassRef.swift in Sources */,
+				18E787FC24562E050064F78D /* DivisionRef.swift in Sources */,
 				18E787EA2456278F0064F78D /* ImageRef.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

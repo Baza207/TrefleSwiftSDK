@@ -19,6 +19,17 @@ public struct Plant: Decodable, CustomStringConvertible {
     public let duration: String?
     public let nativeStatus: String?
     public let images: [ImageRef]
+    public let mainSpecies: Species
+    public let cultivars: [Species]
+    public let forms: [Species]
+    public let hybrids: [Species]
+    public let subSpecies: [Species]
+    public let varieties: [Species]
+    public let division: DivisionRef
+    public let divisionClass: DivisionClassRef
+    public let divisionOrder: DivisionOrderRef
+    public let family: FamilyRef
+    public let genus: GenusRef
     
     public var description: String {
         "Plant(identifier: \(identifier), scientificName: \(scientificName), commonName: \(commonName ?? "-"), familyCommonName: \(familyCommonName ?? "-"))"
@@ -34,6 +45,17 @@ public struct Plant: Decodable, CustomStringConvertible {
         case duration
         case nativeStatus = "native_status"
         case images
+        case mainSpecies = "main_species"
+        case cultivars
+        case forms
+        case hybrids
+        case subSpecies = "sub_species"
+        case varieties
+        case division
+        case divisionClass = "class"
+        case divisionOrder = "order"
+        case family
+        case genus
     }
     
 }
