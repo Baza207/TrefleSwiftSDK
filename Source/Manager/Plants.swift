@@ -110,7 +110,7 @@ public class Plants {
     
     // MARK: - Fetch Plant
     
-    public static func fetchPlant(identifier: String, completed: @escaping (Result<PlantRef, Error>) -> Void) {
+    public static func fetchPlant(identifier: String, completed: @escaping (Result<Plant, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -138,7 +138,7 @@ public class Plants {
         }
     }
     
-    internal static func fetchPlant(jwt: String, url: URL, completed: @escaping (Result<PlantRef, Error>) -> Void) {
+    internal static func fetchPlant(jwt: String, url: URL, completed: @escaping (Result<Plant, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
@@ -154,9 +154,9 @@ public class Plants {
             }
             
             let decoder = JSONDecoder.secondsSince1970JSONDecoder
-            let result: PlantRef
+            let result: Plant
             do {
-                result = try decoder.decode(PlantRef.self, from: data)
+                result = try decoder.decode(Plant.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return
