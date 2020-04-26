@@ -141,7 +141,7 @@ public class Plants {
     internal static func fetchPlant(jwt: String, url: URL, completed: @escaping (Result<Plant, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
-        let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+        let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
             
             if let error = error {
                 completed(Result.failure(error))
