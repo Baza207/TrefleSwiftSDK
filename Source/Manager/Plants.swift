@@ -10,35 +10,7 @@ import Foundation
 
 public class Plants {
     
-    // MARK: - Fetch Plants
-    
-    public static func fetchPlants(pageSize: Int? = nil, pageNumber: Int? = nil, query: String? = nil, queryParams: [String: String]? = nil, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
-        
-        guard let jwt = Trefle.shared.jwt else {
-            completed(Result.failure(TrefleError.noJWT))
-            return
-        }
-        
-        guard let url = plantsURL(pageSize: pageSize, pageNumber: pageNumber, query: query, queryParams: queryParams) else {
-            completed(Result.failure(TrefleError.badURL))
-            return
-        }
-        
-        guard Trefle.shared.isValid == false else {
-            Plants.fetchPlants(jwt: jwt, url: url, completed: completed)
-            return
-        }
-        
-        Trefle.claimToken { (result) in
-            
-            switch result {
-            case .success:
-                Plants.fetchPlants(jwt: jwt, url: url, completed: completed)
-            case .failure(let error):
-                completed(Result.failure(error))
-            }
-        }
-    }
+    // MARK: - Plant URLs
     
     internal static func plantsURL(pageSize: Int?, pageNumber: Int?, query: String?, queryParams: [String: String]?) -> URL? {
         
@@ -69,6 +41,40 @@ public class Plants {
         urlComponents.queryItems = queryItems
         
         return urlComponents.url
+    }
+    
+    internal static func plantURL(identifier: String) -> URL? {
+        URL(string: "\(Trefle.baseAPIURL)/plants/\(identifier)")
+    }
+    
+    // MARK: - Fetch Plants
+    
+    public static func fetchPlants(pageSize: Int? = nil, pageNumber: Int? = nil, query: String? = nil, queryParams: [String: String]? = nil, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
+        
+        guard let jwt = Trefle.shared.jwt else {
+            completed(Result.failure(TrefleError.noJWT))
+            return
+        }
+        
+        guard let url = plantsURL(pageSize: pageSize, pageNumber: pageNumber, query: query, queryParams: queryParams) else {
+            completed(Result.failure(TrefleError.badURL))
+            return
+        }
+        
+        guard Trefle.shared.isValid == false else {
+            Plants.fetchPlants(jwt: jwt, url: url, completed: completed)
+            return
+        }
+        
+        Trefle.claimToken { (result) in
+            
+            switch result {
+            case .success:
+                Plants.fetchPlants(jwt: jwt, url: url, completed: completed)
+            case .failure(let error):
+                completed(Result.failure(error))
+            }
+        }
     }
     
     internal static func fetchPlants(jwt: String, url: URL, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
@@ -117,7 +123,7 @@ public class Plants {
             return
         }
         
-        guard let url = URL(string: "\(Trefle.baseAPIURL)/plants/\(identifier)") else {
+        guard let url = plantURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }

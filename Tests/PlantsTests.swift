@@ -141,4 +141,36 @@ class PlantsTests: XCTestCase {
         }
     }
     
+    func testGetPlant() throws {
+        
+        guard let config = self.config else {
+            XCTFail("Requires a test config to be setup before calling login!")
+            return
+        }
+        
+        guard let url = Plants.plantURL(identifier: config.plantId) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
+        
+        let expectation = self.expectation(description: #function)
+        
+        Plants.fetchPlant(jwt: config.accessToken, url: url) { (result) in
+            
+            switch result {
+            case .success(let plant):
+                XCTAssert("\(plant.identifier)" == config.plantId, "Returned item should match the fetched plant ID!")
+                
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 60) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
+        }
+    }
+    
 }
