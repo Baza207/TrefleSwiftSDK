@@ -19,7 +19,7 @@ public class Plants {
             return
         }
         
-        guard let url = fetchPlantsURL(pageSize: pageSize, pageNumber: pageNumber, query: query, queryParams: queryParams) else {
+        guard let url = plantsURL(pageSize: pageSize, pageNumber: pageNumber, query: query, queryParams: queryParams) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
@@ -40,7 +40,7 @@ public class Plants {
         }
     }
     
-    internal static func fetchPlantsURL(pageSize: Int?, pageNumber: Int?, query: String?, queryParams: [String: String]?) -> URL? {
+    internal static func plantsURL(pageSize: Int?, pageNumber: Int?, query: String?, queryParams: [String: String]?) -> URL? {
         
         guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/plants") else {
             return nil
