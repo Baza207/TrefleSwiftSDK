@@ -108,4 +108,63 @@ public class Plants {
         downloadTask.resume()
     }
     
+    // MARK: - Fetch Plant
+    
+    public static func fetchPlant(identifier: String, completed: @escaping (Result<PlantRef, Error>) -> Void) {
+        
+        guard let jwt = Trefle.shared.jwt else {
+            completed(Result.failure(TrefleError.noJWT))
+            return
+        }
+        
+        guard let url = URL(string: "\(Trefle.baseAPIURL)/plants/\(identifier)") else {
+            completed(Result.failure(TrefleError.badURL))
+            return
+        }
+        
+        guard Trefle.shared.isValid == false else {
+            Plants.fetchPlant(jwt: jwt, url: url, completed: completed)
+            return
+        }
+        
+        Trefle.claimToken { (result) in
+            
+            switch result {
+            case .success:
+                Plants.fetchPlant(jwt: jwt, url: url, completed: completed)
+            case .failure(let error):
+                completed(Result.failure(error))
+            }
+        }
+    }
+    
+    internal static func fetchPlant(jwt: String, url: URL, completed: @escaping (Result<PlantRef, Error>) -> Void) {
+        
+        let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
+        let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            
+            if let error = error {
+                completed(Result.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completed(Result.failure(TrefleError.noData))
+                return
+            }
+            
+            let decoder = JSONDecoder.secondsSince1970JSONDecoder
+            let result: PlantRef
+            do {
+                result = try decoder.decode(PlantRef.self, from: data)
+            } catch {
+                completed(Result.failure(error))
+                return
+            }
+            
+            completed(Result.success(result))
+        }
+        downloadTask.resume()
+    }
+    
 }
