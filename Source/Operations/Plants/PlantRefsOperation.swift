@@ -14,6 +14,7 @@ public class PlantRefsOperation: Operation {
     public var pageSize: Int?
     public var pageNumber: Int?
     public var query: String
+    public var queryParams: [String: String]?
     public var page: Page<PlantRef>?
     public var error: Error?
     public override var isAsynchronous: Bool {
@@ -37,10 +38,11 @@ public class PlantRefsOperation: Operation {
         return _isFinished
     }
     
-    public init(pageSize: Int? = nil, pageNumber: Int? = nil, query: String, completionBlock: ((_ result: Result<Page<PlantRef>, Error>) -> Void)? = nil) {
+    public init(pageSize: Int? = nil, pageNumber: Int? = nil, query: String, queryParams: [String: String]? = nil, completionBlock: ((_ result: Result<Page<PlantRef>, Error>) -> Void)? = nil) {
         self.pageSize = pageSize
         self.pageNumber = pageNumber
         self.query = query
+        self.queryParams = queryParams
         self.plantRefsCompletionBlock = completionBlock
     }
     
@@ -60,7 +62,7 @@ public class PlantRefsOperation: Operation {
         
         _isExecuting = true
         
-        Plants.fetchPlants(pageSize: pageSize, pageNumber: pageNumber, query: query) { [weak self] (result) in
+        Plants.fetchPlants(pageSize: pageSize, pageNumber: pageNumber, query: query, queryParams: queryParams) { [weak self] (result) in
             
             guard let self = self else {
                 return
