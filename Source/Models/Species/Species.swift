@@ -21,6 +21,17 @@ public struct Species: Decodable, CustomStringConvertible {
     public let nativeStatus: String?
     public let isMainSpecies: Bool
     public let mainSpeciesId: Int?
+    public let specifications: Specification?
+    public let sources: [Source]
+    private let soilAdaptationItem: SoilAdaptationItem?
+    public var soilAdaptation: SoilAdaptation? { soilAdaptationItem?.type }
+    public let seed: Seed
+    public let propagation: Propagation
+    public let products: Products
+    public let growth: Growth
+    public let fruitOrSeed: FruitOrSeed
+    public let foliage: Foliage
+    public let flower: Flower
     public let year: String?
     public let author: String?
     public let bibliography: String?
@@ -45,6 +56,16 @@ public struct Species: Decodable, CustomStringConvertible {
         case nativeStatus = "native_status"
         case isMainSpecies = "is_main_species"
         case mainSpeciesId = "main_species_id"
+        case specifications
+        case sources
+        case soilAdaptationItem = "soils_adaptation"
+        case seed
+        case propagation
+        case products
+        case growth
+        case fruitOrSeed = "fruit_or_seed"
+        case foliage
+        case flower
         case year
         case author
         case bibliography

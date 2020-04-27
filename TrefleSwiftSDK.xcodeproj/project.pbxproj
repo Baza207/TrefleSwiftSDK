@@ -41,6 +41,19 @@
 		18E7880E245631FB0064F78D /* Genus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7880D245631FB0064F78D /* Genus.swift */; };
 		18E78810245635350064F78D /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7880F245635350064F78D /* Species.swift */; };
 		18E7881224563AA80064F78D /* GenusRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7881124563AA80064F78D /* GenusRef.swift */; };
+		18E788142456F0AB0064F78D /* Specification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E788132456F0AB0064F78D /* Specification.swift */; };
+		18E788162456F0C20064F78D /* LengthMeasure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E788152456F0C20064F78D /* LengthMeasure.swift */; };
+		18E788182456F4400064F78D /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E788172456F4400064F78D /* Source.swift */; };
+		18E7881A245754B60064F78D /* SoilsAdaptation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E78819245754B60064F78D /* SoilsAdaptation.swift */; };
+		18E7881C245759500064F78D /* Seed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7881B245759500064F78D /* Seed.swift */; };
+		18E7881E245766C60064F78D /* Propagation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7881D245766C60064F78D /* Propagation.swift */; };
+		18E78820245768EC0064F78D /* Flower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7881F245768EC0064F78D /* Flower.swift */; };
+		18E78822245769A00064F78D /* Foliage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E78821245769A00064F78D /* Foliage.swift */; };
+		18E7882424576B1D0064F78D /* FruitOrSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7882324576B1D0064F78D /* FruitOrSeed.swift */; };
+		18E7882624576CBD0064F78D /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7882524576CBD0064F78D /* Products.swift */; };
+		18E7882824576E130064F78D /* Growth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7882724576E130064F78D /* Growth.swift */; };
+		18E7882B24576EA70064F78D /* TemperatureMeasure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7882A24576EA70064F78D /* TemperatureMeasure.swift */; };
+		18E7882D245772460064F78D /* AreaMeasure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7882C245772460064F78D /* AreaMeasure.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +107,19 @@
 		18E7880D245631FB0064F78D /* Genus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genus.swift; sourceTree = "<group>"; };
 		18E7880F245635350064F78D /* Species.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Species.swift; sourceTree = "<group>"; };
 		18E7881124563AA80064F78D /* GenusRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenusRef.swift; sourceTree = "<group>"; };
+		18E788132456F0AB0064F78D /* Specification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specification.swift; sourceTree = "<group>"; };
+		18E788152456F0C20064F78D /* LengthMeasure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LengthMeasure.swift; sourceTree = "<group>"; };
+		18E788172456F4400064F78D /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
+		18E78819245754B60064F78D /* SoilsAdaptation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoilsAdaptation.swift; sourceTree = "<group>"; };
+		18E7881B245759500064F78D /* Seed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seed.swift; sourceTree = "<group>"; };
+		18E7881D245766C60064F78D /* Propagation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Propagation.swift; sourceTree = "<group>"; };
+		18E7881F245768EC0064F78D /* Flower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flower.swift; sourceTree = "<group>"; };
+		18E78821245769A00064F78D /* Foliage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foliage.swift; sourceTree = "<group>"; };
+		18E7882324576B1D0064F78D /* FruitOrSeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitOrSeed.swift; sourceTree = "<group>"; };
+		18E7882524576CBD0064F78D /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
+		18E7882724576E130064F78D /* Growth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Growth.swift; sourceTree = "<group>"; };
+		18E7882A24576EA70064F78D /* TemperatureMeasure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureMeasure.swift; sourceTree = "<group>"; };
+		18E7882C245772460064F78D /* AreaMeasure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaMeasure.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +173,7 @@
 				18E787EF24562B600064F78D /* Genuses */,
 				186105D124507C2A008A863B /* Plants */,
 				18E787F024562B6D0064F78D /* Species */,
+				18E7882924576E7B0064F78D /* Measures */,
 				18E787E8245627750064F78D /* Image */,
 			);
 			path = Models;
@@ -317,8 +344,28 @@
 			isa = PBXGroup;
 			children = (
 				18E7880F245635350064F78D /* Species.swift */,
+				18E788132456F0AB0064F78D /* Specification.swift */,
+				18E788172456F4400064F78D /* Source.swift */,
+				18E78819245754B60064F78D /* SoilsAdaptation.swift */,
+				18E7881B245759500064F78D /* Seed.swift */,
+				18E7881D245766C60064F78D /* Propagation.swift */,
+				18E7882524576CBD0064F78D /* Products.swift */,
+				18E7882724576E130064F78D /* Growth.swift */,
+				18E7882324576B1D0064F78D /* FruitOrSeed.swift */,
+				18E78821245769A00064F78D /* Foliage.swift */,
+				18E7881F245768EC0064F78D /* Flower.swift */,
 			);
 			path = Species;
+			sourceTree = "<group>";
+		};
+		18E7882924576E7B0064F78D /* Measures */ = {
+			isa = PBXGroup;
+			children = (
+				18E788152456F0C20064F78D /* LengthMeasure.swift */,
+				18E7882A24576EA70064F78D /* TemperatureMeasure.swift */,
+				18E7882C245772460064F78D /* AreaMeasure.swift */,
+			);
+			path = Measures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -458,30 +505,43 @@
 				186105C9244F21F0008A863B /* TrefleError.swift in Sources */,
 				18E78808245630C20064F78D /* FamilyRef.swift in Sources */,
 				18E787E7245623B80064F78D /* Plant.swift in Sources */,
+				18E7881E245766C60064F78D /* Propagation.swift in Sources */,
 				18E7880224562F4B0064F78D /* DivisionOrderRef.swift in Sources */,
+				18E788182456F4400064F78D /* Source.swift in Sources */,
+				18E78820245768EC0064F78D /* Flower.swift in Sources */,
 				18E7880424562F530064F78D /* DivisionClass.swift in Sources */,
 				186105D024507687008A863B /* Plants.swift in Sources */,
 				18E787F224562BAF0064F78D /* Kingdom.swift in Sources */,
 				186105CE244F8C1E008A863B /* URLRequestExtensions.swift in Sources */,
+				18E7882B24576EA70064F78D /* TemperatureMeasure.swift in Sources */,
 				186105BF244F14BF008A863B /* Trefle.swift in Sources */,
 				186105C2244F1AD1008A863B /* KeychainPasswordItem.swift in Sources */,
 				186105DA2450DE71008A863B /* Page.swift in Sources */,
+				18E7882D245772460064F78D /* AreaMeasure.swift in Sources */,
 				18E7881224563AA80064F78D /* GenusRef.swift in Sources */,
+				18E7882424576B1D0064F78D /* FruitOrSeed.swift in Sources */,
+				18E7882624576CBD0064F78D /* Products.swift in Sources */,
 				18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */,
 				18E787F424562C700064F78D /* SubkingdomRef.swift in Sources */,
 				18E7880E245631FB0064F78D /* Genus.swift in Sources */,
 				186105C4244F1B92008A863B /* Authentication.swift in Sources */,
 				18E78810245635350064F78D /* Species.swift in Sources */,
+				18E7882824576E130064F78D /* Growth.swift in Sources */,
 				186105D324507C37008A863B /* PlantRef.swift in Sources */,
 				18E787FE24562E560064F78D /* Division.swift in Sources */,
 				186105CD244F8C1E008A863B /* JSONDecoderExtensions.swift in Sources */,
+				18E788142456F0AB0064F78D /* Specification.swift in Sources */,
 				186105C7244F1C45008A863B /* JWTState.swift in Sources */,
 				18E787F824562CB00064F78D /* KingdomRef.swift in Sources */,
 				18E787F624562C760064F78D /* Subkingdom.swift in Sources */,
 				18E7880624562F5B0064F78D /* DivisionOrder.swift in Sources */,
 				18E7880124562F4B0064F78D /* DivisionClassRef.swift in Sources */,
 				18E787FC24562E050064F78D /* DivisionRef.swift in Sources */,
+				18E788162456F0C20064F78D /* LengthMeasure.swift in Sources */,
 				18E787EA2456278F0064F78D /* ImageRef.swift in Sources */,
+				18E7881A245754B60064F78D /* SoilsAdaptation.swift in Sources */,
+				18E7881C245759500064F78D /* Seed.swift in Sources */,
+				18E78822245769A00064F78D /* Foliage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
