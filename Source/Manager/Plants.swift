@@ -92,7 +92,7 @@ public class Plants {
                 return
             }
             
-            let decoder = JSONDecoder.secondsSince1970JSONDecoder
+            let decoder = JSONDecoder.customDateJSONDecoder
             let result: [PlantRef]?
             do {
                 result = try decoder.decode([PlantRef].self, from: data)
@@ -159,7 +159,7 @@ public class Plants {
                 return
             }
             
-            let decoder = JSONDecoder.secondsSince1970JSONDecoder
+            let decoder = JSONDecoder.customDateJSONDecoder
             let result: Plant
             do {
                 result = try decoder.decode(Plant.self, from: data)

@@ -83,7 +83,7 @@ extension Trefle {
                 return
             }
             
-            let decoder = JSONDecoder.secondsSince1970JSONDecoder
+            let decoder = JSONDecoder.customDateJSONDecoder
             let result: JWTState?
             do {
                 result = try decoder.decode(JWTState.self, from: data)

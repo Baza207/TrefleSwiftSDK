@@ -10,10 +10,13 @@ import Foundation
 
 extension JSONDecoder {
     
-    internal static var secondsSince1970JSONDecoder: JSONDecoder {
+    internal static var customDateJSONDecoder: JSONDecoder {
         
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .secondsSince1970
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy hh:mm"
+        dateFormatter.calendar = Calendar(identifier: .iso8601)
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         return decoder
     }
     
