@@ -16,6 +16,7 @@ public class Trefle {
     internal static let keychainServiceName = "com.PigonaHill.TrefleSwiftSDK.keychain"
     internal static let baseURL = "https://trefle.io"
     internal static let baseAPIURL = "\(baseURL)/api"
+    internal static let apiVersion = "v1"
     
     // MARK: - Types
     

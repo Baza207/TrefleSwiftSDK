@@ -10,11 +10,13 @@ import Foundation
 
 public class Plants {
     
+    internal static let plantsAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/plants"
+    
     // MARK: - Plant URLs
     
     internal static func plantsURL(pageSize: Int?, pageNumber: Int?, query: String?, queryParams: [String: String]?) -> URL? {
         
-        guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/plants") else {
+        guard var urlComponents = URLComponents(string: plantsAPIURL) else {
             return nil
         }
         
@@ -44,7 +46,7 @@ public class Plants {
     }
     
     internal static func plantURL(identifier: String) -> URL? {
-        URL(string: "\(Trefle.baseAPIURL)/plants/\(identifier)")
+        URL(string: "\(plantsAPIURL)/\(identifier)")
     }
     
     // MARK: - Fetch Plants
