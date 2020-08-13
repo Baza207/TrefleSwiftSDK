@@ -98,7 +98,7 @@ extension Trefle {
             }
             
             guard state.isValid == true else {
-                completed(Result.failure(TrefleError.generalError))
+                completed(Result.failure(TrefleError.invalidToken))
                 return
             }
             

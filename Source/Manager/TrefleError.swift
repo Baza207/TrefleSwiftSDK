@@ -11,6 +11,7 @@ import Foundation
 public enum TrefleError: Error, LocalizedError {
     case badURL
     case noData
+    case invalidToken
     case generalError
     case noAccessToken
     case noJWT
@@ -22,6 +23,8 @@ public enum TrefleError: Error, LocalizedError {
             return "Bad URL"
         case .noData:
             return "No Data"
+        case .invalidToken:
+            return "Invalid Token"
         case .generalError:
             return "General Error"
         case .noAccessToken:
