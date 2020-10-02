@@ -147,12 +147,12 @@ class PlantsTests: XCTestCase {
                     switch decodingError {
                     case .dataCorrupted(let context):
                         XCTFail(context.debugDescription)
-                    case .keyNotFound(_, let context):
-                        XCTFail(context.debugDescription)
-                    case .typeMismatch(_, let context):
-                        XCTFail(context.debugDescription)
-                    case .valueNotFound(_, let context):
-                        XCTFail(context.debugDescription)
+                    case .keyNotFound(let key, let context):
+                        XCTFail("'\(key)' \(context.debugDescription)")
+                    case .typeMismatch(let key, let context):
+                        XCTFail("'\(key)' \(context.debugDescription)")
+                    case .valueNotFound(let key, let context):
+                        XCTFail("'\(key)' \(context.debugDescription)")
                     @unknown default:
                         XCTFail(error.localizedDescription)
                     }
