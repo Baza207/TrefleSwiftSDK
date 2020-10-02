@@ -12,28 +12,22 @@ public struct FruitOrSeed: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
-    private let seedPersistenceOptional: Bool?
-    public var seedPersistence: Bool { seedPersistenceOptional ?? false }
-    public let seedPeriodEnd: String?
-    public let seedPeriodBegin: String?
-    public let seedAbundance: String?
-    public let conspicuousOptional: Bool?
-    public var conspicuous: Bool { conspicuousOptional ?? false }
-    public let color: String?
+    public let conspicuous: Bool?
+    public let color: [String]? // TODO: Enum "white" "red" "brown" "orange" "yellow" "lime" "green" "cyan" "blue" "purple" "magenta" "grey" "black"
+    public let shape: String?
+    public let seedPersistence: Bool?
     
     public var description: String {
-        "FruitOrSeed(color: \(seedPersistence), seedPeriodEnd: \(seedPeriodEnd ?? "-"), seedPeriodBegin: \(seedPeriodBegin ?? "-"), seedAbundance: \(seedAbundance ?? "-"), conspicuous: \(conspicuous), color: \(color ?? "-"))"
+        "FruitOrSeed(color: \(color ?? []), shape: \(shape ?? "-"))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
-        case seedPersistenceOptional = "seed_persistence"
-        case seedPeriodEnd = "seed_period_end"
-        case seedPeriodBegin = "seed_period_begin"
-        case seedAbundance = "seed_abundance"
-        case conspicuousOptional
+        case conspicuous
         case color
+        case shape
+        case seedPersistence = "seed_persistence"
     }
     
 }

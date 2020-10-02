@@ -13,31 +13,23 @@ public struct Genus: Codable, CustomStringConvertible {
     // MARK: - Properties
     
     public let identifier: Int
-    public let slug: String
     public let name: String
-    public let kingdom: Kingdom
-    public let subkingdom: SubkingdomRef
-    public let division: DivisionRef
-    public let divisionClass: DivisionClassRef
-    public let divisionOrder: DivisionOrderRef
-    public let family: FamilyRef
+    public let slug: String
+    public let family: Family
+    public let links: Links
     
     public var description: String {
-        "Genus(identifier: \(identifier), slug: \(slug), name: \(name))"
+        "Genus(identifier: \(identifier), name: \(name), slug: \(slug), family: \(family))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case slug
         case name
-        case kingdom
-        case subkingdom
-        case division
-        case divisionClass = "class"
-        case divisionOrder = "order"
+        case slug
         case family
+        case links
     }
     
 }

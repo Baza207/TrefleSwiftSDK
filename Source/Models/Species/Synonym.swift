@@ -1,25 +1,23 @@
 //
-//  DivisionClass.swift
+//  Synonym.swift
 //  TrefleSwiftSDK
 //
-//  Created by James Barrow on 2020-04-26.
+//  Created by James Barrow on 2020-10-01.
 //  Copyright © 2020 Pig on a Hill Productions. All rights reserved.
 //
 
 import Foundation
 
-public struct DivisionClass: Codable, CustomStringConvertible {
+public struct Synonym: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
     public let identifier: Int
     public let name: String
-    public let slug: String
-    public let division: Division
-    public let links: Links
+    public let author: String?
     
     public var description: String {
-        "DivisionClass(identifier: \(identifier), name: \(name), slug: \(slug), division: \(division))"
+        "Synonym(identifier: \(identifier), name: \(name), author: \(author ?? "-"))"
     }
     
     // MARK: - Coding
@@ -27,9 +25,7 @@ public struct DivisionClass: Codable, CustomStringConvertible {
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
         case name
-        case slug
-        case division
-        case links
+        case author
     }
     
 }

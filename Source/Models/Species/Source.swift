@@ -12,22 +12,28 @@ public struct Source: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
-    public let speciesId: Int
+    public let identifier: String?
     public let name: String
-    public let sourceURL: String
-    public let lastUpdate: String // FIXME: Parse date
+    public let urlString: String?
+    public var url: URL? {
+        guard let urlString = urlString else { return nil }
+        return URL(string: urlString)
+    }
+    public let lastUpdate: String // FIXME: Change to date
+    public let citation: String?
     
     public var description: String {
-        "Source(speciesId: \(speciesId), name: \(name), sourceURL: \(sourceURL), lastUpdate: \(lastUpdate))"
+        "Source(identifier: \(identifier ?? "-"), name: \(name), citation: \(citation ?? "-"), url: \(urlString ?? "-"), lastUpdate: \(lastUpdate))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
-        case speciesId = "species_id"
+        case identifier = "id"
         case name
-        case sourceURL = "source_url"
+        case urlString = "url"
         case lastUpdate = "last_update"
+        case citation
     }
     
 }

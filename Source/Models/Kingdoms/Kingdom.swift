@@ -13,12 +13,12 @@ public struct Kingdom: Codable, CustomStringConvertible {
     // MARK: - Properties
     
     public let identifier: Int
-    public let slug: String
     public let name: String
-    public let subkingdoms: [SubkingdomRef]
+    public let slug: String
+    public let links: Links
     
     public var description: String {
-        "Kingdom(identifier: \(identifier), slug: \(slug), name: \(name))"
+        "Kingdom(identifier: \(identifier), name: \(name), slug: \(slug))"
     }
     
     // MARK: - Coding
@@ -27,7 +27,7 @@ public struct Kingdom: Codable, CustomStringConvertible {
         case identifier = "id"
         case slug
         case name
-        case subkingdoms
+        case links
     }
     
 }

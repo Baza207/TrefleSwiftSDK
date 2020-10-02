@@ -13,66 +13,73 @@ public struct Species: Decodable, CustomStringConvertible {
     // MARK: - Properties
     
     public let identifier: Int
+    public let commonName: String?
     public let slug: String
     public let scientificName: String
-    public let commonName: String?
-    public let familyCommonName: String?
-    public let duration: String?
-    public let nativeStatus: String?
-    public let isMainSpecies: Bool
-    public let mainSpeciesId: Int?
-    public let specifications: Specification?
-    public let sources: [Source]
-    private let soilAdaptationItem: SoilAdaptationItem?
-    public var soilAdaptation: SoilAdaptation? { soilAdaptationItem?.type }
-    public let seed: Seed
-    public let propagation: Propagation
-    public let products: Products
-    public let growth: Growth
-    public let fruitOrSeed: FruitOrSeed
-    public let foliage: Foliage
-    public let flower: Flower
-    public let year: String?
-    public let author: String?
+    public let year: Int?
     public let bibliography: String?
-    public let type: String
-    public let synonym: Bool
-    public let status: String
-    public let completeData: Bool
+    public let author: String?
+    public let status: String // TODO: Enum "accepted" "unknown"
+    public let rank: String // TODO: Enum "species" "ssp" "var" "form" "hybrid" "subvar"
+    public let familyCommonName: String?
+    public let familyName: String
+    public let genusId: Int
+    public let genusName: String
+    public let imageURL: String?
+    public let links: Links
+    public let duration: String? // TODO: Enum "annual" "biennial" "perennial"
+    public let ediblePart: [String]? // TODO: Enum "roots" "stem" "leaves" "flowers" "fruits" "seeds" "tubers"
+    public let edible: Bool?
+    public let vegetable: Bool?
+    public let observations: String?
+    public let images: Images
+    public let commonNames: [String: [String]]
+    public let distributions: Distribution
+    public let flower: Flower
+    public let foliage: Foliage
+    public let fruitOrSeed: FruitOrSeed
+    public let specifications: Specification
+    public let growth: Growth
+    public let synonyms: [Synonym]
+    public let sources: [Source]
     
     public var description: String {
-        "Species(identifier: \(identifier), scientificName: \(scientificName), commonName: \(commonName ?? "-"), familyCommonName: \(familyCommonName ?? "-"))"
+        "Species(identifier: \(identifier), slug: \(slug), scientificName: \(scientificName), familyName: \(familyName), genusName: \(genusName))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
+        case commonName = "common_name"
         case slug
         case scientificName = "scientific_name"
-        case commonName = "common_name"
-        case familyCommonName = "family_common_name"
-        case duration
-        case nativeStatus = "native_status"
-        case isMainSpecies = "is_main_species"
-        case mainSpeciesId = "main_species_id"
-        case specifications
-        case sources
-        case soilAdaptationItem = "soils_adaptation"
-        case seed
-        case propagation
-        case products
-        case growth
-        case fruitOrSeed = "fruit_or_seed"
-        case foliage
-        case flower
         case year
-        case author
         case bibliography
-        case type
-        case synonym
+        case author
         case status
-        case completeData = "complete_data"
+        case rank
+        case familyCommonName = "family_common_name"
+        case familyName = "family"
+        case genusId = "genus_id"
+        case genusName = "genus"
+        case imageURL = "image_url"
+        case links
+        case duration
+        case ediblePart = "edible_part"
+        case edible
+        case vegetable
+        case observations
+        case images
+        case commonNames = "common_names"
+        case distributions
+        case flower
+        case foliage
+        case fruitOrSeed = "fruit_or_seed"
+        case specifications
+        case growth
+        case synonyms
+        case sources
     }
     
 }

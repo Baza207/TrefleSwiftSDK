@@ -12,27 +12,27 @@ public struct Growth: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
-    public let temperatureMinimum: TemperatureMeasure?
-    public let shadeTolerance: String?
-    public let salinityTolerance: String?
-    public let rootDepthMinimum: LengthMeasure
-    public let resproutAbility: String?
-    public let precipitationMinimum: LengthMeasure
-    public let precipitationMaximum: LengthMeasure
-    public let plantingDensityMinimum: AreaMeasure
-    public let plantingDensityMaximum: AreaMeasure
-    public let phMinimum: Float?
-    public let phMaximum: Float?
-    public let moistureUse: String?
-    public let hedgeTolerance: String?
-    public let frostFreeDaysMinimum: Float?
-    public let fireTolerance: String?
-    public let fertilityRequirement: String?
-    public let droughtTolerance: String?
-    private let coldStratificationRequiredOptional: Bool?
-    public var coldStratificationRequired: Bool { coldStratificationRequiredOptional ?? false }
-    public let caco3Tolerance: String?
-    public let anaerobicTolerance: String?
+    public let daysToHarvest: Double?
+    public let growthDescription: String?
+    public let sowing: String?
+    public let phMinimum: Double?
+    public let phMaximum: Double?
+    public let light: Int?
+    public let atmosphericHumidity: Int?
+    public let growthMonths: [String]? // TODO: Enum "jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec"
+    public let bloomMonths: [String]? // TODO: Enum "jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec"
+    public let fruitMonths: [String]? // TODO: Enum "jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec"
+    public let rowSpacing: [String: Double?]
+    public let spread: [String: Double?]
+    public let minimumPrecipitation: [String: Double?]
+    public let maximumPrecipitation: [String: Double?]
+    public let minimumRootDepth: [String: Double?]
+    public let minimumTemperature: [String: Double?]
+    public let maximumTemperature: [String: Double?]
+    public let soilNutriments: Int?
+    public let soilSalinity: Int?
+    public let soilTexture: Int?
+    public let soilHumidity: Int?
     
     public var description: String {
         "Growth()"
@@ -41,26 +41,27 @@ public struct Growth: Decodable, CustomStringConvertible {
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
-        case temperatureMinimum = "temperature_minimum"
-        case shadeTolerance = "shade_tolerance"
-        case salinityTolerance = "salinity_tolerance"
-        case rootDepthMinimum = "root_depth_minimum"
-        case resproutAbility = "resprout_ability"
-        case precipitationMinimum = "precipitation_minimum"
-        case precipitationMaximum = "precipitation_maximum"
-        case plantingDensityMinimum = "planting_density_minimum"
-        case plantingDensityMaximum = "planting_density_maximum"
+        case daysToHarvest = "days_to_harvest"
+        case growthDescription = "description"
+        case sowing
         case phMinimum = "ph_minimum"
         case phMaximum = "ph_maximum"
-        case moistureUse = "moisture_use"
-        case hedgeTolerance = "hedge_tolerance"
-        case frostFreeDaysMinimum = "frost_free_days_minimum"
-        case fireTolerance = "fire_tolerance"
-        case fertilityRequirement = "fertility_requirement"
-        case droughtTolerance = "drought_tolerance"
-        case coldStratificationRequiredOptional = "cold_stratification_required"
-        case caco3Tolerance = "caco_3_tolerance"
-        case anaerobicTolerance = "anaerobic_tolerance"
+        case light
+        case atmosphericHumidity = "atmospheric_humidity"
+        case growthMonths = "growth_months"
+        case bloomMonths = "bloom_months"
+        case fruitMonths = "fruit_months"
+        case rowSpacing = "row_spacing"
+        case spread
+        case minimumPrecipitation = "minimum_precipitation"
+        case maximumPrecipitation = "maximum_precipitation"
+        case minimumRootDepth = "minimum_root_depth"
+        case minimumTemperature = "minimum_temperature"
+        case maximumTemperature = "maximum_temperature"
+        case soilNutriments = "soil_nutriments"
+        case soilSalinity = "soil_salinity"
+        case soilTexture = "soil_texture"
+        case soilHumidity = "soil_humidity"
     }
     
 }

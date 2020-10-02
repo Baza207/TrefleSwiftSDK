@@ -13,49 +13,43 @@ public struct Plant: Decodable, CustomStringConvertible {
     // MARK: - Properties
     
     public let identifier: Int
-    public let scientificName: String
     public let commonName: String?
+    public let slug: String
+    public let scientificName: String
+    public let year: Int?
+    public let bibliography: String?
+    public let author: String?
     public let familyCommonName: String?
-    public let duration: String?
-    public let nativeStatus: String?
-    public let images: [ImageRef]
+    public let genusId: Int
+    public let mainSpeciesId: Int?
+    public let vegetable: Bool?
+    public let observations: String?
     public let mainSpecies: Species
-    public let cultivars: [Species]
-    public let forms: [Species]
-    public let hybrids: [Species]
-    public let subSpecies: [Species]
-    public let varieties: [Species]
-    public let division: DivisionRef
-    public let divisionClass: DivisionClassRef
-    public let divisionOrder: DivisionOrderRef
-    public let family: FamilyRef
-    public let genus: GenusRef
+    public let sources: [Source]
+    public let links: Links
     
     public var description: String {
-        "Plant(identifier: \(identifier), scientificName: \(scientificName), commonName: \(commonName ?? "-"), familyCommonName: \(familyCommonName ?? "-"))"
+        "Plant(identifier: \(identifier), commonName: \(commonName ?? "-"), slug: \(slug), scientificName: \(scientificName), familyCommonName: \(familyCommonName ?? "-"))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case scientificName = "scientific_name"
         case commonName = "common_name"
+        case slug
+        case scientificName = "scientific_name"
+        case year
+        case bibliography
+        case author
         case familyCommonName = "family_common_name"
-        case duration
-        case nativeStatus = "native_status"
-        case images
+        case genusId = "genus_id"
+        case mainSpeciesId = "main_species_id"
+        case vegetable
+        case observations
         case mainSpecies = "main_species"
-        case cultivars
-        case forms
-        case hybrids
-        case subSpecies = "sub_species"
-        case varieties
-        case division
-        case divisionClass = "class"
-        case divisionOrder = "order"
-        case family
-        case genus
+        case sources
+        case links
     }
     
 }

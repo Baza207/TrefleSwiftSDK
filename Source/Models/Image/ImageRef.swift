@@ -12,17 +12,21 @@ public struct ImageRef: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
+    public let identifier: Int
     public let urlString: String
     public var url: URL? { URL(string: urlString) }
+    public let copyright: String?
     
     public var description: String {
-        "PlantRef(urlString: \(urlString))"
+        "PlantRef(identifier: \(identifier), urlString: \(urlString))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
-        case urlString = "url"
+        case identifier = "id"
+        case urlString = "image_url"
+        case copyright
     }
     
 }

@@ -13,25 +13,23 @@ public struct Division: Codable, CustomStringConvertible {
     // MARK: - Properties
     
     public let identifier: Int
-    public let slug: String
     public let name: String
-    public let kingdom: Kingdom
-    public let subkingdom: SubkingdomRef
-    public let divisionClasses: [DivisionClassRef]
+    public let slug: String
+    public let subkingdom: Subkingdom
+    public let links: Links
     
     public var description: String {
-        "Division(identifier: \(identifier), slug: \(slug), name: \(name))"
+        "Division(identifier: \(identifier), name: \(name), slug: \(slug), subkingdom: \(subkingdom))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case slug
         case name
-        case kingdom
+        case slug
         case subkingdom
-        case divisionClasses = "division_classes"
+        case links
     }
     
 }

@@ -12,22 +12,20 @@ public struct Foliage: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
-    public let texture: String?
-    public let porosityWinter: String?
-    public let porositySummer: String?
-    public let color: String?
+    public let texture: String? // TODO: Enum "fine" "medium" "coarse"
+    public let color: [String]? // TODO: Enum "white" "red" "brown" "orange" "yellow" "lime" "green" "cyan" "blue" "purple" "magenta" "grey" "black"
+    public let leafRetention: Bool?
     
     public var description: String {
-        "Foliage(texture: \(texture ?? "-"), porosityWinter: \(porosityWinter ?? "-"), porositySummer: \(porositySummer ?? "-"), color: \(color ?? "-"))"
+        "Foliage(texture: \(texture ?? "-"), color: \(color ?? []))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
         case texture
-        case porosityWinter = "porosity_winter"
-        case porositySummer = "porosity_summer"
         case color
+        case leafRetention = "leaf_retention"
     }
     
 }

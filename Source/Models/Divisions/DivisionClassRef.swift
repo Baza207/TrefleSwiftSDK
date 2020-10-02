@@ -13,21 +13,23 @@ public struct DivisionClassRef: Codable, CustomStringConvertible {
     // MARK: - Properties
     
     public let identifier: Int
-    public let slug: String
     public let name: String
-    public let link: String
+    public let slug: String
+    public let division: Division
+    public let links: Links
     
     public var description: String {
-        "DivisionClassRef(identifier: \(identifier), slug: \(slug), name: \(name), link: \(link))"
+        "DivisionClassRef(identifier: \(identifier), name: \(name), slug: \(slug), division: \(division))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case slug
         case name
-        case link
+        case slug
+        case division
+        case links
     }
     
 }

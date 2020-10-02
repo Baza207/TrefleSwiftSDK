@@ -10,12 +10,15 @@ import Foundation
 
 public class PlantRefsOperation: Operation {
     
-    public var plantRefsCompletionBlock: ((_ result: Result<Page<PlantRef>, Error>) -> Void)?
-    public var pageSize: Int?
-    public var pageNumber: Int?
-    public var query: String
-    public var queryParams: [String: String]?
-    public var page: Page<PlantRef>?
+    public var plantRefsCompletionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)?
+    
+    public let query: String?
+    public let filter: [String: String]?
+    public let exclude: [String]?
+    public let order: [(field: String, order: Order)]?
+    public let range: [String: String]?
+    public let page: Int?
+    public var response: ResponseList<PlantRef>?
     public var error: Error?
     public override var isAsynchronous: Bool {
         return true
@@ -38,11 +41,13 @@ public class PlantRefsOperation: Operation {
         return _isFinished
     }
     
-    public init(pageSize: Int? = nil, pageNumber: Int? = nil, query: String, queryParams: [String: String]? = nil, completionBlock: ((_ result: Result<Page<PlantRef>, Error>) -> Void)? = nil) {
-        self.pageSize = pageSize
-        self.pageNumber = pageNumber
+    public init(query: String? = nil, filter: [String: String]? = nil, exclude: [String]? = nil, order: [(field: String, order: Order)]? = nil, range: [String: String]? = nil, page: Int? = nil, completionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)? = nil) {
         self.query = query
-        self.queryParams = queryParams
+        self.filter = filter
+        self.exclude = exclude
+        self.order = order
+        self.range = range
+        self.page = page
         self.plantRefsCompletionBlock = completionBlock
     }
     
@@ -62,7 +67,7 @@ public class PlantRefsOperation: Operation {
         
         _isExecuting = true
         
-        Plants.fetchPlants(pageSize: pageSize, pageNumber: pageNumber, query: query, queryParams: queryParams) { [weak self] (result) in
+        Plants.fetchPlants(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) { [weak self] (result) in
             
             guard let self = self else {
                 return
@@ -78,8 +83,8 @@ public class PlantRefsOperation: Operation {
             }
             
             switch result {
-            case .success(let page):
-                self.page = page
+            case .success(let response):
+                self.response = response
             case .failure(let error):
                 self.error = error
             }

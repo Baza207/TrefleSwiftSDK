@@ -13,21 +13,23 @@ public struct GenusRef: Codable, CustomStringConvertible {
     // MARK: - Properties
     
     public let identifier: Int
-    public let slug: String
     public let name: String
-    public let link: String
+    public let slug: String
+    public let family: Family
+    public let links: Links
     
     public var description: String {
-        "GenusRef(identifier: \(identifier), slug: \(slug), name: \(name), link: \(link))"
+        "GenusRef(identifier: \(identifier), name: \(name), slug: \(slug), family: \(family))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
         case identifier = "id"
-        case slug
         case name
-        case link
+        case slug
+        case family
+        case links
     }
     
 }

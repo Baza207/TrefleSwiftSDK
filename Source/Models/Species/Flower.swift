@@ -12,19 +12,11 @@ public struct Flower: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
-    public let color: String?
-    private let conspicuousOptional: Bool?
-    public var conspicuous: Bool { conspicuousOptional ?? false }
+    public let color: [String]? // TODO: Enum "white" "red" "brown" "orange" "yellow" "lime" "green" "cyan" "blue" "purple" "magenta" "grey" "black"
+    public let conspicuous: Bool?
     
     public var description: String {
-        "Flower(color: \(color ?? "-"), conspicuous: \(conspicuous))"
-    }
-    
-    // MARK: - Coding
-    
-    private enum CodingKeys: String, CodingKey {
-        case color
-        case conspicuousOptional = "conspicuous"
+        "Flower(color: \(color ?? []))"
     }
     
 }

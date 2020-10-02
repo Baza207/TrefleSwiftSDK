@@ -14,7 +14,7 @@ public class Plants {
     
     // MARK: - Plant URLs
     
-    internal static func plantsURL(pageSize: Int?, pageNumber: Int?, query: String?, queryParams: [String: String]?) -> URL? {
+    internal static func plantsURL(query: String? = nil, filter: [String: String]? = nil, exclude: [String]? = nil, order: [(field: String, order: Order)]? = nil, range: [String: String]? = nil, page: Int? = nil) -> URL? {
         
         guard var urlComponents = URLComponents(string: plantsAPIURL) else {
             return nil
@@ -26,18 +26,24 @@ public class Plants {
             queryItems.append(URLQueryItem(name: "q", value: query))
         }
         
-        if let pageSize = pageSize {
-            queryItems.append(URLQueryItem(name: "page_size", value: "\(pageSize)"))
+        filter?.forEach { (field, value) in
+            queryItems.append(URLQueryItem(name: "filter[\(field)]", value: value))
         }
         
-        if let pageNumber = pageNumber {
-            queryItems.append(URLQueryItem(name: "page", value: "\(pageNumber)"))
+        exclude?.forEach { (field) in
+            queryItems.append(URLQueryItem(name: "filter_not[\(field)]", value: nil))
         }
         
-        if let queryParams = queryParams {
-            for (key, value) in queryParams {
-                queryItems.append(URLQueryItem(name: key, value: value))
-            }
+        order?.forEach { (field, order) in
+            queryItems.append(URLQueryItem(name: "order[\(field)]", value: order.rawValue))
+        }
+        
+        range?.forEach { (field, value) in
+            queryItems.append(URLQueryItem(name: "range[\(field)]", value: value))
+        }
+        
+        if let page = page {
+            queryItems.append(URLQueryItem(name: "page", value: "\(page)"))
         }
         
         urlComponents.queryItems = queryItems
@@ -51,14 +57,14 @@ public class Plants {
     
     // MARK: - Fetch Plants
     
-    public static func fetchPlants(pageSize: Int? = nil, pageNumber: Int? = nil, query: String? = nil, queryParams: [String: String]? = nil, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
+    public static func fetchPlants(query: String? = nil, filter: [String: String]? = nil, exclude: [String]? = nil, order: [(field: String, order: Order)]? = nil, range: [String: String]? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = plantsURL(pageSize: pageSize, pageNumber: pageNumber, query: query, queryParams: queryParams) else {
+        guard let url = plantsURL(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
@@ -79,10 +85,10 @@ public class Plants {
         }
     }
     
-    internal static func fetchPlants(jwt: String, url: URL, completed: @escaping (Result<Page<PlantRef>, Error>) -> Void) {
+    internal static func fetchPlants(jwt: String, url: URL, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
-        let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+        let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
             
             if let error = error {
                 completed(Result.failure(error))
@@ -95,30 +101,27 @@ public class Plants {
             }
             
             let decoder = JSONDecoder.customDateJSONDecoder
-            let result: [PlantRef]?
+            let result: ResponseList<PlantRef>?
             do {
-                result = try decoder.decode([PlantRef].self, from: data)
+                result = try decoder.decode(ResponseList<PlantRef>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return
             }
             
-            guard
-                let response = response as? HTTPURLResponse,
-                let page = Page(items: result ?? [], response: response)
-            else {
+            guard let responseResult = result else {
                 completed(Result.failure(TrefleError.generalError))
                 return
             }
             
-            completed(Result.success(page))
+            completed(Result.success(responseResult))
         }
         downloadTask.resume()
     }
     
     // MARK: - Fetch Plant
     
-    public static func fetchPlant(identifier: String, completed: @escaping (Result<Plant, Error>) -> Void) {
+    public static func fetchPlant(identifier: String, completed: @escaping (Result<ResponseSingle<Plant>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -146,7 +149,7 @@ public class Plants {
         }
     }
     
-    internal static func fetchPlant(jwt: String, url: URL, completed: @escaping (Result<Plant, Error>) -> Void) {
+    internal static func fetchPlant(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Plant>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -162,9 +165,9 @@ public class Plants {
             }
             
             let decoder = JSONDecoder.customDateJSONDecoder
-            let result: Plant
+            let result: ResponseSingle<Plant>
             do {
-                result = try decoder.decode(Plant.self, from: data)
+                result = try decoder.decode(ResponseSingle<Plant>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

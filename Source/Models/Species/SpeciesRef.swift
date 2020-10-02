@@ -1,14 +1,14 @@
 //
-//  PlantRef.swift
+//  SpeciesRef.swift
 //  TrefleSwiftSDK
 //
-//  Created by James Barrow on 2020-04-22.
+//  Created by James Barrow on 2020-10-02.
 //  Copyright © 2020 Pig on a Hill Productions. All rights reserved.
 //
 
 import Foundation
 
-public struct PlantRef: Decodable, CustomStringConvertible {
+public struct SpeciesRef: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
@@ -27,10 +27,10 @@ public struct PlantRef: Decodable, CustomStringConvertible {
     public let genusName: String
     public let imageURL: String?
     public let links: Links
-    public let synonyms: [String]
+    public let synonyms: [Synonym]
     
     public var description: String {
-        "PlantRef(identifier: \(identifier), slug: \(slug), scientificName: \(scientificName), familyName: \(familyName), genusName: \(genusName))"
+        "SpeciesRef(identifier: \(identifier), slug: \(slug), scientificName: \(scientificName), familyName: \(familyName), genusName: \(genusName))"
     }
     
     // MARK: - Coding
@@ -46,12 +46,12 @@ public struct PlantRef: Decodable, CustomStringConvertible {
         case status
         case rank
         case familyCommonName = "family_common_name"
-        case genusId = "genus_id"
-        case imageURL = "image_url"
-        case synonyms
-        case genusName = "genus"
         case familyName = "family"
+        case genusId = "genus_id"
+        case genusName = "genus"
+        case imageURL = "image_url"
         case links
+        case synonyms
     }
     
 }

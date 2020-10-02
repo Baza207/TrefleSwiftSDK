@@ -12,52 +12,32 @@ public struct Specification: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
-    public let toxicity: String?
-    public let shapeAndOrientation: String?
-    public let regrowthRate: String?
-    public let nitrogenFixation: String?
-    public let maxHeightAtBaseAge: LengthMeasure?
-    public let matureHeight: LengthMeasure?
-    public let lowGrowingGrass: String?
-    public let lifespan: String?
-    public let leafRetention: String?
-    public let knownAllelopath: String?
-    public let growthRate: String?
-    public let growthPeriod: String?
-    public let growthHabit: String?
+    public let ligneousType: String? // TODO: Enum "liana" "subshrub" "shrub" "tree" "parasite
     public let growthForm: String?
-    public let fireResistance: String?
-    public let fallConspicuous: Bool
-    public let coppicePotential: Bool
-    public let cnRatio: String?
-    public let bloat: String?
+    public let growthHabit: String?
+    public let growthRate: String?
+    public let averageHeight: [String: Double?]
+    public let maximumHeight: [String: Double?]
+    public let nitrogenFixation: String?
+    public let shapeAndOrientation: String?
+    public let toxicity: String? // TODO: Enum "none" "low" "medium" "high"
     
     public var description: String {
-        "Specification()"
+        "Specification(ligneousType: \(ligneousType ?? "-"), growthForm: \(growthForm ?? "-"), growthHabit: \(growthHabit ?? "-"), growthRate: \(growthRate ?? "-"), averageHeight: \(averageHeight ), maximumHeight: \(maximumHeight), nitrogenFixation: \(nitrogenFixation ?? "-"), shapeAndOrientation: \(shapeAndOrientation ?? "-"), toxicity: \(toxicity ?? "-"))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
-        case toxicity
-        case shapeAndOrientation = "shape_and_orientation"
-        case regrowthRate = "regrowth_rate"
-        case nitrogenFixation = "nitrogen_fixation"
-        case maxHeightAtBaseAge = "max_height_at_base_age"
-        case matureHeight = "mature_height"
-        case lowGrowingGrass = "low_growing_grass"
-        case lifespan
-        case leafRetention = "leaf_retention"
-        case knownAllelopath = "known_allelopath"
-        case growthRate = "growth_rate"
-        case growthPeriod = "growth_period"
-        case growthHabit = "growth_habit"
+        case ligneousType = "ligneous_type"
         case growthForm = "growth_form"
-        case fireResistance = "fire_resistance"
-        case fallConspicuous = "fall_conspicuous"
-        case coppicePotential = "coppice_potential"
-        case cnRatio = "c_n_ratio"
-        case bloat
+        case growthHabit = "growth_habit"
+        case growthRate = "growth_rate"
+        case averageHeight = "average_height"
+        case maximumHeight = "maximum_height"
+        case nitrogenFixation = "nitrogen_fixation"
+        case shapeAndOrientation = "shape_and_orientation"
+        case toxicity
     }
     
 }

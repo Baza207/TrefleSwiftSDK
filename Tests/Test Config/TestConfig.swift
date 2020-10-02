@@ -16,6 +16,7 @@ struct TestConfig: Decodable {
     
     let accessToken: String
     let uri: String
+    let commonName: String
     let plantId: String
     
     static func load(_ overrideUrl: URL? = nil) throws -> TestConfig? {
