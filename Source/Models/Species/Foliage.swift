@@ -12,12 +12,12 @@ public struct Foliage: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
-    public let texture: String? // TODO: Enum "fine" "medium" "coarse"
-    public let color: [String]? // TODO: Enum "white" "red" "brown" "orange" "yellow" "lime" "green" "cyan" "blue" "purple" "magenta" "grey" "black"
+    public let texture: Texture?
+    public let color: [Color]?
     public let leafRetention: Bool?
     
     public var description: String {
-        "Foliage(texture: \(texture ?? "-"), color: \(color ?? []))"
+        "Foliage(texture: \(texture?.rawValue ?? "-"), color: \(color ?? []))"
     }
     
     // MARK: - Coding

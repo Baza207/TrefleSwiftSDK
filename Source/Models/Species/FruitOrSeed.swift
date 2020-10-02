@@ -13,7 +13,7 @@ public struct FruitOrSeed: Decodable, CustomStringConvertible {
     // MARK: - Properties
     
     public let conspicuous: Bool?
-    public let color: [String]? // TODO: Enum "white" "red" "brown" "orange" "yellow" "lime" "green" "cyan" "blue" "purple" "magenta" "grey" "black"
+    public let color: [Color]?
     public let shape: String?
     public let seedPersistence: Bool?
     

@@ -12,7 +12,7 @@ public struct Flower: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
-    public let color: [String]? // TODO: Enum "white" "red" "brown" "orange" "yellow" "lime" "green" "cyan" "blue" "purple" "magenta" "grey" "black"
+    public let color: [Color]?
     public let conspicuous: Bool?
     
     public var description: String {

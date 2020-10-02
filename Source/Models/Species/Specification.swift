@@ -12,7 +12,7 @@ public struct Specification: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
-    public let ligneousType: String? // TODO: Enum "liana" "subshrub" "shrub" "tree" "parasite
+    public let ligneousType: LigneousType?
     public let growthForm: String?
     public let growthHabit: String?
     public let growthRate: String?
@@ -20,10 +20,10 @@ public struct Specification: Decodable, CustomStringConvertible {
     public let maximumHeight: [String: Double?]
     public let nitrogenFixation: String?
     public let shapeAndOrientation: String?
-    public let toxicity: String? // TODO: Enum "none" "low" "medium" "high"
+    public let toxicity: Toxicity?
     
     public var description: String {
-        "Specification(ligneousType: \(ligneousType ?? "-"), growthForm: \(growthForm ?? "-"), growthHabit: \(growthHabit ?? "-"), growthRate: \(growthRate ?? "-"), averageHeight: \(averageHeight ), maximumHeight: \(maximumHeight), nitrogenFixation: \(nitrogenFixation ?? "-"), shapeAndOrientation: \(shapeAndOrientation ?? "-"), toxicity: \(toxicity ?? "-"))"
+        "Specification(ligneousType: \(ligneousType?.rawValue ?? "-"), growthForm: \(growthForm ?? "-"), growthHabit: \(growthHabit ?? "-"), growthRate: \(growthRate ?? "-"), averageHeight: \(averageHeight ), maximumHeight: \(maximumHeight), nitrogenFixation: \(nitrogenFixation ?? "-"), shapeAndOrientation: \(shapeAndOrientation ?? "-"), toxicity: \(toxicity?.rawValue ?? "-"))"
     }
     
     // MARK: - Coding

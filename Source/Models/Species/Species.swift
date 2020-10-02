@@ -19,16 +19,16 @@ public struct Species: Decodable, CustomStringConvertible {
     public let year: Int?
     public let bibliography: String?
     public let author: String?
-    public let status: String // TODO: Enum "accepted" "unknown"
-    public let rank: String // TODO: Enum "species" "ssp" "var" "form" "hybrid" "subvar"
+    public let status: Status
+    public let rank: Rank
     public let familyCommonName: String?
     public let familyName: String
     public let genusId: Int
     public let genusName: String
     public let imageURL: String?
     public let links: Links
-    public let duration: String? // TODO: Enum "annual" "biennial" "perennial"
-    public let ediblePart: [String]? // TODO: Enum "roots" "stem" "leaves" "flowers" "fruits" "seeds" "tubers"
+    public let duration: Duration?
+    public let ediblePart: [EdiblePart]?
     public let edible: Bool?
     public let vegetable: Bool?
     public let observations: String?

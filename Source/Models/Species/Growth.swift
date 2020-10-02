@@ -19,9 +19,9 @@ public struct Growth: Decodable, CustomStringConvertible {
     public let phMaximum: Double?
     public let light: Int?
     public let atmosphericHumidity: Int?
-    public let growthMonths: [String]? // TODO: Enum "jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec"
-    public let bloomMonths: [String]? // TODO: Enum "jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec"
-    public let fruitMonths: [String]? // TODO: Enum "jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec"
+    public let growthMonths: [Month]?
+    public let bloomMonths: [Month]?
+    public let fruitMonths: [Month]?
     public let rowSpacing: [String: Double?]
     public let spread: [String: Double?]
     public let minimumPrecipitation: [String: Double?]

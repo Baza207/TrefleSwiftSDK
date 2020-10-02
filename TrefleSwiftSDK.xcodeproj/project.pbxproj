@@ -25,6 +25,7 @@
 		18748381244F0E0F00120F73 /* TrefleSwiftSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 18748373244F0E0F00120F73 /* TrefleSwiftSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		187A8FA224E704390021B640 /* Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A8FA124E704390021B640 /* Links.swift */; };
 		187A8FA424E704510021B640 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A8FA324E704510021B640 /* Metadata.swift */; };
+		188CA13D2527C33000C26F55 /* TrefleTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CA13C2527C33000C26F55 /* TrefleTypes.swift */; };
 		18C3D77A25260B69006B6413 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D77925260B69006B6413 /* Order.swift */; };
 		18C3D77E2526636F006B6413 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D77D2526636F006B6413 /* Images.swift */; };
 		18C3D78225266BC9006B6413 /* Synonym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D78125266BC9006B6413 /* Synonym.swift */; };
@@ -92,6 +93,7 @@
 		1874838E244F104A00120F73 /* TrefleSwiftSDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TrefleSwiftSDK.podspec; sourceTree = "<group>"; };
 		187A8FA124E704390021B640 /* Links.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Links.swift; sourceTree = "<group>"; };
 		187A8FA324E704510021B640 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
+		188CA13C2527C33000C26F55 /* TrefleTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrefleTypes.swift; sourceTree = "<group>"; };
 		18C3D77925260B69006B6413 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		18C3D77D2526636F006B6413 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		18C3D78125266BC9006B6413 /* Synonym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synonym.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				186105C3244F1B92008A863B /* Authentication.swift */,
 				186105CF24507687008A863B /* Plants.swift */,
 				186105C8244F21F0008A863B /* TrefleError.swift */,
+				188CA13C2527C33000C26F55 /* TrefleTypes.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				18C3D78A252674FE006B6413 /* Zone.swift in Sources */,
 				187A8FA424E704510021B640 /* Metadata.swift in Sources */,
 				18E7882424576B1D0064F78D /* FruitOrSeed.swift in Sources */,
+				188CA13D2527C33000C26F55 /* TrefleTypes.swift in Sources */,
 				18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */,
 				18E787F424562C700064F78D /* SubkingdomRef.swift in Sources */,
 				18E7880E245631FB0064F78D /* Genus.swift in Sources */,

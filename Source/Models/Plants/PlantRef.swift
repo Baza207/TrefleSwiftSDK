@@ -19,8 +19,8 @@ public struct PlantRef: Decodable, CustomStringConvertible {
     public let year: Int?
     public let bibliography: String?
     public let author: String?
-    public let status: String // TODO: Enum "accepted" "unknown"
-    public let rank: String // TODO: Enum "species" "ssp" "var" "form" "hybrid" "subvar"
+    public let status: Status
+    public let rank: Rank
     public let familyCommonName: String?
     public let familyName: String
     public let genusId: Int
