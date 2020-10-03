@@ -122,6 +122,38 @@ class PlantsTests: XCTestCase {
         }
     }
     
+    func testSearchPlantRefs() throws {
+        
+        guard let config = self.config else {
+            XCTFail("Requires a test config to be setup before calling login!")
+            return
+        }
+        
+        guard let url = Plants.plantsURL(query: config.commonName) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
+        
+        let expectation = self.expectation(description: #function)
+        
+        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
+            
+            switch result {
+            case .success(let response):
+                XCTAssert(response.items.contains(where: { $0.commonName == config.commonName }), "Returned items should have the common name of '\(config.commonName)' but it wasn't found in '\(response.items)'!")
+                
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 60) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
+        }
+    }
+    
     func testGetPlant() throws {
         
         guard let config = self.config else {
