@@ -12,7 +12,6 @@ public class PlantRefsOperation: Operation {
     
     public var plantRefsCompletionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)?
     
-    public let query: String?
     public let filter: [String: String]?
     public let exclude: [String]?
     public let order: [(field: String, order: Order)]?
@@ -41,8 +40,7 @@ public class PlantRefsOperation: Operation {
         return _isFinished
     }
     
-    public init(query: String? = nil, filter: [String: String]? = nil, exclude: [String]? = nil, order: [(field: String, order: Order)]? = nil, range: [String: String]? = nil, page: Int? = nil, completionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)? = nil) {
-        self.query = query
+    public init(filter: [String: String]? = nil, exclude: [String]? = nil, order: [(field: String, order: Order)]? = nil, range: [String: String]? = nil, page: Int? = nil, completionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)? = nil) {
         self.filter = filter
         self.exclude = exclude
         self.order = order
@@ -67,7 +65,7 @@ public class PlantRefsOperation: Operation {
         
         _isExecuting = true
         
-        Plants.fetchPlants(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) { [weak self] (result) in
+        Plants.fetchPlants(filter: filter, exclude: exclude, order: order, range: range, page: page) { [weak self] (result) in
             
             guard let self = self else {
                 return

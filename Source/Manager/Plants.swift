@@ -14,17 +14,13 @@ public class Plants {
     
     // MARK: - Plant URLs
     
-    internal static func plantsURL(query: String? = nil, filter: [String: String]? = nil, exclude: [String]? = nil, order: [(field: String, order: Order)]? = nil, range: [String: String]? = nil, page: Int? = nil) -> URL? {
+    internal static func plantsURL(filter: [String: String]? = nil, exclude: [String]? = nil, order: [(field: String, order: Order)]? = nil, range: [String: String]? = nil, page: Int? = nil) -> URL? {
         
         guard var urlComponents = URLComponents(string: plantsAPIURL) else {
             return nil
         }
         
         var queryItems = [URLQueryItem]()
-        
-        if let query = query, query.isEmpty == false {
-            queryItems.append(URLQueryItem(name: "q", value: query))
-        }
         
         filter?.forEach { (field, value) in
             queryItems.append(URLQueryItem(name: "filter[\(field)]", value: value))
@@ -57,14 +53,14 @@ public class Plants {
     
     // MARK: - Fetch Plants
     
-    public static func fetchPlants(query: String? = nil, filter: [String: String]? = nil, exclude: [String]? = nil, order: [(field: String, order: Order)]? = nil, range: [String: String]? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
+    public static func fetchPlants(filter: [String: String]? = nil, exclude: [String]? = nil, order: [(field: String, order: Order)]? = nil, range: [String: String]? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = plantsURL(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
+        guard let url = plantsURL(filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
