@@ -21,7 +21,14 @@ public class Plants {
     
     internal static func plantsURL(query: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> URL? {
         
-        guard var urlComponents = URLComponents(string: plantsAPIURL) else {
+        let urlString: String
+        if query == nil {
+            urlString = plantsAPIURL
+        } else {
+            urlString = "\(plantsAPIURL)/search"
+        }
+        
+        guard var urlComponents = URLComponents(string: urlString) else {
             return nil
         }
         
