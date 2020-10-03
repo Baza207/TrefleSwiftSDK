@@ -143,22 +143,7 @@ class PlantsTests: XCTestCase {
                 XCTAssert(response.item.mainSpeciesId == Int(config.plantId), "Returned item should match the fetched plant ID!")
                 
             case .failure(let error):
-                if let decodingError = error as? DecodingError {
-                    switch decodingError {
-                    case .dataCorrupted(let context):
-                        XCTFail("\(context.debugDescription)\n\(context.codingPath.map { $0.stringValue })")
-                    case .keyNotFound(let key, let context):
-                        XCTFail("'\(key)' \(context.debugDescription)\n\(context.codingPath.map { $0.stringValue })")
-                    case .typeMismatch(let key, let context):
-                        XCTFail("'\(key)' \(context.debugDescription)\n\(context.codingPath.map { $0.stringValue })")
-                    case .valueNotFound(let key, let context):
-                        XCTFail("'\(key)' \(context.debugDescription)\n\(context.codingPath.map { $0.stringValue })")
-                    @unknown default:
-                        XCTFail(error.localizedDescription)
-                    }
-                } else {
-                    XCTFail(error.localizedDescription)
-                }
+                XCTFail(error.localizedDescription)
             }
             
             expectation.fulfill()
