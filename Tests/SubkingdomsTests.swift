@@ -1,5 +1,5 @@
 //
-//  Subkingdoms.swift
+//  SubkingdomsTests.swift
 //  TrefleSwiftSDKTests
 //
 //  Created by James Barrow on 2020-10-04.
