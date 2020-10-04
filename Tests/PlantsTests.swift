@@ -97,7 +97,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.plantsURL(filter: ["common_name": config.commonName]) else {
+        guard let url = Plants.plantsURL(filter: [.commonName: [config.commonName]]) else {
             XCTFail("Failed to create URL!")
             return
         }

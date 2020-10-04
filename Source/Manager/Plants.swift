@@ -8,13 +8,12 @@
 
 import Foundation
 
-public typealias Filter = [String: String]
-public typealias Exclude = [String]
-public typealias SortOrder = [(field: String, order: Order)]
-public typealias Range = [String: String]
-
 public class Plants {
     
+    public typealias Filter = [PlantFilter: [String]]
+    public typealias Exclude = [PlantExclude]
+    public typealias SortOrder = [(field: PlantSortOrder, order: Order)]
+    public typealias Range = [PlantRange: String]
     internal static let plantsAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/plants"
     
     // MARK: - Plant URLs
@@ -39,19 +38,20 @@ public class Plants {
         }
         
         filter?.forEach { (field, value) in
-            queryItems.append(URLQueryItem(name: "filter[\(field)]", value: value))
+            let values = value.joined(separator: ",")
+            queryItems.append(URLQueryItem(name: "filter[\(field.rawValue)]", value: values))
         }
         
         exclude?.forEach { (field) in
-            queryItems.append(URLQueryItem(name: "filter_not[\(field)]", value: nil))
+            queryItems.append(URLQueryItem(name: "filter_not[\(field.rawValue)]", value: nil))
         }
         
         order?.forEach { (field, order) in
-            queryItems.append(URLQueryItem(name: "order[\(field)]", value: order.rawValue))
+            queryItems.append(URLQueryItem(name: "order[\(field.rawValue)]", value: order.rawValue))
         }
         
         range?.forEach { (field, value) in
-            queryItems.append(URLQueryItem(name: "range[\(field)]", value: value))
+            queryItems.append(URLQueryItem(name: "range[\(field.rawValue)]", value: value))
         }
         
         if let page = page {

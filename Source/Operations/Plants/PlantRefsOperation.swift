@@ -12,10 +12,10 @@ public class PlantRefsOperation: Operation {
     
     public var plantRefsCompletionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)?
     
-    public let filter: [String: String]?
-    public let exclude: [String]?
-    public let order: [(field: String, order: Order)]?
-    public let range: [String: String]?
+    public let filter: Plants.Filter?
+    public let exclude: Plants.Exclude?
+    public let order: Plants.SortOrder?
+    public let range: Plants.Range?
     public let page: Int?
     public var response: ResponseList<PlantRef>?
     public var error: Error?
@@ -40,7 +40,7 @@ public class PlantRefsOperation: Operation {
         return _isFinished
     }
     
-    public init(filter: [String: String]? = nil, exclude: [String]? = nil, order: [(field: String, order: Order)]? = nil, range: [String: String]? = nil, page: Int? = nil, completionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)? = nil) {
+    public init(filter: Plants.Filter? = nil, exclude: Plants.Exclude? = nil, order: Plants.SortOrder? = nil, range: Plants.Range? = nil, page: Int? = nil, completionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)? = nil) {
         self.filter = filter
         self.exclude = exclude
         self.order = order
