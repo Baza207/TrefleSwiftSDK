@@ -177,6 +177,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		183B16BB252A5F7D007C7A72 /* Plants */ = {
+			isa = PBXGroup;
+			children = (
+				183B16922529E281007C7A72 /* PlantFilter.swift */,
+				183B1696252A4D3E007C7A72 /* PlantExclude.swift */,
+				183B169A252A5271007C7A72 /* PlantSortOrder.swift */,
+				183B169E252A54F2007C7A72 /* PlantRange.swift */,
+			);
+			path = Plants;
+			sourceTree = "<group>";
+		};
 		186105B7244F1332008A863B /* Test Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,10 +333,7 @@
 				188CA15D2528940600C26F55 /* Month.swift */,
 				188CA1612528941200C26F55 /* Color.swift */,
 				188CA1652528942600C26F55 /* Texture.swift */,
-				183B16922529E281007C7A72 /* PlantFilter.swift */,
-				183B1696252A4D3E007C7A72 /* PlantExclude.swift */,
-				183B169A252A5271007C7A72 /* PlantSortOrder.swift */,
-				183B169E252A54F2007C7A72 /* PlantRange.swift */,
+				183B16BB252A5F7D007C7A72 /* Plants */,
 			);
 			path = Types;
 			sourceTree = "<group>";
