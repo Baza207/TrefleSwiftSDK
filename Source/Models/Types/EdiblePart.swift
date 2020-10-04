@@ -20,7 +20,7 @@ public enum EdiblePart: Decodable {
     
     // MARK: - Init
     
-    init(rawValue: String) {
+    public init(rawValue: String) {
         switch rawValue {
         case "roots":
             self = .roots
@@ -49,7 +49,7 @@ public enum EdiblePart: Decodable {
     
     // MARK: - Helpers
     
-    var rawValue: String {
+    public var rawValue: String {
         switch self {
         case .roots:
             return "roots"

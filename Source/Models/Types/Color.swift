@@ -26,7 +26,7 @@ public enum Color: Decodable {
     
     // MARK: - Init
     
-    init(rawValue: String) {
+    public init(rawValue: String) {
         switch rawValue {
         case "white":
             self = .white
@@ -67,7 +67,7 @@ public enum Color: Decodable {
     
     // MARK: - Helpers
     
-    var rawValue: String {
+    public var rawValue: String {
         switch self {
         case .white:
             return "white"

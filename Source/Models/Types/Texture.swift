@@ -16,7 +16,7 @@ public enum Texture: Decodable {
     
     // MARK: - Init
     
-    init(rawValue: String) {
+    public init(rawValue: String) {
         switch rawValue {
         case "fine":
             self = .fine
@@ -37,7 +37,7 @@ public enum Texture: Decodable {
     
     // MARK: - Helpers
     
-    var rawValue: String {
+    public var rawValue: String {
         switch self {
         case .fine:
             return "fine"

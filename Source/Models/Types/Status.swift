@@ -15,7 +15,7 @@ public enum Status: Decodable {
     
     // MARK: - Init
     
-    init(rawValue: String) {
+    public init(rawValue: String) {
         switch rawValue {
         case "accepted":
             self = .accepted
@@ -34,7 +34,7 @@ public enum Status: Decodable {
     
     // MARK: - Helpers
     
-    var rawValue: String {
+    public var rawValue: String {
         switch self {
         case .accepted:
             return "accepted"

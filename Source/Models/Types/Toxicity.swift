@@ -17,7 +17,7 @@ public enum Toxicity: Decodable {
     
     // MARK: - Init
     
-    init(rawValue: String) {
+    public init(rawValue: String) {
         switch rawValue {
         case "none":
             self = .none
@@ -40,7 +40,7 @@ public enum Toxicity: Decodable {
     
     // MARK: - Helpers
     
-    var rawValue: String {
+    public var rawValue: String {
         switch self {
         case .none:
             return "none"

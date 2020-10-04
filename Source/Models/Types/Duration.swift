@@ -16,7 +16,7 @@ public enum Duration: Decodable {
     
     // MARK: - Init
     
-    init(rawValue: String) {
+    public init(rawValue: String) {
         switch rawValue {
         case "annual":
             self = .annual
@@ -37,7 +37,7 @@ public enum Duration: Decodable {
     
     // MARK: - Helpers
     
-    var rawValue: String {
+    public var rawValue: String {
         switch self {
         case .annual:
             return "annual"

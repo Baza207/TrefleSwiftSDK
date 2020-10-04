@@ -18,7 +18,7 @@ public enum LigneousType: Decodable {
     
     // MARK: - Init
     
-    init(rawValue: String) {
+    public init(rawValue: String) {
         switch rawValue {
         case "liana":
             self = .liana
@@ -43,7 +43,7 @@ public enum LigneousType: Decodable {
     
     // MARK: - Helpers
     
-    var rawValue: String {
+    public var rawValue: String {
         switch self {
         case .liana:
             return "liana"
