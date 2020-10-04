@@ -82,7 +82,7 @@ public class Plants {
         }
         
         guard Trefle.shared.isValid == false else {
-            Plants.fetchPlants(jwt: jwt, url: url, completed: completed)
+            fetchPlants(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -90,7 +90,7 @@ public class Plants {
             
             switch result {
             case .success:
-                Plants.fetchPlants(jwt: jwt, url: url, completed: completed)
+                fetchPlants(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
@@ -146,7 +146,7 @@ public class Plants {
         }
         
         guard Trefle.shared.isValid == false else {
-            Plants.fetchPlants(jwt: jwt, url: url, completed: completed)
+            fetchPlants(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -154,7 +154,7 @@ public class Plants {
             
             switch result {
             case .success:
-                Plants.fetchPlants(jwt: jwt, url: url, completed: completed)
+                fetchPlants(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
@@ -176,7 +176,7 @@ public class Plants {
         }
         
         guard Trefle.shared.isValid == false else {
-            Plants.fetchPlant(jwt: jwt, url: url, completed: completed)
+            fetchPlant(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -184,7 +184,7 @@ public class Plants {
             
             switch result {
             case .success:
-                Plants.fetchPlant(jwt: jwt, url: url, completed: completed)
+                fetchPlant(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
