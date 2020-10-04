@@ -14,11 +14,11 @@ public struct Kingdom: Codable, CustomStringConvertible {
     
     public let identifier: Int
     public let name: String
-    public let slug: String
+    public let slug: String?
     public let links: Links
     
     public var description: String {
-        "Kingdom(identifier: \(identifier), name: \(name), slug: \(slug))"
+        "Kingdom(identifier: \(identifier), name: \(name))"
     }
     
     // MARK: - Coding

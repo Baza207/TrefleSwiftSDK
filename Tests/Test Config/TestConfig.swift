@@ -16,6 +16,7 @@ struct TestConfig: Decodable {
     
     let accessToken: String
     let uri: String
+    let kingdomId: String
     let commonName: String
     let plantId: String
     
