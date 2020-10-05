@@ -371,9 +371,9 @@
 				188CA15D2528940600C26F55 /* Month.swift */,
 				188CA1612528941200C26F55 /* Color.swift */,
 				188CA1652528942600C26F55 /* Texture.swift */,
-				183B16BB252A5F7D007C7A72 /* Plants */,
 				18D11813252BA3CE0004DC72 /* Families */,
 				18D11832252BAEF70004DC72 /* Genus */,
+				183B16BB252A5F7D007C7A72 /* Plants */,
 			);
 			path = Types;
 			sourceTree = "<group>";
