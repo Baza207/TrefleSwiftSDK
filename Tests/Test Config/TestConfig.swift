@@ -22,6 +22,7 @@ struct TestConfig: Decodable {
     let divisionClassId: String
     let divisionOrderId: String
     let familyId: String
+    let familyName: String
     let commonName: String
     let plantId: String
     

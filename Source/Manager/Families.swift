@@ -10,17 +10,29 @@ import Foundation
 
 public class Families {
     
+    public typealias Filter = [FamilyFilter: [String]]
+    public typealias SortOrder = [(field: FamilySortOrder, order: Order)]
+    
     internal static let familiesAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/families"
     
     // MARK: - Families URLs
     
-    internal static func familiesURL(page: Int? = nil) -> URL? {
+    internal static func familiesURL(filter: Filter? = nil, order: SortOrder? = nil, page: Int? = nil) -> URL? {
         
         guard var urlComponents = URLComponents(string: familiesAPIURL) else {
             return nil
         }
         
         var queryItems = [URLQueryItem]()
+        
+        filter?.forEach { (field, value) in
+            let values = value.joined(separator: ",")
+            queryItems.append(URLQueryItem(name: "filter[\(field.rawValue)]", value: values))
+        }
+        
+        order?.forEach { (field, order) in
+            queryItems.append(URLQueryItem(name: "order[\(field.rawValue)]", value: order.rawValue))
+        }
         
         if let page = page {
             queryItems.append(URLQueryItem(name: "page", value: "\(page)"))

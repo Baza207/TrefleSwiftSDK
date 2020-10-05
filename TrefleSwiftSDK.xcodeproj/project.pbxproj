@@ -56,6 +56,8 @@
 		18D11804252B9E1F0004DC72 /* DivisionOrdersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11803252B9E1F0004DC72 /* DivisionOrdersTests.swift */; };
 		18D11808252B9FD20004DC72 /* Families.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11807252B9FD20004DC72 /* Families.swift */; };
 		18D1180C252BA1A90004DC72 /* FamiliesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1180B252BA1A90004DC72 /* FamiliesTests.swift */; };
+		18D11815252BA3EB0004DC72 /* FamilyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11814252BA3EB0004DC72 /* FamilyFilter.swift */; };
+		18D11819252BA3F50004DC72 /* FamilySortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11818252BA3F50004DC72 /* FamilySortOrder.swift */; };
 		18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF92652454D9800034A058 /* PlantRefsOperation.swift */; };
 		18E787E7245623B80064F78D /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E6245623B80064F78D /* Plant.swift */; };
 		18E787EA2456278F0064F78D /* ImageRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E92456278F0064F78D /* ImageRef.swift */; };
@@ -148,6 +150,8 @@
 		18D11803252B9E1F0004DC72 /* DivisionOrdersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionOrdersTests.swift; sourceTree = "<group>"; };
 		18D11807252B9FD20004DC72 /* Families.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Families.swift; sourceTree = "<group>"; };
 		18D1180B252BA1A90004DC72 /* FamiliesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliesTests.swift; sourceTree = "<group>"; };
+		18D11814252BA3EB0004DC72 /* FamilyFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyFilter.swift; sourceTree = "<group>"; };
+		18D11818252BA3F50004DC72 /* FamilySortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilySortOrder.swift; sourceTree = "<group>"; };
 		18DF92652454D9800034A058 /* PlantRefsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRefsOperation.swift; sourceTree = "<group>"; };
 		18E787E6245623B80064F78D /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		18E787E92456278F0064F78D /* ImageRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRef.swift; sourceTree = "<group>"; };
@@ -358,8 +362,18 @@
 				188CA1612528941200C26F55 /* Color.swift */,
 				188CA1652528942600C26F55 /* Texture.swift */,
 				183B16BB252A5F7D007C7A72 /* Plants */,
+				18D11813252BA3CE0004DC72 /* Families */,
 			);
 			path = Types;
+			sourceTree = "<group>";
+		};
+		18D11813252BA3CE0004DC72 /* Families */ = {
+			isa = PBXGroup;
+			children = (
+				18D11814252BA3EB0004DC72 /* FamilyFilter.swift */,
+				18D11818252BA3F50004DC72 /* FamilySortOrder.swift */,
+			);
+			path = Families;
 			sourceTree = "<group>";
 		};
 		18DF92632454D94B0034A058 /* Operations */ = {
@@ -620,6 +634,7 @@
 				18E78810245635350064F78D /* Species.swift in Sources */,
 				18C3D78225266BC9006B6413 /* Synonym.swift in Sources */,
 				18E7882824576E130064F78D /* Growth.swift in Sources */,
+				18D11815252BA3EB0004DC72 /* FamilyFilter.swift in Sources */,
 				18C3D77A25260B69006B6413 /* Order.swift in Sources */,
 				18C3D77E2526636F006B6413 /* Images.swift in Sources */,
 				183B16C2252A6006007C7A72 /* Divisions.swift in Sources */,
@@ -636,6 +651,7 @@
 				188CA1622528941200C26F55 /* Color.swift in Sources */,
 				188CA14A2528934500C26F55 /* Rank.swift in Sources */,
 				18D117F4252B953E0004DC72 /* DivisionClasses.swift in Sources */,
+				18D11819252BA3F50004DC72 /* FamilySortOrder.swift in Sources */,
 				187A8FA224E704390021B640 /* Links.swift in Sources */,
 				186105CD244F8C1E008A863B /* JSONDecoderExtensions.swift in Sources */,
 				18E788142456F0AB0064F78D /* Specification.swift in Sources */,
