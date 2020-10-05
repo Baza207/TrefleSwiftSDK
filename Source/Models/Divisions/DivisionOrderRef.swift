@@ -15,7 +15,7 @@ public struct DivisionOrderRef: Codable, CustomStringConvertible {
     public let identifier: Int
     public let name: String
     public let slug: String
-    public let divisionClass: Division
+    public let divisionClass: DivisionClass
     public let links: Links
     
     public var description: String {
