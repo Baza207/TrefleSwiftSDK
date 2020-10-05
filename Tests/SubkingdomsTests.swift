@@ -63,7 +63,7 @@ class SubkingdomsTests: XCTestCase {
             
             switch result {
             case .success(let response):
-                XCTAssert(response.item.identifier == Int(config.subkingdomId), "Returned item should match the fetched subkingdom ID!")
+                XCTAssert(response.item.identifier == Int(config.subkingdomId), "Returned item '\(response.item.identifier)' should match the fetched subkingdom ID '\(config.subkingdomId)'!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

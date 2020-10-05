@@ -63,7 +63,7 @@ class DivisionsTests: XCTestCase {
             
             switch result {
             case .success(let response):
-                XCTAssert(response.item.identifier == Int(config.divisionId), "Returned item should match the fetched division ID!")
+                XCTAssert(response.item.identifier == Int(config.divisionId), "Returned item '\(response.item.identifier)' should match the fetched division ID '\(config.divisionId)'!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)
