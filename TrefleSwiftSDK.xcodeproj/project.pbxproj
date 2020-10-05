@@ -60,6 +60,8 @@
 		18D11819252BA3F50004DC72 /* FamilySortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11818252BA3F50004DC72 /* FamilySortOrder.swift */; };
 		18D11821252BAADA0004DC72 /* Genera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11820252BAADA0004DC72 /* Genera.swift */; };
 		18D1182D252BACD80004DC72 /* GeneraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1182C252BACD80004DC72 /* GeneraTests.swift */; };
+		18D11834252BAF080004DC72 /* GenusFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11833252BAF080004DC72 /* GenusFilter.swift */; };
+		18D11838252BAF110004DC72 /* GenusSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11837252BAF110004DC72 /* GenusSortOrder.swift */; };
 		18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF92652454D9800034A058 /* PlantRefsOperation.swift */; };
 		18E787E7245623B80064F78D /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E6245623B80064F78D /* Plant.swift */; };
 		18E787EA2456278F0064F78D /* ImageRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E92456278F0064F78D /* ImageRef.swift */; };
@@ -156,6 +158,8 @@
 		18D11818252BA3F50004DC72 /* FamilySortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilySortOrder.swift; sourceTree = "<group>"; };
 		18D11820252BAADA0004DC72 /* Genera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genera.swift; sourceTree = "<group>"; };
 		18D1182C252BACD80004DC72 /* GeneraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneraTests.swift; sourceTree = "<group>"; };
+		18D11833252BAF080004DC72 /* GenusFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenusFilter.swift; sourceTree = "<group>"; };
+		18D11837252BAF110004DC72 /* GenusSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenusSortOrder.swift; sourceTree = "<group>"; };
 		18DF92652454D9800034A058 /* PlantRefsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRefsOperation.swift; sourceTree = "<group>"; };
 		18E787E6245623B80064F78D /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		18E787E92456278F0064F78D /* ImageRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRef.swift; sourceTree = "<group>"; };
@@ -369,6 +373,7 @@
 				188CA1652528942600C26F55 /* Texture.swift */,
 				183B16BB252A5F7D007C7A72 /* Plants */,
 				18D11813252BA3CE0004DC72 /* Families */,
+				18D11832252BAEF70004DC72 /* Genus */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -380,6 +385,15 @@
 				18D11818252BA3F50004DC72 /* FamilySortOrder.swift */,
 			);
 			path = Families;
+			sourceTree = "<group>";
+		};
+		18D11832252BAEF70004DC72 /* Genus */ = {
+			isa = PBXGroup;
+			children = (
+				18D11833252BAF080004DC72 /* GenusFilter.swift */,
+				18D11837252BAF110004DC72 /* GenusSortOrder.swift */,
+			);
+			path = Genus;
 			sourceTree = "<group>";
 		};
 		18DF92632454D94B0034A058 /* Operations */ = {
@@ -618,6 +632,7 @@
 				18E78820245768EC0064F78D /* Flower.swift in Sources */,
 				188CA15E2528940600C26F55 /* Month.swift in Sources */,
 				18E7880424562F530064F78D /* DivisionClass.swift in Sources */,
+				18D11838252BAF110004DC72 /* GenusSortOrder.swift in Sources */,
 				186105D024507687008A863B /* Plants.swift in Sources */,
 				18E787F224562BAF0064F78D /* Kingdom.swift in Sources */,
 				18C3D78E2527A9F3006B6413 /* SpeciesRef.swift in Sources */,
@@ -628,6 +643,7 @@
 				186105C2244F1AD1008A863B /* KeychainPasswordItem.swift in Sources */,
 				18E7881224563AA80064F78D /* GenusRef.swift in Sources */,
 				183B1697252A4D3E007C7A72 /* PlantExclude.swift in Sources */,
+				18D11834252BAF080004DC72 /* GenusFilter.swift in Sources */,
 				188CA1442528933000C26F55 /* Status.swift in Sources */,
 				18C3D78A252674FE006B6413 /* Zone.swift in Sources */,
 				187A8FA424E704510021B640 /* Metadata.swift in Sources */,

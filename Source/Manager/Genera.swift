@@ -10,11 +10,14 @@ import Foundation
 
 public class Genera {
     
+    public typealias Filter = [GenusFilter: [String]]
+    public typealias SortOrder = [(field: GenusSortOrder, order: Order)]
+    
     internal static let genusAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/genus"
     
     // MARK: - Genus URLs
     
-    internal static func generaURL(page: Int? = nil) -> URL? {
+    internal static func generaURL(filter: Filter? = nil, order: SortOrder? = nil, page: Int? = nil) -> URL? {
         
         guard var urlComponents = URLComponents(string: genusAPIURL) else {
             return nil

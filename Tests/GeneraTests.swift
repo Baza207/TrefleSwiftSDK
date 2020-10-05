@@ -45,6 +45,38 @@ class GeneraTests: XCTestCase {
         }
     }
     
+    func testFetchGenusRefsFilter() throws {
+        
+        guard let config = self.config else {
+            XCTFail("Requires a test config to be setup before calling login!")
+            return
+        }
+        
+        guard let url = Genera.generaURL(filter: [.name: [config.genusName]]) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
+        
+        let expectation = self.expectation(description: #function)
+        
+        Genera.fetchGenera(jwt: config.accessToken, url: url) { (result) in
+            
+            switch result {
+            case .success(let response):
+                XCTAssert(response.items.contains(where: { $0.name.lowercased() == config.genusName.lowercased() }), "Returned items should have the name of '\(config.genusName)' but it wasn't found in '\(response.items)'!")
+                
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 60) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
+        }
+    }
+    
     func testFetchGenusRefsPage() throws {
         
         guard let config = self.config else {
