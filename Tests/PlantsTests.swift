@@ -108,7 +108,7 @@ class PlantsTests: XCTestCase {
             
             switch result {
             case .success(let response):
-                XCTAssert(response.items.contains(where: { $0.commonName == config.commonName }), "Returned items should have the common name of '\(config.commonName)' but it wasn't found in '\(response.items)'!")
+                XCTAssert(response.items.contains(where: { $0.commonName?.lowercased() == config.commonName.lowercased() }), "Returned items should have the common name of '\(config.commonName)' but it wasn't found in '\(response.items)'!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)
