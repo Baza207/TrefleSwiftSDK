@@ -15,11 +15,11 @@ public struct DivisionClass: Codable, CustomStringConvertible {
     public let identifier: Int
     public let name: String
     public let slug: String
-    public let division: Division
+    public let division: Division?
     public let links: Links
     
     public var description: String {
-        "DivisionClass(identifier: \(identifier), name: \(name), slug: \(slug), division: \(division))"
+        "DivisionClass(identifier: \(identifier), name: \(name), slug: \(slug))"
     }
     
     // MARK: - Coding
