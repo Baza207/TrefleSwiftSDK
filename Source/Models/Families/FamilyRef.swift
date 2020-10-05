@@ -16,11 +16,11 @@ public struct FamilyRef: Codable, CustomStringConvertible {
     public let name: String
     public let commonName: String?
     public let slug: String
-    public let divisionOrder: DivisionOrder
+    public let divisionOrder: DivisionOrder?
     public let links: Links
     
     public var description: String {
-        "FamilyRef(identifier: \(identifier), name: \(name), slug: \(slug), divisionOrder: \(divisionOrder))"
+        "FamilyRef(identifier: \(identifier), name: \(name), slug: \(slug))"
     }
     
     // MARK: - Coding

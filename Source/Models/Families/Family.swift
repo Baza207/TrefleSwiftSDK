@@ -16,11 +16,11 @@ public struct Family: Codable, CustomStringConvertible {
     public let name: String
     public let commonName: String?
     public let slug: String
-    public let divisionOrder: DivisionOrder
+    public let divisionOrder: DivisionOrder?
     public let links: Links
     
     public var description: String {
-        "Family(identifier: \(identifier), name: \(name), slug: \(slug), divisionOrder: \(divisionOrder))"
+        "Family(identifier: \(identifier), name: \(name), slug: \(slug))"
     }
     
     // MARK: - Coding
