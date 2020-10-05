@@ -23,6 +23,7 @@ struct TestConfig: Decodable {
     let divisionOrderId: String
     let familyId: String
     let familyName: String
+    let genusId: String
     let commonName: String
     let plantId: String
     
