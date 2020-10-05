@@ -45,6 +45,51 @@ class GeneraTests: XCTestCase {
         }
     }
     
+    func testFetchGenusRefsPage() throws {
+        
+        guard let config = self.config else {
+            XCTFail("Requires a test config to be setup before calling login!")
+            return
+        }
+        
+        guard let url = Genera.generaURL(page: 2) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
+        
+        let expectation = self.expectation(description: #function)
+        
+        Genera.fetchGenera(jwt: config.accessToken, url: url) { (result) in
+            
+            switch result {
+            case .success(let response):
+                
+                guard let comps = URLComponents(string: response.links.current) else {
+                    XCTFail("Couldn't get components from current URL link.")
+                    return
+                }
+                
+                guard let pageItem = comps.queryItems?.first(where: { (item) -> Bool in
+                    item.name == "page"
+                }), let pageString = pageItem.value, let page = Int(pageString) else {
+                    XCTFail("Couldn't get page query from current URL link.")
+                    return
+                }
+                
+                XCTAssert(page == 2, "Wrong page returned!")
+                
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 60) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
+        }
+    }
+    
     func testFetchGenus() throws {
         
         guard let config = self.config else {
