@@ -20,14 +20,14 @@ class KingdomsTests: XCTestCase {
             return
         }
         
-        guard let url = Kingdoms.kingdomsURL() else {
+        guard let url = KingdomsManager.listURL() else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Kingdoms.fetchKingdoms(jwt: config.accessToken, url: url) { (result) in
+        KingdomsManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -52,14 +52,14 @@ class KingdomsTests: XCTestCase {
             return
         }
         
-        guard let url = Kingdoms.kingdomURL(identifier: config.kingdomId) else {
+        guard let url = KingdomsManager.itemURL(identifier: config.kingdomId) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Kingdoms.fetchKingdom(jwt: config.accessToken, url: url) { (result) in
+        KingdomsManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):

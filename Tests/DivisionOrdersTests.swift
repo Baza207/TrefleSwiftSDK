@@ -20,14 +20,14 @@ class DivisionOrdersTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionOrders.divisionOrdersURL() else {
+        guard let url = DivisionOrdersManager.listURL() else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        DivisionOrders.fetchDivisionOrders(jwt: config.accessToken, url: url) { (result) in
+        DivisionOrdersManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -52,14 +52,14 @@ class DivisionOrdersTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionOrders.divisionOrdersURL(page: 2) else {
+        guard let url = DivisionOrdersManager.listURL(page: 2) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        DivisionOrders.fetchDivisionOrders(jwt: config.accessToken, url: url) { (result) in
+        DivisionOrdersManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -97,14 +97,14 @@ class DivisionOrdersTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionOrders.divisionOrderURL(identifier: config.divisionOrderId) else {
+        guard let url = DivisionOrdersManager.itemURL(identifier: config.divisionOrderId) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        DivisionOrders.fetchDivisionOrder(jwt: config.accessToken, url: url) { (result) in
+        DivisionOrdersManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):

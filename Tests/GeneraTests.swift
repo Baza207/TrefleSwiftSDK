@@ -20,14 +20,14 @@ class GeneraTests: XCTestCase {
             return
         }
         
-        guard let url = Genera.generaURL() else {
+        guard let url = GeneraManager.listURL() else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Genera.fetchGenera(jwt: config.accessToken, url: url) { (result) in
+        GeneraManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -52,14 +52,14 @@ class GeneraTests: XCTestCase {
             return
         }
         
-        guard let url = Genera.generaURL(filter: [.name: [config.genusName]]) else {
+        guard let url = GeneraManager.listURL(filter: [.name: [config.genusName]]) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Genera.fetchGenera(jwt: config.accessToken, url: url) { (result) in
+        GeneraManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -84,14 +84,14 @@ class GeneraTests: XCTestCase {
             return
         }
         
-        guard let url = Genera.generaURL(page: 2) else {
+        guard let url = GeneraManager.listURL(page: 2) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Genera.fetchGenera(jwt: config.accessToken, url: url) { (result) in
+        GeneraManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -129,14 +129,14 @@ class GeneraTests: XCTestCase {
             return
         }
         
-        guard let url = Genera.genusURL(identifier: config.genusId) else {
+        guard let url = GeneraManager.itemURL(identifier: config.genusId) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Genera.fetchGenus(jwt: config.accessToken, url: url) { (result) in
+        GeneraManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):

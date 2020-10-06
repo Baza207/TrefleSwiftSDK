@@ -11,11 +11,11 @@
 		183B1697252A4D3E007C7A72 /* PlantExclude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B1696252A4D3E007C7A72 /* PlantExclude.swift */; };
 		183B169B252A5271007C7A72 /* PlantSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B169A252A5271007C7A72 /* PlantSortOrder.swift */; };
 		183B169F252A54F2007C7A72 /* PlantRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B169E252A54F2007C7A72 /* PlantRange.swift */; };
-		183B16A7252A5877007C7A72 /* Kingdoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16A6252A5877007C7A72 /* Kingdoms.swift */; };
+		183B16A7252A5877007C7A72 /* KingdomsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16A6252A5877007C7A72 /* KingdomsManager.swift */; };
 		183B16AB252A5B1C007C7A72 /* KingdomsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16AA252A5B1B007C7A72 /* KingdomsTests.swift */; };
-		183B16B1252A5D56007C7A72 /* Subkingdoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16B0252A5D56007C7A72 /* Subkingdoms.swift */; };
+		183B16B1252A5D56007C7A72 /* SubkingdomsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16B0252A5D56007C7A72 /* SubkingdomsManager.swift */; };
 		183B16B5252A5E8C007C7A72 /* SubkingdomsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16B4252A5E8C007C7A72 /* SubkingdomsTests.swift */; };
-		183B16C2252A6006007C7A72 /* Divisions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16C1252A6006007C7A72 /* Divisions.swift */; };
+		183B16C2252A6006007C7A72 /* DivisionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16C1252A6006007C7A72 /* DivisionsManager.swift */; };
 		183B16C6252A610D007C7A72 /* DivisionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16C5252A610D007C7A72 /* DivisionsTests.swift */; };
 		184BB2C624E5E1D6007DED03 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184BB2C524E5E1D6007DED03 /* Response.swift */; };
 		186105BA244F1332008A863B /* TestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105B8244F1332008A863B /* TestConfig.swift */; };
@@ -27,7 +27,7 @@
 		186105C9244F21F0008A863B /* TrefleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105C8244F21F0008A863B /* TrefleError.swift */; };
 		186105CD244F8C1E008A863B /* JSONDecoderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105CB244F8C1E008A863B /* JSONDecoderExtensions.swift */; };
 		186105CE244F8C1E008A863B /* URLRequestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105CC244F8C1E008A863B /* URLRequestExtensions.swift */; };
-		186105D024507687008A863B /* Plants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105CF24507687008A863B /* Plants.swift */; };
+		186105D024507687008A863B /* PlantsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105CF24507687008A863B /* PlantsManager.swift */; };
 		186105D324507C37008A863B /* PlantRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105D224507C37008A863B /* PlantRef.swift */; };
 		186105D52450D01A008A863B /* PlantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186105D42450D01A008A863B /* PlantsTests.swift */; };
 		1874837A244F0E0F00120F73 /* TrefleSwiftSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18748370244F0E0F00120F73 /* TrefleSwiftSDK.framework */; };
@@ -50,15 +50,15 @@
 		18C3D78625267496006B6413 /* Distribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D78525267496006B6413 /* Distribution.swift */; };
 		18C3D78A252674FE006B6413 /* Zone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D789252674FE006B6413 /* Zone.swift */; };
 		18C3D78E2527A9F3006B6413 /* SpeciesRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D78D2527A9F3006B6413 /* SpeciesRef.swift */; };
-		18D117F4252B953E0004DC72 /* DivisionClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D117F3252B953E0004DC72 /* DivisionClasses.swift */; };
+		18D117F4252B953E0004DC72 /* DivisionClassesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D117F3252B953E0004DC72 /* DivisionClassesManager.swift */; };
 		18D117FA252B976B0004DC72 /* DivisionClassesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D117F9252B976B0004DC72 /* DivisionClassesTests.swift */; };
-		18D11800252B9D210004DC72 /* DivisionOrders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D117FF252B9D210004DC72 /* DivisionOrders.swift */; };
+		18D11800252B9D210004DC72 /* DivisionOrdersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D117FF252B9D210004DC72 /* DivisionOrdersManager.swift */; };
 		18D11804252B9E1F0004DC72 /* DivisionOrdersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11803252B9E1F0004DC72 /* DivisionOrdersTests.swift */; };
-		18D11808252B9FD20004DC72 /* Families.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11807252B9FD20004DC72 /* Families.swift */; };
+		18D11808252B9FD20004DC72 /* FamiliesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11807252B9FD20004DC72 /* FamiliesManager.swift */; };
 		18D1180C252BA1A90004DC72 /* FamiliesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1180B252BA1A90004DC72 /* FamiliesTests.swift */; };
 		18D11815252BA3EB0004DC72 /* FamilyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11814252BA3EB0004DC72 /* FamilyFilter.swift */; };
 		18D11819252BA3F50004DC72 /* FamilySortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11818252BA3F50004DC72 /* FamilySortOrder.swift */; };
-		18D11821252BAADA0004DC72 /* Genera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11820252BAADA0004DC72 /* Genera.swift */; };
+		18D11821252BAADA0004DC72 /* GeneraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11820252BAADA0004DC72 /* GeneraManager.swift */; };
 		18D1182D252BACD80004DC72 /* GeneraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1182C252BACD80004DC72 /* GeneraTests.swift */; };
 		18D11834252BAF080004DC72 /* GenusFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11833252BAF080004DC72 /* GenusFilter.swift */; };
 		18D11838252BAF110004DC72 /* GenusSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11837252BAF110004DC72 /* GenusSortOrder.swift */; };
@@ -111,11 +111,11 @@
 		183B1696252A4D3E007C7A72 /* PlantExclude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantExclude.swift; sourceTree = "<group>"; };
 		183B169A252A5271007C7A72 /* PlantSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantSortOrder.swift; sourceTree = "<group>"; };
 		183B169E252A54F2007C7A72 /* PlantRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRange.swift; sourceTree = "<group>"; };
-		183B16A6252A5877007C7A72 /* Kingdoms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kingdoms.swift; sourceTree = "<group>"; };
+		183B16A6252A5877007C7A72 /* KingdomsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingdomsManager.swift; sourceTree = "<group>"; };
 		183B16AA252A5B1B007C7A72 /* KingdomsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingdomsTests.swift; sourceTree = "<group>"; };
-		183B16B0252A5D56007C7A72 /* Subkingdoms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subkingdoms.swift; sourceTree = "<group>"; };
+		183B16B0252A5D56007C7A72 /* SubkingdomsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubkingdomsManager.swift; sourceTree = "<group>"; };
 		183B16B4252A5E8C007C7A72 /* SubkingdomsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubkingdomsTests.swift; sourceTree = "<group>"; };
-		183B16C1252A6006007C7A72 /* Divisions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divisions.swift; sourceTree = "<group>"; };
+		183B16C1252A6006007C7A72 /* DivisionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionsManager.swift; sourceTree = "<group>"; };
 		183B16C5252A610D007C7A72 /* DivisionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionsTests.swift; sourceTree = "<group>"; };
 		184BB2C524E5E1D6007DED03 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		186105B8244F1332008A863B /* TestConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestConfig.swift; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 		186105C8244F21F0008A863B /* TrefleError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrefleError.swift; sourceTree = "<group>"; };
 		186105CB244F8C1E008A863B /* JSONDecoderExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoderExtensions.swift; sourceTree = "<group>"; };
 		186105CC244F8C1E008A863B /* URLRequestExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestExtensions.swift; sourceTree = "<group>"; };
-		186105CF24507687008A863B /* Plants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plants.swift; sourceTree = "<group>"; };
+		186105CF24507687008A863B /* PlantsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsManager.swift; sourceTree = "<group>"; };
 		186105D224507C37008A863B /* PlantRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRef.swift; sourceTree = "<group>"; };
 		186105D42450D01A008A863B /* PlantsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantsTests.swift; sourceTree = "<group>"; };
 		18748370244F0E0F00120F73 /* TrefleSwiftSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TrefleSwiftSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,15 +156,15 @@
 		18C3D78525267496006B6413 /* Distribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Distribution.swift; sourceTree = "<group>"; };
 		18C3D789252674FE006B6413 /* Zone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zone.swift; sourceTree = "<group>"; };
 		18C3D78D2527A9F3006B6413 /* SpeciesRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesRef.swift; sourceTree = "<group>"; };
-		18D117F3252B953E0004DC72 /* DivisionClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionClasses.swift; sourceTree = "<group>"; };
+		18D117F3252B953E0004DC72 /* DivisionClassesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionClassesManager.swift; sourceTree = "<group>"; };
 		18D117F9252B976B0004DC72 /* DivisionClassesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionClassesTests.swift; sourceTree = "<group>"; };
-		18D117FF252B9D210004DC72 /* DivisionOrders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionOrders.swift; sourceTree = "<group>"; };
+		18D117FF252B9D210004DC72 /* DivisionOrdersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionOrdersManager.swift; sourceTree = "<group>"; };
 		18D11803252B9E1F0004DC72 /* DivisionOrdersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionOrdersTests.swift; sourceTree = "<group>"; };
-		18D11807252B9FD20004DC72 /* Families.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Families.swift; sourceTree = "<group>"; };
+		18D11807252B9FD20004DC72 /* FamiliesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliesManager.swift; sourceTree = "<group>"; };
 		18D1180B252BA1A90004DC72 /* FamiliesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliesTests.swift; sourceTree = "<group>"; };
 		18D11814252BA3EB0004DC72 /* FamilyFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyFilter.swift; sourceTree = "<group>"; };
 		18D11818252BA3F50004DC72 /* FamilySortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilySortOrder.swift; sourceTree = "<group>"; };
-		18D11820252BAADA0004DC72 /* Genera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genera.swift; sourceTree = "<group>"; };
+		18D11820252BAADA0004DC72 /* GeneraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneraManager.swift; sourceTree = "<group>"; };
 		18D1182C252BACD80004DC72 /* GeneraTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneraTests.swift; sourceTree = "<group>"; };
 		18D11833252BAF080004DC72 /* GenusFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenusFilter.swift; sourceTree = "<group>"; };
 		18D11837252BAF110004DC72 /* GenusSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenusSortOrder.swift; sourceTree = "<group>"; };
@@ -246,14 +246,14 @@
 			children = (
 				186105BE244F14BF008A863B /* Trefle.swift */,
 				186105C3244F1B92008A863B /* Authentication.swift */,
-				183B16A6252A5877007C7A72 /* Kingdoms.swift */,
-				183B16B0252A5D56007C7A72 /* Subkingdoms.swift */,
-				183B16C1252A6006007C7A72 /* Divisions.swift */,
-				18D117F3252B953E0004DC72 /* DivisionClasses.swift */,
-				18D117FF252B9D210004DC72 /* DivisionOrders.swift */,
-				18D11807252B9FD20004DC72 /* Families.swift */,
-				18D11820252BAADA0004DC72 /* Genera.swift */,
-				186105CF24507687008A863B /* Plants.swift */,
+				183B16A6252A5877007C7A72 /* KingdomsManager.swift */,
+				183B16B0252A5D56007C7A72 /* SubkingdomsManager.swift */,
+				183B16C1252A6006007C7A72 /* DivisionsManager.swift */,
+				18D117F3252B953E0004DC72 /* DivisionClassesManager.swift */,
+				18D117FF252B9D210004DC72 /* DivisionOrdersManager.swift */,
+				18D11807252B9FD20004DC72 /* FamiliesManager.swift */,
+				18D11820252BAADA0004DC72 /* GeneraManager.swift */,
+				186105CF24507687008A863B /* PlantsManager.swift */,
 				18D11841252C6BBC0004DC72 /* SpeciesManager.swift */,
 				18D11862252C77810004DC72 /* DistributionZonesManager.swift */,
 				186105C8244F21F0008A863B /* TrefleError.swift */,
@@ -662,18 +662,18 @@
 				188CA156252893D600C26F55 /* LigneousType.swift in Sources */,
 				18E788182456F4400064F78D /* Source.swift in Sources */,
 				18D1185F252C6ED90004DC72 /* SpeciesRange.swift in Sources */,
-				183B16B1252A5D56007C7A72 /* Subkingdoms.swift in Sources */,
+				183B16B1252A5D56007C7A72 /* SubkingdomsManager.swift in Sources */,
 				18E78820245768EC0064F78D /* Flower.swift in Sources */,
 				188CA15E2528940600C26F55 /* Month.swift in Sources */,
 				18E7880424562F530064F78D /* DivisionClass.swift in Sources */,
 				18D11838252BAF110004DC72 /* GenusSortOrder.swift in Sources */,
-				186105D024507687008A863B /* Plants.swift in Sources */,
+				186105D024507687008A863B /* PlantsManager.swift in Sources */,
 				18E787F224562BAF0064F78D /* Kingdom.swift in Sources */,
 				18C3D78E2527A9F3006B6413 /* SpeciesRef.swift in Sources */,
 				186105CE244F8C1E008A863B /* URLRequestExtensions.swift in Sources */,
 				188CA15A252893E900C26F55 /* Toxicity.swift in Sources */,
 				186105BF244F14BF008A863B /* Trefle.swift in Sources */,
-				18D11808252B9FD20004DC72 /* Families.swift in Sources */,
+				18D11808252B9FD20004DC72 /* FamiliesManager.swift in Sources */,
 				186105C2244F1AD1008A863B /* KeychainPasswordItem.swift in Sources */,
 				18E7881224563AA80064F78D /* GenusRef.swift in Sources */,
 				183B1697252A4D3E007C7A72 /* PlantExclude.swift in Sources */,
@@ -695,13 +695,13 @@
 				18C3D77A25260B69006B6413 /* Order.swift in Sources */,
 				18C3D77E2526636F006B6413 /* Images.swift in Sources */,
 				18D1185B252C6ED00004DC72 /* SpeciesSortOrder.swift in Sources */,
-				183B16C2252A6006007C7A72 /* Divisions.swift in Sources */,
+				183B16C2252A6006007C7A72 /* DivisionsManager.swift in Sources */,
 				186105D324507C37008A863B /* PlantRef.swift in Sources */,
 				183B16932529E281007C7A72 /* PlantFilter.swift in Sources */,
 				18C3D78625267496006B6413 /* Distribution.swift in Sources */,
-				18D11821252BAADA0004DC72 /* Genera.swift in Sources */,
+				18D11821252BAADA0004DC72 /* GeneraManager.swift in Sources */,
 				183B169B252A5271007C7A72 /* PlantSortOrder.swift in Sources */,
-				18D11800252B9D210004DC72 /* DivisionOrders.swift in Sources */,
+				18D11800252B9D210004DC72 /* DivisionOrdersManager.swift in Sources */,
 				184BB2C624E5E1D6007DED03 /* Response.swift in Sources */,
 				18E787FE24562E560064F78D /* Division.swift in Sources */,
 				18D11842252C6BBC0004DC72 /* SpeciesManager.swift in Sources */,
@@ -711,7 +711,7 @@
 				188CA1622528941200C26F55 /* Color.swift in Sources */,
 				18D11857252C6EC00004DC72 /* SpeciesExclude.swift in Sources */,
 				188CA14A2528934500C26F55 /* Rank.swift in Sources */,
-				18D117F4252B953E0004DC72 /* DivisionClasses.swift in Sources */,
+				18D117F4252B953E0004DC72 /* DivisionClassesManager.swift in Sources */,
 				18D11819252BA3F50004DC72 /* FamilySortOrder.swift in Sources */,
 				187A8FA224E704390021B640 /* Links.swift in Sources */,
 				186105CD244F8C1E008A863B /* JSONDecoderExtensions.swift in Sources */,
@@ -722,7 +722,7 @@
 				18E7880624562F5B0064F78D /* DivisionOrder.swift in Sources */,
 				18E7880124562F4B0064F78D /* DivisionClassRef.swift in Sources */,
 				18E787FC24562E050064F78D /* DivisionRef.swift in Sources */,
-				183B16A7252A5877007C7A72 /* Kingdoms.swift in Sources */,
+				183B16A7252A5877007C7A72 /* KingdomsManager.swift in Sources */,
 				18E787EA2456278F0064F78D /* ImageRef.swift in Sources */,
 				18E78822245769A00064F78D /* Foliage.swift in Sources */,
 			);

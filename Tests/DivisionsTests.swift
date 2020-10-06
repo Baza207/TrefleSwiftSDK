@@ -20,14 +20,14 @@ class DivisionsTests: XCTestCase {
             return
         }
         
-        guard let url = Divisions.divisionsURL() else {
+        guard let url = DivisionsManager.listURL() else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Divisions.fetchDivisions(jwt: config.accessToken, url: url) { (result) in
+        DivisionsManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -52,14 +52,14 @@ class DivisionsTests: XCTestCase {
             return
         }
         
-        guard let url = Divisions.divisionURL(identifier: config.divisionId) else {
+        guard let url = DivisionsManager.itemURL(identifier: config.divisionId) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Divisions.fetchDivision(jwt: config.accessToken, url: url) { (result) in
+        DivisionsManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):

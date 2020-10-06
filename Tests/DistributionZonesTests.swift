@@ -27,7 +27,7 @@ class DistributionZonesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DistributionZonesManager.fetchList(jwt: config.accessToken, url: url) { (result) in
+        DistributionZonesManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):

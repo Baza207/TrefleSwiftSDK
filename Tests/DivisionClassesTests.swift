@@ -20,14 +20,14 @@ class DivisionClassesTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionClasses.divisionClassesURL() else {
+        guard let url = DivisionClassesManager.listURL() else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        DivisionClasses.fetchDivisionClasses(jwt: config.accessToken, url: url) { (result) in
+        DivisionClassesManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -52,14 +52,14 @@ class DivisionClassesTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionClasses.divisionClassesURL(page: 2) else {
+        guard let url = DivisionClassesManager.listURL(page: 2) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        DivisionClasses.fetchDivisionClasses(jwt: config.accessToken, url: url) { (result) in
+        DivisionClassesManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -97,14 +97,14 @@ class DivisionClassesTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionClasses.divisionClassURL(identifier: config.divisionClassId) else {
+        guard let url = DivisionClassesManager.itemURL(identifier: config.divisionClassId) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        DivisionClasses.fetchDivisionClass(jwt: config.accessToken, url: url) { (result) in
+        DivisionClassesManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):

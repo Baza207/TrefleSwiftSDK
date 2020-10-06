@@ -20,14 +20,14 @@ class FamiliesTests: XCTestCase {
             return
         }
         
-        guard let url = Families.familiesURL() else {
+        guard let url = FamiliesManager.listURL() else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Families.fetchFamilies(jwt: config.accessToken, url: url) { (result) in
+        FamiliesManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -52,14 +52,14 @@ class FamiliesTests: XCTestCase {
             return
         }
         
-        guard let url = Families.familiesURL(filter: [.name: [config.familyName]]) else {
+        guard let url = FamiliesManager.listURL(filter: [.name: [config.familyName]]) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Families.fetchFamilies(jwt: config.accessToken, url: url) { (result) in
+        FamiliesManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -84,14 +84,14 @@ class FamiliesTests: XCTestCase {
             return
         }
         
-        guard let url = Families.familiesURL(page: 2) else {
+        guard let url = FamiliesManager.listURL(page: 2) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Families.fetchFamilies(jwt: config.accessToken, url: url) { (result) in
+        FamiliesManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -129,14 +129,14 @@ class FamiliesTests: XCTestCase {
             return
         }
         
-        guard let url = Families.familyURL(identifier: config.familyId) else {
+        guard let url = FamiliesManager.itemURL(identifier: config.familyId) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Families.fetchFamily(jwt: config.accessToken, url: url) { (result) in
+        FamiliesManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):

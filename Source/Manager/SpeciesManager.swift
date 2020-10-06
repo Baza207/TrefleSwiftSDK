@@ -70,7 +70,7 @@ public class SpeciesManager {
     
     // MARK: - Fetch Species
     
-    public static func fetchList(query: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<SpeciesRef>, Error>) -> Void) {
+    public static func fetch(query: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<SpeciesRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -83,7 +83,7 @@ public class SpeciesManager {
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchList(jwt: jwt, url: url, completed: completed)
+            fetch(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -91,14 +91,14 @@ public class SpeciesManager {
             
             switch result {
             case .success:
-                fetchList(jwt: jwt, url: url, completed: completed)
+                fetch(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
         }
     }
     
-    internal static func fetchList(jwt: String, url: URL, completed: @escaping (Result<ResponseList<SpeciesRef>, Error>) -> Void) {
+    internal static func fetch(jwt: String, url: URL, completed: @escaping (Result<ResponseList<SpeciesRef>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in

@@ -20,14 +20,14 @@ class SubkingdomsTests: XCTestCase {
             return
         }
         
-        guard let url = Subkingdoms.subkingdomsURL() else {
+        guard let url = SubkingdomsManager.listURL() else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Subkingdoms.fetchSubkingdoms(jwt: config.accessToken, url: url) { (result) in
+        SubkingdomsManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -52,14 +52,14 @@ class SubkingdomsTests: XCTestCase {
             return
         }
         
-        guard let url = Subkingdoms.subkingdomURL(identifier: config.kingdomId) else {
+        guard let url = SubkingdomsManager.itemURL(identifier: config.kingdomId) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Subkingdoms.fetchSubkingdom(jwt: config.accessToken, url: url) { (result) in
+        SubkingdomsManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):

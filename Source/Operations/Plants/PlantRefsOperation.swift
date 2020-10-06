@@ -12,10 +12,10 @@ public class PlantRefsOperation: Operation {
     
     public var plantRefsCompletionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)?
     
-    public let filter: Plants.Filter?
-    public let exclude: Plants.Exclude?
-    public let order: Plants.SortOrder?
-    public let range: Plants.Range?
+    public let filter: PlantsManager.Filter?
+    public let exclude: PlantsManager.Exclude?
+    public let order: PlantsManager.SortOrder?
+    public let range: PlantsManager.Range?
     public let page: Int?
     public var response: ResponseList<PlantRef>?
     public var error: Error?
@@ -40,7 +40,7 @@ public class PlantRefsOperation: Operation {
         return _isFinished
     }
     
-    public init(filter: Plants.Filter? = nil, exclude: Plants.Exclude? = nil, order: Plants.SortOrder? = nil, range: Plants.Range? = nil, page: Int? = nil, completionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)? = nil) {
+    public init(filter: PlantsManager.Filter? = nil, exclude: PlantsManager.Exclude? = nil, order: PlantsManager.SortOrder? = nil, range: PlantsManager.Range? = nil, page: Int? = nil, completionBlock: ((_ result: Result<ResponseList<PlantRef>, Error>) -> Void)? = nil) {
         self.filter = filter
         self.exclude = exclude
         self.order = order
@@ -65,7 +65,7 @@ public class PlantRefsOperation: Operation {
         
         _isExecuting = true
         
-        Plants.fetchPlants(filter: filter, exclude: exclude, order: order, range: range, page: page) { [weak self] (result) in
+        PlantsManager.fetch(filter: filter, exclude: exclude, order: order, range: range, page: page) { [weak self] (result) in
             
             guard let self = self else {
                 return

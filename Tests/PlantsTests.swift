@@ -20,14 +20,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.plantsURL() else {
+        guard let url = PlantsManager.listURL() else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
+        PlantsManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -52,14 +52,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.plantsURL(filter: [.commonName: [config.commonName]]) else {
+        guard let url = PlantsManager.listURL(filter: [.commonName: [config.commonName]]) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
+        PlantsManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -84,14 +84,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.plantsURL(page: 2) else {
+        guard let url = PlantsManager.listURL(page: 2) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
+        PlantsManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -129,14 +129,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.plantsURL(query: config.commonName) else {
+        guard let url = PlantsManager.listURL(query: config.commonName) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
+        PlantsManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -161,14 +161,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.plantsURL(zoneId: config.twdgCode) else {
+        guard let url = PlantsManager.listURL(zoneId: config.twdgCode) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
+        PlantsManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -193,14 +193,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.plantsURL(genusId: config.genusId) else {
+        guard let url = PlantsManager.listURL(genusId: config.genusId) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
+        PlantsManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -225,14 +225,14 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.plantURL(identifier: config.plantId) else {
+        guard let url = PlantsManager.itemURL(identifier: config.plantId) else {
             XCTFail("Failed to create URL!")
             return
         }
         
         let expectation = self.expectation(description: #function)
         
-        Plants.fetchPlant(jwt: config.accessToken, url: url) { (result) in
+        PlantsManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):

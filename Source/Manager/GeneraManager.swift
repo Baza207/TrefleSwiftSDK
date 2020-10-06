@@ -1,5 +1,5 @@
 //
-//  DivisionOrders.swift
+//  GeneraManager.swift
 //  TrefleSwiftSDK
 //
 //  Created by James Barrow on 2020-10-05.
@@ -8,15 +8,18 @@
 
 import Foundation
 
-public class DivisionOrders {
+public class GeneraManager {
     
-    private static let divisionOrdersAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/division_orders"
+    public typealias Filter = [GenusFilter: [String]]
+    public typealias SortOrder = [(field: GenusSortOrder, order: Order)]
     
-    // MARK: - Division Orders URLs
+    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/genus"
     
-    internal static func divisionOrdersURL(page: Int? = nil) -> URL? {
+    // MARK: - Genus URLs
+    
+    internal static func listURL(filter: Filter? = nil, order: SortOrder? = nil, page: Int? = nil) -> URL? {
         
-        guard var urlComponents = URLComponents(string: divisionOrdersAPIURL) else {
+        guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
         }
         
@@ -31,26 +34,26 @@ public class DivisionOrders {
         return urlComponents.url
     }
     
-    internal static func divisionOrderURL(identifier: String) -> URL? {
-        URL(string: "\(divisionOrdersAPIURL)/\(identifier)")
+    internal static func itemURL(identifier: String) -> URL? {
+        URL(string: "\(apiURL)/\(identifier)")
     }
     
-    // MARK: - Fetch Divisions
+    // MARK: - Fetch Genus
     
-    public static func fetchDivisionOrders(page: Int? = nil, completed: @escaping (Result<ResponseList<DivisionOrderRef>, Error>) -> Void) {
+    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<GenusRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = divisionOrdersURL(page: page) else {
+        guard let url = listURL(page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchDivisionOrders(jwt: jwt, url: url, completed: completed)
+            fetch(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -58,14 +61,14 @@ public class DivisionOrders {
             
             switch result {
             case .success:
-                fetchDivisionOrders(jwt: jwt, url: url, completed: completed)
+                fetch(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
         }
     }
     
-    internal static func fetchDivisionOrders(jwt: String, url: URL, completed: @escaping (Result<ResponseList<DivisionOrderRef>, Error>) -> Void) {
+    internal static func fetch(jwt: String, url: URL, completed: @escaping (Result<ResponseList<GenusRef>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -81,9 +84,9 @@ public class DivisionOrders {
             }
             
             let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseList<DivisionOrderRef>?
+            let result: ResponseList<GenusRef>?
             do {
-                result = try decoder.decode(ResponseList<DivisionOrderRef>.self, from: data)
+                result = try decoder.decode(ResponseList<GenusRef>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return
@@ -99,22 +102,22 @@ public class DivisionOrders {
         downloadTask.resume()
     }
     
-    // MARK: - Fetch Division Order
+    // MARK: - Fetch Genus
     
-    public static func fetchDivisionOrder(identifier: String, completed: @escaping (Result<ResponseSingle<DivisionOrder>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Genus>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = divisionOrderURL(identifier: identifier) else {
+        guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchDivisionOrder(jwt: jwt, url: url, completed: completed)
+            fetchItem(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -122,16 +125,15 @@ public class DivisionOrders {
             
             switch result {
             case .success:
-                fetchDivisionOrder(jwt: jwt, url: url, completed: completed)
+                fetchItem(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
         }
     }
-    
-    internal static func fetchDivisionOrder(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<DivisionOrder>, Error>) -> Void) {
+
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Genus>, Error>) -> Void) {
         
-        print(url)
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
             
@@ -146,9 +148,9 @@ public class DivisionOrders {
             }
             
             let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseSingle<DivisionOrder>
+            let result: ResponseSingle<Genus>
             do {
-                result = try decoder.decode(ResponseSingle<DivisionOrder>.self, from: data)
+                result = try decoder.decode(ResponseSingle<Genus>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

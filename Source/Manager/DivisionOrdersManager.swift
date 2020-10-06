@@ -1,22 +1,22 @@
 //
-//  Divisions.swift
+//  DivisionOrdersManager.swift
 //  TrefleSwiftSDK
 //
-//  Created by James Barrow on 2020-10-04.
+//  Created by James Barrow on 2020-10-05.
 //  Copyright © 2020 Pig on a Hill Productions. All rights reserved.
 //
 
 import Foundation
 
-public class Divisions {
+public class DivisionOrdersManager {
     
-    private static let divisionsAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/divisions"
+    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/division_orders"
     
-    // MARK: - Divisions URLs
+    // MARK: - Division Orders URLs
     
-    internal static func divisionsURL(page: Int? = nil) -> URL? {
+    internal static func listURL(page: Int? = nil) -> URL? {
         
-        guard var urlComponents = URLComponents(string: divisionsAPIURL) else {
+        guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
         }
         
@@ -31,26 +31,26 @@ public class Divisions {
         return urlComponents.url
     }
     
-    internal static func divisionURL(identifier: String) -> URL? {
-        URL(string: "\(divisionsAPIURL)/\(identifier)")
+    internal static func itemURL(identifier: String) -> URL? {
+        URL(string: "\(apiURL)/\(identifier)")
     }
     
     // MARK: - Fetch Divisions
     
-    public static func fetchDivisions(page: Int? = nil, completed: @escaping (Result<ResponseList<DivisionRef>, Error>) -> Void) {
+    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<DivisionOrderRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = divisionsURL(page: page) else {
+        guard let url = listURL(page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchDivisions(jwt: jwt, url: url, completed: completed)
+            fetch(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -58,14 +58,14 @@ public class Divisions {
             
             switch result {
             case .success:
-                fetchDivisions(jwt: jwt, url: url, completed: completed)
+                fetch(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
         }
     }
     
-    internal static func fetchDivisions(jwt: String, url: URL, completed: @escaping (Result<ResponseList<DivisionRef>, Error>) -> Void) {
+    internal static func fetch(jwt: String, url: URL, completed: @escaping (Result<ResponseList<DivisionOrderRef>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -81,9 +81,9 @@ public class Divisions {
             }
             
             let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseList<DivisionRef>?
+            let result: ResponseList<DivisionOrderRef>?
             do {
-                result = try decoder.decode(ResponseList<DivisionRef>.self, from: data)
+                result = try decoder.decode(ResponseList<DivisionOrderRef>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return
@@ -99,22 +99,22 @@ public class Divisions {
         downloadTask.resume()
     }
     
-    // MARK: - Fetch Division
+    // MARK: - Fetch Division Order
     
-    public static func fetchDivision(identifier: String, completed: @escaping (Result<ResponseSingle<Division>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<DivisionOrder>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = divisionURL(identifier: identifier) else {
+        guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchDivision(jwt: jwt, url: url, completed: completed)
+            fetchItem(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -122,15 +122,16 @@ public class Divisions {
             
             switch result {
             case .success:
-                fetchDivision(jwt: jwt, url: url, completed: completed)
+                fetchItem(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
         }
     }
     
-    internal static func fetchDivision(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Division>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<DivisionOrder>, Error>) -> Void) {
         
+        print(url)
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
             
@@ -145,9 +146,9 @@ public class Divisions {
             }
             
             let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseSingle<Division>
+            let result: ResponseSingle<DivisionOrder>
             do {
-                result = try decoder.decode(ResponseSingle<Division>.self, from: data)
+                result = try decoder.decode(ResponseSingle<DivisionOrder>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

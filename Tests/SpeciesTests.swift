@@ -27,7 +27,7 @@ class SpeciesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        SpeciesManager.fetchList(jwt: config.accessToken, url: url) { (result) in
+        SpeciesManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -59,7 +59,7 @@ class SpeciesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        SpeciesManager.fetchList(jwt: config.accessToken, url: url) { (result) in
+        SpeciesManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -91,7 +91,7 @@ class SpeciesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        SpeciesManager.fetchList(jwt: config.accessToken, url: url) { (result) in
+        SpeciesManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -136,7 +136,7 @@ class SpeciesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        SpeciesManager.fetchList(jwt: config.accessToken, url: url) { (result) in
+        SpeciesManager.fetch(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):

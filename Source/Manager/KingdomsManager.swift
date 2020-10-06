@@ -1,5 +1,5 @@
 //
-//  Subkingdoms.swift
+//  KingdomsManager.swift
 //  TrefleSwiftSDK
 //
 //  Created by James Barrow on 2020-10-04.
@@ -8,15 +8,15 @@
 
 import Foundation
 
-public class Subkingdoms {
+public class KingdomsManager {
     
-    private static let subkingdomsAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/subkingdoms"
+    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/kingdoms"
     
-    // MARK: - Subkingdoms URLs
+    // MARK: - Kingdoms URLs
     
-    internal static func subkingdomsURL(page: Int? = nil) -> URL? {
+    internal static func listURL(page: Int? = nil) -> URL? {
         
-        guard var urlComponents = URLComponents(string: subkingdomsAPIURL) else {
+        guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
         }
         
@@ -31,26 +31,26 @@ public class Subkingdoms {
         return urlComponents.url
     }
     
-    internal static func subkingdomURL(identifier: String) -> URL? {
-        URL(string: "\(subkingdomsAPIURL)/\(identifier)")
+    internal static func itemURL(identifier: String) -> URL? {
+        URL(string: "\(apiURL)/\(identifier)")
     }
     
-    // MARK: - Fetch Subkingdoms
+    // MARK: - Fetch Kingdoms
     
-    public static func fetchSubkingdoms(page: Int? = nil, completed: @escaping (Result<ResponseList<SubkingdomRef>, Error>) -> Void) {
+    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<KingdomRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = subkingdomsURL(page: page) else {
+        guard let url = listURL(page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchSubkingdoms(jwt: jwt, url: url, completed: completed)
+            fetch(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -58,14 +58,14 @@ public class Subkingdoms {
             
             switch result {
             case .success:
-                fetchSubkingdoms(jwt: jwt, url: url, completed: completed)
+                fetch(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
         }
     }
     
-    internal static func fetchSubkingdoms(jwt: String, url: URL, completed: @escaping (Result<ResponseList<SubkingdomRef>, Error>) -> Void) {
+    internal static func fetch(jwt: String, url: URL, completed: @escaping (Result<ResponseList<KingdomRef>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -81,9 +81,9 @@ public class Subkingdoms {
             }
             
             let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseList<SubkingdomRef>?
+            let result: ResponseList<KingdomRef>?
             do {
-                result = try decoder.decode(ResponseList<SubkingdomRef>.self, from: data)
+                result = try decoder.decode(ResponseList<KingdomRef>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return
@@ -99,22 +99,22 @@ public class Subkingdoms {
         downloadTask.resume()
     }
     
-    // MARK: - Fetch Subkingdom
+    // MARK: - Fetch Kingdom
     
-    public static func fetchSubkingdom(identifier: String, completed: @escaping (Result<ResponseSingle<Subkingdom>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Kingdom>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = subkingdomURL(identifier: identifier) else {
+        guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchSubkingdom(jwt: jwt, url: url, completed: completed)
+            fetchItem(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -122,14 +122,14 @@ public class Subkingdoms {
             
             switch result {
             case .success:
-                fetchSubkingdom(jwt: jwt, url: url, completed: completed)
+                fetchItem(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
         }
     }
     
-    internal static func fetchSubkingdom(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Subkingdom>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Kingdom>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -145,9 +145,9 @@ public class Subkingdoms {
             }
             
             let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseSingle<Subkingdom>
+            let result: ResponseSingle<Kingdom>
             do {
-                result = try decoder.decode(ResponseSingle<Subkingdom>.self, from: data)
+                result = try decoder.decode(ResponseSingle<Kingdom>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

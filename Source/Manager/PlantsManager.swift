@@ -1,5 +1,5 @@
 //
-//  Plants.swift
+//  PlantsManager.swift
 //  TrefleSwiftSDK
 //
 //  Created by James Barrow on 2020-04-22.
@@ -8,28 +8,28 @@
 
 import Foundation
 
-public class Plants {
+public class PlantsManager {
     
     public typealias Filter = [PlantFilter: [String]]
     public typealias Exclude = [PlantExclude]
     public typealias SortOrder = [(field: PlantSortOrder, order: Order)]
     public typealias Range = [PlantRange: String]
     
-    private static let plantsAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/plants"
+    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/plants"
     
     // MARK: - Plant URLs
     
-    internal static func plantsURL(query: String? = nil, zoneId: String? = nil, genusId: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> URL? {
+    internal static func listURL(query: String? = nil, zoneId: String? = nil, genusId: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> URL? {
         
         let urlString: String
         if query != nil {
-            urlString = "\(plantsAPIURL)/search"
+            urlString = "\(apiURL)/search"
         } else if let zoneId = zoneId {
             urlString = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/distributions/\(zoneId)/plants"
         } else if let genusId = genusId {
             urlString = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/genus/\(genusId)/plants"
         } else {
-            urlString = plantsAPIURL
+            urlString = apiURL
         }
         
         guard var urlComponents = URLComponents(string: urlString) else {
@@ -68,26 +68,26 @@ public class Plants {
         return urlComponents.url
     }
     
-    internal static func plantURL(identifier: String) -> URL? {
-        URL(string: "\(plantsAPIURL)/\(identifier)")
+    internal static func itemURL(identifier: String) -> URL? {
+        URL(string: "\(apiURL)/\(identifier)")
     }
     
     // MARK: - Fetch Plants
     
-    public static func fetchPlants(filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
+    public static func fetch(filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = plantsURL(filter: filter, exclude: exclude, order: order, range: range, page: page) else {
+        guard let url = listURL(filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchPlants(jwt: jwt, url: url, completed: completed)
+            fetch(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -95,14 +95,14 @@ public class Plants {
             
             switch result {
             case .success:
-                fetchPlants(jwt: jwt, url: url, completed: completed)
+                fetch(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
         }
     }
     
-    internal static func fetchPlants(jwt: String, url: URL, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
+    internal static func fetch(jwt: String, url: URL, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -138,20 +138,20 @@ public class Plants {
     
     // MARK: - Search Plants
     
-    public static func searchPlants(query: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
+    public static func search(query: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = plantsURL(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
+        guard let url = listURL(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchPlants(jwt: jwt, url: url, completed: completed)
+            fetch(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -159,7 +159,7 @@ public class Plants {
             
             switch result {
             case .success:
-                fetchPlants(jwt: jwt, url: url, completed: completed)
+                fetch(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
@@ -168,20 +168,20 @@ public class Plants {
     
     // MARK: - Fetch Plants in Distribution Zone
     
-    public static func fetchPlantsInDistributionZone(with zoneId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
+    public static func fetchInDistributionZone(with zoneId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = plantsURL(zoneId: zoneId, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
+        guard let url = listURL(zoneId: zoneId, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchPlants(jwt: jwt, url: url, completed: completed)
+            fetch(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -189,7 +189,7 @@ public class Plants {
             
             switch result {
             case .success:
-                fetchPlants(jwt: jwt, url: url, completed: completed)
+                fetch(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
@@ -198,20 +198,20 @@ public class Plants {
     
     // MARK: - Fetch Plants of a Genus
     
-    public static func fetchPlantsOfGenus(with genusId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
+    public static func fetchOfGenus(with genusId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = plantsURL(genusId: genusId, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
+        guard let url = listURL(genusId: genusId, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchPlants(jwt: jwt, url: url, completed: completed)
+            fetch(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -219,7 +219,7 @@ public class Plants {
             
             switch result {
             case .success:
-                fetchPlants(jwt: jwt, url: url, completed: completed)
+                fetch(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
@@ -228,20 +228,20 @@ public class Plants {
     
     // MARK: - Fetch Plant
     
-    public static func fetchPlant(identifier: String, completed: @escaping (Result<ResponseSingle<Plant>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Plant>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
             return
         }
         
-        guard let url = plantURL(identifier: identifier) else {
+        guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }
         
         guard Trefle.shared.isValid == false else {
-            fetchPlant(jwt: jwt, url: url, completed: completed)
+            fetchItem(jwt: jwt, url: url, completed: completed)
             return
         }
         
@@ -249,14 +249,14 @@ public class Plants {
             
             switch result {
             case .success:
-                fetchPlant(jwt: jwt, url: url, completed: completed)
+                fetchItem(jwt: jwt, url: url, completed: completed)
             case .failure(let error):
                 completed(Result.failure(error))
             }
         }
     }
     
-    internal static func fetchPlant(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Plant>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Plant>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
