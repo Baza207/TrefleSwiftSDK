@@ -272,7 +272,7 @@
 				18E787EC24562B260064F78D /* Subkingdoms */,
 				18E787ED24562B470064F78D /* Divisions */,
 				18E787EE24562B550064F78D /* Families */,
-				18E787EF24562B600064F78D /* Genuses */,
+				18E787EF24562B600064F78D /* Genus */,
 				186105D124507C2A008A863B /* Plants */,
 				18E787F024562B6D0064F78D /* Species */,
 				18E787E8245627750064F78D /* Image */,
@@ -496,13 +496,13 @@
 			path = Families;
 			sourceTree = "<group>";
 		};
-		18E787EF24562B600064F78D /* Genuses */ = {
+		18E787EF24562B600064F78D /* Genus */ = {
 			isa = PBXGroup;
 			children = (
 				18E7881124563AA80064F78D /* GenusRef.swift */,
 				18E7880D245631FB0064F78D /* Genus.swift */,
 			);
-			path = Genuses;
+			path = Genus;
 			sourceTree = "<group>";
 		};
 		18E787F024562B6D0064F78D /* Species */ = {
