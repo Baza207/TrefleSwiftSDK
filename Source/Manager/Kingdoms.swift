@@ -10,7 +10,7 @@ import Foundation
 
 public class Kingdoms {
     
-    internal static let kingdomsAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/kingdoms"
+    private static let kingdomsAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/kingdoms"
     
     // MARK: - Kingdoms URLs
     

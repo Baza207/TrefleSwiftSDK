@@ -14,7 +14,8 @@ public class Plants {
     public typealias Exclude = [PlantExclude]
     public typealias SortOrder = [(field: PlantSortOrder, order: Order)]
     public typealias Range = [PlantRange: String]
-    internal static let plantsAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/plants"
+    
+    private static let plantsAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/plants"
     
     // MARK: - Plant URLs
     

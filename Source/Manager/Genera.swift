@@ -13,7 +13,7 @@ public class Genera {
     public typealias Filter = [GenusFilter: [String]]
     public typealias SortOrder = [(field: GenusSortOrder, order: Order)]
     
-    internal static let genusAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/genus"
+    private static let genusAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/genus"
     
     // MARK: - Genus URLs
     

@@ -13,7 +13,7 @@ public class Families {
     public typealias Filter = [FamilyFilter: [String]]
     public typealias SortOrder = [(field: FamilySortOrder, order: Order)]
     
-    internal static let familiesAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/families"
+    private static let familiesAPIURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/families"
     
     // MARK: - Families URLs
     
