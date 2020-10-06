@@ -18,13 +18,17 @@ public class Plants {
     
     // MARK: - Plant URLs
     
-    internal static func plantsURL(query: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> URL? {
+    internal static func plantsURL(query: String? = nil, zoneId: String? = nil, genusId: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> URL? {
         
         let urlString: String
-        if query == nil {
-            urlString = plantsAPIURL
-        } else {
+        if query != nil {
             urlString = "\(plantsAPIURL)/search"
+        } else if let zoneId = zoneId {
+            urlString = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/distributions/\(zoneId)/plants"
+        } else if let genusId = genusId {
+            urlString = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/genus/\(genusId)/plants"
+        } else {
+            urlString = plantsAPIURL
         }
         
         guard var urlComponents = URLComponents(string: urlString) else {
@@ -141,6 +145,66 @@ public class Plants {
         }
         
         guard let url = plantsURL(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
+            completed(Result.failure(TrefleError.badURL))
+            return
+        }
+        
+        guard Trefle.shared.isValid == false else {
+            fetchPlants(jwt: jwt, url: url, completed: completed)
+            return
+        }
+        
+        Trefle.claimToken { (result) in
+            
+            switch result {
+            case .success:
+                fetchPlants(jwt: jwt, url: url, completed: completed)
+            case .failure(let error):
+                completed(Result.failure(error))
+            }
+        }
+    }
+    
+    // MARK: - Fetch Plants in Distribution Zone
+    
+    public static func fetchPlantsInDistributionZone(with zoneId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
+        
+        guard let jwt = Trefle.shared.jwt else {
+            completed(Result.failure(TrefleError.noJWT))
+            return
+        }
+        
+        guard let url = plantsURL(zoneId: zoneId, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
+            completed(Result.failure(TrefleError.badURL))
+            return
+        }
+        
+        guard Trefle.shared.isValid == false else {
+            fetchPlants(jwt: jwt, url: url, completed: completed)
+            return
+        }
+        
+        Trefle.claimToken { (result) in
+            
+            switch result {
+            case .success:
+                fetchPlants(jwt: jwt, url: url, completed: completed)
+            case .failure(let error):
+                completed(Result.failure(error))
+            }
+        }
+    }
+    
+    // MARK: - Fetch Plants of a Genus
+    
+    public static func fetchPlantsOfGenus(with genusId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) {
+        
+        guard let jwt = Trefle.shared.jwt else {
+            completed(Result.failure(TrefleError.noJWT))
+            return
+        }
+        
+        guard let url = plantsURL(genusId: genusId, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return
         }

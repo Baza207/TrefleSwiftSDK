@@ -154,6 +154,70 @@ class PlantsTests: XCTestCase {
         }
     }
     
+    func testGetPlantRefsInDistributionZone() throws {
+        
+        guard let config = self.config else {
+            XCTFail("Requires a test config to be setup before calling login!")
+            return
+        }
+        
+        guard let url = Plants.plantsURL(zoneId: config.twdgCode) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
+        
+        let expectation = self.expectation(description: #function)
+        
+        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
+            
+            switch result {
+            case .success(let page):
+                XCTAssert(page.items.count > 0, "No returned items!")
+                
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 60) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
+        }
+    }
+    
+    func testGetPlantRefsOfGenus() throws {
+        
+        guard let config = self.config else {
+            XCTFail("Requires a test config to be setup before calling login!")
+            return
+        }
+        
+        guard let url = Plants.plantsURL(genusId: config.genusId) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
+        
+        let expectation = self.expectation(description: #function)
+        
+        Plants.fetchPlants(jwt: config.accessToken, url: url) { (result) in
+            
+            switch result {
+            case .success(let page):
+                XCTAssert(page.items.count > 0, "No returned items!")
+                
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 60) { (error) in
+            XCTAssertNil(error, error?.localizedDescription ?? "")
+        }
+    }
+    
     func testGetPlant() throws {
         
         guard let config = self.config else {
