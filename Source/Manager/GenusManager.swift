@@ -1,5 +1,5 @@
 //
-//  GeneraManager.swift
+//  GenusManager.swift
 //  TrefleSwiftSDK
 //
 //  Created by James Barrow on 2020-10-05.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class GeneraManager {
+public class GenusManager {
     
     public typealias Filter = [GenusFilter: [String]]
     public typealias SortOrder = [(field: GenusSortOrder, order: Order)]
