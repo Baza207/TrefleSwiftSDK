@@ -26,7 +26,7 @@ struct TestConfig: Decodable {
     let genusId: String
     let genusName: String
     let plantId: String
-    let plantCommonName: String
+    let commonName: String
     let twdgCode: String
     let speciesId: String
     

@@ -27,7 +27,7 @@ public struct SpeciesRef: Decodable, CustomStringConvertible {
     public let genusName: String
     public let imageURL: String?
     public let links: Links
-    public let synonyms: [Synonym]
+    public let synonyms: [String]
     
     public var description: String {
         "SpeciesRef(identifier: \(identifier), slug: \(slug), scientificName: \(scientificName), familyName: \(familyName), genusName: \(genusName))"

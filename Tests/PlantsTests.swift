@@ -52,7 +52,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.plantsURL(filter: [.commonName: [config.plantCommonName]]) else {
+        guard let url = Plants.plantsURL(filter: [.commonName: [config.commonName]]) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -63,7 +63,7 @@ class PlantsTests: XCTestCase {
             
             switch result {
             case .success(let response):
-                XCTAssert(response.items.contains(where: { $0.commonName?.lowercased() == config.plantCommonName.lowercased() }), "Returned items should have the common name of '\(config.plantCommonName)' but it wasn't found in '\(response.items)'!")
+                XCTAssert(response.items.contains(where: { $0.commonName?.lowercased() == config.commonName.lowercased() }), "Returned items should have the common name of '\(config.commonName)' but it wasn't found in '\(response.items)'!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)
@@ -129,7 +129,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = Plants.plantsURL(query: config.plantCommonName) else {
+        guard let url = Plants.plantsURL(query: config.commonName) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -140,7 +140,7 @@ class PlantsTests: XCTestCase {
             
             switch result {
             case .success(let response):
-                XCTAssert(response.items.contains(where: { $0.commonName?.lowercased() == config.plantCommonName.lowercased() }), "Returned items should have the common name of '\(config.plantCommonName)' but it wasn't found in '\(response.items)'!")
+                XCTAssert(response.items.contains(where: { $0.commonName?.lowercased() == config.commonName.lowercased() }), "Returned items should have the common name of '\(config.commonName)' but it wasn't found in '\(response.items)'!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

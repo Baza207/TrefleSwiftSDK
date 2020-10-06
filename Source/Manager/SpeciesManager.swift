@@ -10,17 +10,50 @@ import Foundation
 
 public class SpeciesManager {
     
+    public typealias Filter = [SpeciesFilter: [String]]
+    public typealias Exclude = [SpeciesExclude]
+    public typealias SortOrder = [(field: SpeciesSortOrder, order: Order)]
+    public typealias Range = [SpeciesRange: String]
+    
     private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/species"
     
     // MARK: - Species URLs
     
-    internal static func listURL(page: Int? = nil) -> URL? {
+    internal static func listURL(query: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> URL? {
         
-        guard var urlComponents = URLComponents(string: apiURL) else {
+        let urlString: String
+        if query != nil {
+            urlString = "\(apiURL)/search"
+        } else {
+            urlString = apiURL
+        }
+        
+        guard var urlComponents = URLComponents(string: urlString) else {
             return nil
         }
         
         var queryItems = [URLQueryItem]()
+        
+        if let query = query, query.isEmpty == false {
+            queryItems.append(URLQueryItem(name: "q", value: query))
+        }
+        
+        filter?.forEach { (field, value) in
+            let values = value.joined(separator: ",")
+            queryItems.append(URLQueryItem(name: "filter[\(field.rawValue)]", value: values))
+        }
+        
+        exclude?.forEach { (field) in
+            queryItems.append(URLQueryItem(name: "filter_not[\(field.rawValue)]", value: nil))
+        }
+        
+        order?.forEach { (field, order) in
+            queryItems.append(URLQueryItem(name: "order[\(field.rawValue)]", value: order.rawValue))
+        }
+        
+        range?.forEach { (field, value) in
+            queryItems.append(URLQueryItem(name: "range[\(field.rawValue)]", value: value))
+        }
         
         if let page = page {
             queryItems.append(URLQueryItem(name: "page", value: "\(page)"))
@@ -37,7 +70,7 @@ public class SpeciesManager {
     
     // MARK: - Fetch Species
     
-    public static func fetchList(page: Int? = nil, completed: @escaping (Result<ResponseList<SpeciesRef>, Error>) -> Void) {
+    public static func fetchList(query: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<SpeciesRef>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))

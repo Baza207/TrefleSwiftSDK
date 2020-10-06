@@ -64,6 +64,10 @@
 		18D11838252BAF110004DC72 /* GenusSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11837252BAF110004DC72 /* GenusSortOrder.swift */; };
 		18D11842252C6BBC0004DC72 /* SpeciesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11841252C6BBC0004DC72 /* SpeciesManager.swift */; };
 		18D1184A252C6D410004DC72 /* SpeciesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11849252C6D410004DC72 /* SpeciesTests.swift */; };
+		18D11853252C6EB80004DC72 /* SpeciesFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11852252C6EB80004DC72 /* SpeciesFilter.swift */; };
+		18D11857252C6EC00004DC72 /* SpeciesExclude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11856252C6EC00004DC72 /* SpeciesExclude.swift */; };
+		18D1185B252C6ED00004DC72 /* SpeciesSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1185A252C6ED00004DC72 /* SpeciesSortOrder.swift */; };
+		18D1185F252C6ED90004DC72 /* SpeciesRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1185E252C6ED90004DC72 /* SpeciesRange.swift */; };
 		18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF92652454D9800034A058 /* PlantRefsOperation.swift */; };
 		18E787E7245623B80064F78D /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E6245623B80064F78D /* Plant.swift */; };
 		18E787EA2456278F0064F78D /* ImageRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E92456278F0064F78D /* ImageRef.swift */; };
@@ -164,6 +168,10 @@
 		18D11837252BAF110004DC72 /* GenusSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenusSortOrder.swift; sourceTree = "<group>"; };
 		18D11841252C6BBC0004DC72 /* SpeciesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesManager.swift; sourceTree = "<group>"; };
 		18D11849252C6D410004DC72 /* SpeciesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesTests.swift; sourceTree = "<group>"; };
+		18D11852252C6EB80004DC72 /* SpeciesFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesFilter.swift; sourceTree = "<group>"; };
+		18D11856252C6EC00004DC72 /* SpeciesExclude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesExclude.swift; sourceTree = "<group>"; };
+		18D1185A252C6ED00004DC72 /* SpeciesSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesSortOrder.swift; sourceTree = "<group>"; };
+		18D1185E252C6ED90004DC72 /* SpeciesRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesRange.swift; sourceTree = "<group>"; };
 		18DF92652454D9800034A058 /* PlantRefsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRefsOperation.swift; sourceTree = "<group>"; };
 		18E787E6245623B80064F78D /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		18E787E92456278F0064F78D /* ImageRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRef.swift; sourceTree = "<group>"; };
@@ -380,6 +388,7 @@
 				18D11813252BA3CE0004DC72 /* Families */,
 				18D11832252BAEF70004DC72 /* Genus */,
 				183B16BB252A5F7D007C7A72 /* Plants */,
+				18D11851252C6EA20004DC72 /* Species */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -400,6 +409,17 @@
 				18D11837252BAF110004DC72 /* GenusSortOrder.swift */,
 			);
 			path = Genus;
+			sourceTree = "<group>";
+		};
+		18D11851252C6EA20004DC72 /* Species */ = {
+			isa = PBXGroup;
+			children = (
+				18D11852252C6EB80004DC72 /* SpeciesFilter.swift */,
+				18D11856252C6EC00004DC72 /* SpeciesExclude.swift */,
+				18D1185A252C6ED00004DC72 /* SpeciesSortOrder.swift */,
+				18D1185E252C6ED90004DC72 /* SpeciesRange.swift */,
+			);
+			path = Species;
 			sourceTree = "<group>";
 		};
 		18DF92632454D94B0034A058 /* Operations */ = {
@@ -634,6 +654,7 @@
 				18E7880224562F4B0064F78D /* DivisionOrderRef.swift in Sources */,
 				188CA156252893D600C26F55 /* LigneousType.swift in Sources */,
 				18E788182456F4400064F78D /* Source.swift in Sources */,
+				18D1185F252C6ED90004DC72 /* SpeciesRange.swift in Sources */,
 				183B16B1252A5D56007C7A72 /* Subkingdoms.swift in Sources */,
 				18E78820245768EC0064F78D /* Flower.swift in Sources */,
 				188CA15E2528940600C26F55 /* Month.swift in Sources */,
@@ -655,6 +676,7 @@
 				187A8FA424E704510021B640 /* Metadata.swift in Sources */,
 				18E7882424576B1D0064F78D /* FruitOrSeed.swift in Sources */,
 				18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */,
+				18D11853252C6EB80004DC72 /* SpeciesFilter.swift in Sources */,
 				18E787F424562C700064F78D /* SubkingdomRef.swift in Sources */,
 				18E7880E245631FB0064F78D /* Genus.swift in Sources */,
 				188CA152252893BF00C26F55 /* EdiblePart.swift in Sources */,
@@ -665,6 +687,7 @@
 				18D11815252BA3EB0004DC72 /* FamilyFilter.swift in Sources */,
 				18C3D77A25260B69006B6413 /* Order.swift in Sources */,
 				18C3D77E2526636F006B6413 /* Images.swift in Sources */,
+				18D1185B252C6ED00004DC72 /* SpeciesSortOrder.swift in Sources */,
 				183B16C2252A6006007C7A72 /* Divisions.swift in Sources */,
 				186105D324507C37008A863B /* PlantRef.swift in Sources */,
 				183B16932529E281007C7A72 /* PlantFilter.swift in Sources */,
@@ -679,6 +702,7 @@
 				188CA1662528942600C26F55 /* Texture.swift in Sources */,
 				188CA14E2528935600C26F55 /* Duration.swift in Sources */,
 				188CA1622528941200C26F55 /* Color.swift in Sources */,
+				18D11857252C6EC00004DC72 /* SpeciesExclude.swift in Sources */,
 				188CA14A2528934500C26F55 /* Rank.swift in Sources */,
 				18D117F4252B953E0004DC72 /* DivisionClasses.swift in Sources */,
 				18D11819252BA3F50004DC72 /* FamilySortOrder.swift in Sources */,
