@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension Trefle {
+public extension Trefle {
     
     // MARK: - Authentication
     
-    static func authorize(_ completed: ((Result<AuthState, Error>) -> Void)? = nil) {
+    internal static func authorize(_ completed: ((Result<AuthState, Error>) -> Void)? = nil) {
         
         // Check if JWT state is valid, otherwise refresh token
         guard shared.isValid == false else {
@@ -48,7 +48,7 @@ extension Trefle {
     
     // MARK: - Token
     
-    static internal func claimToken(_ completed: @escaping (Result<JWTState, Error>) -> Void) {
+    internal static func claimToken(_ completed: @escaping (Result<JWTState, Error>) -> Void) {
         
         guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/auth/claim") else {
             completed(Result.failure(TrefleError.badURL))
@@ -109,7 +109,7 @@ extension Trefle {
     
     // MARK: - Logout
     
-    static func logout() throws {
+    internal static func logout() throws {
         
         let manager = Trefle.shared
         
