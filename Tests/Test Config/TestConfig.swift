@@ -29,6 +29,7 @@ struct TestConfig: Decodable {
     let commonName: String
     let twdgCode: String
     let speciesId: String
+    let zoneId: String
     
     static func load(_ overrideUrl: URL? = nil) throws -> TestConfig? {
         
