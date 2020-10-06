@@ -28,6 +28,7 @@ struct TestConfig: Decodable {
     let plantId: String
     let plantCommonName: String
     let twdgCode: String
+    let speciesId: String
     
     static func load(_ overrideUrl: URL? = nil) throws -> TestConfig? {
         
