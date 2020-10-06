@@ -11,22 +11,29 @@ TrefleSwiftSDK is a Swift wrapper around the [Trefle API](https://trefle.io).
 
 This is currently a work in progress. There is a list of currently supported features listed below.
 
-- [ ] Authentication  
-- [ ] Kingdoms  
-- [ ] Subkingdoms  
-- [ ] Divisions  
-- [ ] Families  
-- [ ] Genuses  
-- [ ] Plants  
-- [ ] Species  
+- [x] Authentication  
+- [x] Kingdoms  
+- [x] Subkingdoms  
+- [x] Divisions  
+- [x] Families  
+- [x] Genus  
+- [x] Plants  
+- [x] Species  
+- [x] Distribution Zones  
+- [ ] Operations for all types
+- [ ] Combine support
 - [ ] Error Handling
+- [x] Basic test suite
+- [ ] Deep test suite
+
+**Note:** The current version of  `TrefleSwiftSDK` is based on [Trefle 1.6.0](https://docs.trefle.io/reference).
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
-- Create a Trefle account at: [https://trefle.io](https://trefle.io/registrations/new)
-- Once you've created your account and confirmed it via the confirmation email, you will be able to access your "Access Token" at [https://trefle.io](https://trefle.io/registrations)
+- Create a Trefle account at: [https://trefle.io](https://trefle.io/users/sign_up)
+- Once you've created your account and confirmed it via the confirmation email, you will be able to access your "Access Token" at [https://trefle.io/profile](https://trefle.io/profile)
 
 ## Installation
 
@@ -60,11 +67,23 @@ pod 'TrefleSwiftSDK', '~> 0.1.0'
 
 ### Basic Setup
 
-Coming Soon!
+Once you have a access token from your [Trefle Profile](https://trefle.io/profile) you will also need to create an URI in your Xcode project. To do this you can follow the steps to [Register Your URL Scheme](https://developer.apple.com/documentation/uikit/inter-process_communication/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app) in the Apple documentation.
 
-### Authentication
+Once you have this, you can import the `TrefleSwiftSDK` framework in your project and set it up for use.
 
-Coming Soon!
+1. Import `TrefleSwiftSDK` in your `AppDelegate`:
+
+```swift
+import TrefleSwiftSDK
+```
+
+2. Setup `TrefleSwiftSDK` by calling `configure(accessToken:uri:)` in `application(_:didFinishLaunchingWithOptions:)`, passing in your access token from your [Trefle Profile](https://trefle.io/profile) as well as the URI you setup in Xcode Info tab.
+
+```swift
+Trefle.configure(accessToken: "<Access Token>", uri: "<Redirect URI>")
+```
+
+3. You can then use all the fetch and search calls from any of the managers in the project. All the authentication is handled by the framework using the given access token, meaning you don't have to worry about logging in users or logging them out. All the JWT autnetication and re-authentication on expired tokens is done automatically.
 
 ## Contributors
 
