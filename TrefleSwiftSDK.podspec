@@ -13,4 +13,7 @@ Pod::Spec.new do |s|
   s.exclude_files = 'Tests/**/TestConfig.{json}'
   s.swift_version = "5.1"
 
+  s.test_spec 'Tests' do |test_spec|
+    test_spec.source_files = 'Tests/**/*.swift'
+  end
 end
