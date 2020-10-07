@@ -1,5 +1,5 @@
 //
-//  Images.swift
+//  ImageCollection.swift
 //  TrefleSwiftSDK
 //
 //  Created by James Barrow on 2020-10-01.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Images: Decodable, CustomStringConvertible {
+public struct ImageCollection: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     

@@ -32,7 +32,7 @@ public struct Species: Decodable, CustomStringConvertible {
     public let edible: Bool?
     public let vegetable: Bool?
     public let observations: String?
-    public let images: Images
+    public let images: ImageCollection
     public let commonNames: [String: [String]]
     public let distributions: Distribution
     public let flower: Flower
