@@ -26,6 +26,24 @@ public struct Specification: Decodable, CustomStringConvertible {
         "Specification(ligneousType: \(ligneousType?.rawValue ?? "-"), growthForm: \(growthForm ?? "-"), growthHabit: \(growthHabit ?? "-"), growthRate: \(growthRate ?? "-"), averageHeight: \(averageHeight ), maximumHeight: \(maximumHeight), nitrogenFixation: \(nitrogenFixation ?? "-"), shapeAndOrientation: \(shapeAndOrientation ?? "-"), toxicity: \(toxicity?.rawValue ?? "-"))"
     }
     
+    // MARK: - Init
+    
+    public init(ligneousType: LigneousType? = nil, growthForm: String? = nil, growthHabit: String? = nil, growthRate: String? = nil, averageHeight: [String: Double?], maximumHeight: [String: Double?], nitrogenFixation: String? = nil, shapeAndOrientation: String? = nil, toxicity: Toxicity? = nil) {
+        self.ligneousType = ligneousType
+        self.growthForm = growthForm
+        self.growthHabit = growthHabit
+        self.growthRate = growthRate
+        self.averageHeight = averageHeight
+        self.maximumHeight = maximumHeight
+        self.nitrogenFixation = nitrogenFixation
+        self.shapeAndOrientation = shapeAndOrientation
+        self.toxicity = toxicity
+    }
+    
+    internal static var blank: Self {
+        Self(averageHeight: [:], maximumHeight: [:])
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

@@ -20,6 +20,18 @@ public struct Foliage: Decodable, CustomStringConvertible {
         "Foliage(texture: \(texture?.rawValue ?? "-"), color: \(color ?? []))"
     }
     
+    // MARK: - Init
+    
+    public init(texture: Texture? = nil, color: [Color]? = nil, leafRetention: Bool? = nil) {
+        self.texture = texture
+        self.color = color
+        self.leafRetention = leafRetention
+    }
+    
+    internal static var blank: Self {
+        Self()
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

@@ -26,6 +26,20 @@ public struct Source: Decodable, CustomStringConvertible {
         "Source(identifier: \(identifier ?? "-"), name: \(name), citation: \(citation ?? "-"), url: \(urlString ?? "-"), lastUpdate: \(lastUpdate))"
     }
     
+    // MARK: - Init
+    
+    public init(identifier: String? = nil, name: String, urlString: String? = nil, lastUpdate: String, citation: String? = nil) {
+        self.identifier = identifier
+        self.name = name
+        self.urlString = urlString
+        self.lastUpdate = lastUpdate
+        self.citation = citation
+    }
+    
+    internal static var blank: Self {
+        Self(name: "", lastUpdate: "")
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

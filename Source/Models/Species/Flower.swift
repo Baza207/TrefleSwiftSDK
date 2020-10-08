@@ -19,4 +19,15 @@ public struct Flower: Decodable, CustomStringConvertible {
         "Flower(color: \(color ?? []))"
     }
     
+    // MARK: - Init
+    
+    public init(color: [Color]? = nil, conspicuous: Bool? = nil) {
+        self.color = color
+        self.conspicuous = conspicuous
+    }
+    
+    internal static var blank: Self {
+        Self()
+    }
+    
 }

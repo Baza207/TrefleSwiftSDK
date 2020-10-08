@@ -10,7 +10,7 @@ import Foundation
 
 public class SubkingdomsManager {
     
-    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/subkingdoms"
+    internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/subkingdoms"
     
     // MARK: - Subkingdoms URLs
     

@@ -22,6 +22,20 @@ public struct DivisionOrder: Codable, CustomStringConvertible {
         "DivisionOrder(identifier: \(identifier), name: \(name), slug: \(slug), divisionClass: \(divisionClass))"
     }
     
+    // MARK: - Init
+    
+    public init(identifier: Int, name: String, slug: String, divisionClass: DivisionClass? = nil) {
+        self.identifier = identifier
+        self.name = name
+        self.slug = slug
+        self.divisionClass = divisionClass ?? DivisionClass.blank
+        self.links = Links(current: "\(DivisionOrdersManager.apiURL)/\(identifier)")
+    }
+    
+    internal static var blank: Self {
+        Self(identifier: -1, name: "", slug: "")
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

@@ -23,4 +23,19 @@ public struct ImageCollection: Decodable, CustomStringConvertible {
         "Images(flower: \(flower), leaf: \(leaf), habit: \(habit), fruit: \(fruit), bark: \(bark), other: \(other))"
     }
     
+    // MARK: - Init
+    
+    public init(flower: [ImageRef], leaf: [ImageRef], habit: [ImageRef], fruit: [ImageRef], bark: [ImageRef], other: [ImageRef]) {
+        self.flower = flower
+        self.leaf = leaf
+        self.habit = habit
+        self.fruit = fruit
+        self.bark = bark
+        self.other = other
+    }
+    
+    internal static var blank: Self {
+        Self(flower: [], leaf: [], habit: [], fruit: [], bark: [], other: [])
+    }
+    
 }

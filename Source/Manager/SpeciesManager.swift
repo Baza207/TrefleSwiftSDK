@@ -15,7 +15,7 @@ public class SpeciesManager {
     public typealias SortOrder = [(field: SpeciesSortOrder, order: Order)]
     public typealias Range = [SpeciesRange: String]
     
-    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/species"
+    internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/species"
     
     // MARK: - Species URLs
     

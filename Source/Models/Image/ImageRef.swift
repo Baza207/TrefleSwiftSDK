@@ -21,6 +21,18 @@ public struct ImageRef: Decodable, CustomStringConvertible {
         "PlantRef(identifier: \(identifier), urlString: \(urlString))"
     }
     
+    // MARK: - Init
+    
+    public init(identifier: Int, urlString: String, copyright: String? = nil) {
+        self.identifier = identifier
+        self.urlString = urlString
+        self.copyright = copyright
+    }
+    
+    internal static var blank: Self {
+        Self(identifier: -1, urlString: "")
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

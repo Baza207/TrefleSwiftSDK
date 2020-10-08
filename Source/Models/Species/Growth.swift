@@ -38,6 +38,36 @@ public struct Growth: Decodable, CustomStringConvertible {
         "Growth()"
     }
     
+    // MARK: - Init
+    
+    public init(daysToHarvest: Double? = nil, growthDescription: String? = nil, sowing: String? = nil, phMinimum: Double? = nil, phMaximum: Double? = nil, light: Int? = nil, atmosphericHumidity: Int? = nil, growthMonths: [Month]? = nil, bloomMonths: [Month]? = nil, fruitMonths: [Month]? = nil, rowSpacing: [String: Double?], spread: [String: Double?], minimumPrecipitation: [String: Double?], maximumPrecipitation: [String: Double?], minimumRootDepth: [String: Double?], minimumTemperature: [String: Double?], maximumTemperature: [String: Double?], soilNutriments: Int? = nil, soilSalinity: Int? = nil, soilTexture: Int? = nil, soilHumidity: Int? = nil) {
+        self.daysToHarvest = daysToHarvest
+        self.growthDescription = growthDescription
+        self.sowing = sowing
+        self.phMinimum = phMinimum
+        self.phMaximum = phMaximum
+        self.light = light
+        self.atmosphericHumidity = atmosphericHumidity
+        self.growthMonths = growthMonths
+        self.bloomMonths = bloomMonths
+        self.fruitMonths = fruitMonths
+        self.rowSpacing = rowSpacing
+        self.spread = spread
+        self.minimumPrecipitation = minimumPrecipitation
+        self.maximumPrecipitation = maximumPrecipitation
+        self.minimumRootDepth = minimumRootDepth
+        self.minimumTemperature = minimumTemperature
+        self.maximumTemperature = maximumTemperature
+        self.soilNutriments = soilNutriments
+        self.soilSalinity = soilSalinity
+        self.soilTexture = soilTexture
+        self.soilHumidity = soilHumidity
+    }
+    
+    internal static var blank: Self {
+        Self(rowSpacing: [:], spread: [:], minimumPrecipitation: [:], maximumPrecipitation: [:], minimumRootDepth: [:], minimumTemperature: [:], maximumTemperature: [:])
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

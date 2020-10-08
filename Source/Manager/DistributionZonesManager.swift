@@ -10,7 +10,7 @@ import Foundation
 
 public class DistributionZonesManager {
     
-    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/distributions"
+    internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/distributions"
     
     // MARK: - Distribution Zones URLs
     

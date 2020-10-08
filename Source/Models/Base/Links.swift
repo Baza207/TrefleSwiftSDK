@@ -17,7 +17,6 @@ public struct Links: Codable, CustomStringConvertible {
     public let last: String?
     public let previous: String?
     public let next: String?
-    
     public let kingdom: String?
     public let subkingdom: String?
     public let division: String?
@@ -30,6 +29,25 @@ public struct Links: Codable, CustomStringConvertible {
     
     public var description: String {
         "Links(current: \(current))"
+    }
+    
+    // MARK: - Init
+    
+    init(current: String, first: String? = nil, last: String? = nil, previous: String? = nil, next: String? = nil, kingdom: String? = nil, subkingdom: String? = nil, division: String? = nil, divisionClass: String? = nil, divisionOrder: String? = nil, family: String? = nil, genus: String? = nil, plant: String? = nil, species: String? = nil) {
+        self.current = current
+        self.first = first
+        self.last = last
+        self.previous = previous
+        self.next = next
+        self.kingdom = kingdom
+        self.subkingdom = subkingdom
+        self.division = division
+        self.divisionClass = divisionClass
+        self.divisionOrder = divisionOrder
+        self.family = family
+        self.genus = genus
+        self.plant = plant
+        self.species = species
     }
     
     // MARK: - Coding

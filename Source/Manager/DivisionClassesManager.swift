@@ -10,7 +10,7 @@ import Foundation
 
 public class DivisionClassesManager {
     
-    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/division_classes"
+    internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/division_classes"
     
     // MARK: - Division Classes URLs
     

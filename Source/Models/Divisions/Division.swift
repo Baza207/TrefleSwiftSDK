@@ -22,6 +22,20 @@ public struct Division: Codable, CustomStringConvertible {
         "Division(identifier: \(identifier), name: \(name), slug: \(slug), subkingdom: \(subkingdom))"
     }
     
+    // MARK: - Init
+    
+    public init(identifier: Int, name: String, slug: String, subkingdom: Subkingdom? = nil) {
+        self.identifier = identifier
+        self.name = name
+        self.slug = slug
+        self.subkingdom = subkingdom ?? Subkingdom.blank
+        self.links = Links(current: "\(DivisionsManager.apiURL)/\(identifier)")
+    }
+    
+    internal static var blank: Self {
+        Self(identifier: -1, name: "", slug: "")
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

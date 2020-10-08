@@ -22,6 +22,20 @@ public struct DivisionClass: Codable, CustomStringConvertible {
         "DivisionClass(identifier: \(identifier), name: \(name), slug: \(slug))"
     }
     
+    // MARK: - Init
+    
+    public init(identifier: Int, name: String, slug: String, division: Division? = nil) {
+        self.identifier = identifier
+        self.name = name
+        self.slug = slug
+        self.division = division
+        self.links = Links(current: "\(DivisionClassesManager.apiURL)/\(identifier)")
+    }
+    
+    internal static var blank: Self {
+        Self(identifier: -1, name: "", slug: "")
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

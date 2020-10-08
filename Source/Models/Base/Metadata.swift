@@ -19,6 +19,13 @@ public struct Metadata: Codable, CustomStringConvertible {
         "Metadata(total: \(total ?? -1), lastModified: \(lastModified ?? "-")"
     }
     
+    // MARK: - Init
+    
+    public init(total: Int? = nil, lastModified: String? = nil) {
+        self.total = total
+        self.lastModified = lastModified
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
