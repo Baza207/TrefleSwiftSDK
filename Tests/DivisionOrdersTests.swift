@@ -52,7 +52,8 @@ class DivisionOrdersTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionOrdersManager.listURL(page: 2) else {
+        let requstedPage = 2
+        guard let url = DivisionOrdersManager.listURL(page: requstedPage) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -69,7 +70,7 @@ class DivisionOrdersTests: XCTestCase {
                     return
                 }
                 
-                XCTAssert(page == 2, "Wrong page returned!")
+                XCTAssert(page == requstedPage, "Wrong page returned!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)
