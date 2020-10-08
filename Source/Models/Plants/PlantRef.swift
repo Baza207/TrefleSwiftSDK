@@ -22,7 +22,7 @@ public struct PlantRef: Decodable, CustomStringConvertible {
     public let status: Status
     public let rank: Rank
     public let familyCommonName: String?
-    public let familyName: String
+    public let familyName: String?
     public let genusId: Int
     public let genusName: String
     public let imageURL: String?
@@ -30,7 +30,7 @@ public struct PlantRef: Decodable, CustomStringConvertible {
     public let synonyms: [String]
     
     public var description: String {
-        "PlantRef(identifier: \(identifier), slug: \(slug), scientificName: \(scientificName), familyName: \(familyName), genusName: \(genusName))"
+        "PlantRef(identifier: \(identifier), slug: \(slug), scientificName: \(scientificName), familyName: \(familyName ?? "-"), genusName: \(genusName))"
     }
     
     // MARK: - Init
