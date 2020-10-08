@@ -22,7 +22,7 @@ public struct Species: Decodable, CustomStringConvertible {
     public let status: Status
     public let rank: Rank
     public let familyCommonName: String?
-    public let familyName: String
+    public let familyName: String?
     public let genusId: Int
     public let genusName: String
     public let imageURL: String?
@@ -44,7 +44,7 @@ public struct Species: Decodable, CustomStringConvertible {
     public let sources: [Source]
     
     public var description: String {
-        "Species(identifier: \(identifier), slug: \(slug), scientificName: \(scientificName), familyName: \(familyName), genusName: \(genusName))"
+        "Species(identifier: \(identifier), slug: \(slug), scientificName: \(scientificName), familyName: \(familyName ?? "-"), genusName: \(genusName))"
     }
     
     // MARK: - Init
