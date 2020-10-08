@@ -13,10 +13,25 @@ public struct Links: Codable, CustomStringConvertible {
     // MARK: - Properties
     
     public let current: String
+    public var currentPage: Int? {
+        page(in: current)
+    }
     public let first: String?
+    public var firstPage: Int? {
+        page(in: first)
+    }
     public let last: String?
+    public var lastPage: Int? {
+        page(in: last)
+    }
     public let previous: String?
+    public var previousPage: Int? {
+        page(in: previous)
+    }
     public let next: String?
+    public var nextPage: Int? {
+        page(in: next)
+    }
     public let kingdom: String?
     public let subkingdom: String?
     public let division: String?
@@ -68,6 +83,21 @@ public struct Links: Codable, CustomStringConvertible {
         case genus
         case plant
         case species
+    }
+    
+    // MARK: - Helpers
+    
+    internal func page(in urlString: String?) -> Int? {
+        
+        guard
+            let urlString = urlString,
+            let comps = URLComponents(string: urlString),
+            let pageItem = comps.queryItems?.first(where: { $0.name == "page" }),
+            let pageString = pageItem.value, let page = Int(pageString)
+        else {
+            return nil
+        }
+        return page
     }
     
 }
