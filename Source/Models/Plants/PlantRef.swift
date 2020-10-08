@@ -25,7 +25,11 @@ public struct PlantRef: Decodable, CustomStringConvertible {
     public let familyName: String?
     public let genusId: Int
     public let genusName: String
-    public let imageURL: String?
+    private let imageURLString: String?
+    public var imageURL: URL? {
+        guard let urlString = imageURLString else { return nil }
+        return URL(string: urlString)
+    }
     public let links: Links
     public let synonyms: [String]
     
@@ -49,7 +53,7 @@ public struct PlantRef: Decodable, CustomStringConvertible {
         self.familyName = familyName
         self.genusId = genusId
         self.genusName = genusName
-        self.imageURL = imageURL
+        self.imageURLString = imageURL
         self.links = Links(current: "\(PlantsManager.apiURL)/\(identifier)")
         self.synonyms = synonyms
     }
@@ -72,7 +76,7 @@ public struct PlantRef: Decodable, CustomStringConvertible {
         case rank
         case familyCommonName = "family_common_name"
         case genusId = "genus_id"
-        case imageURL = "image_url"
+        case imageURLString = "image_url"
         case synonyms
         case genusName = "genus"
         case familyName = "family"

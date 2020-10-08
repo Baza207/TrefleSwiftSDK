@@ -25,7 +25,11 @@ public struct SpeciesRef: Decodable, CustomStringConvertible {
     public let familyName: String?
     public let genusId: Int
     public let genusName: String
-    public let imageURL: String?
+    private let imageURLString: String?
+    public var imageURL: URL? {
+        guard let urlString = imageURLString else { return nil }
+        return URL(string: urlString)
+    }
     public let links: Links
     public let synonyms: [String]
     
@@ -49,7 +53,7 @@ public struct SpeciesRef: Decodable, CustomStringConvertible {
         self.familyName = familyName
         self.genusId = genusId
         self.genusName = genusName
-        self.imageURL = imageURL
+        self.imageURLString = imageURL
         self.links = Links(current: "\(SpeciesManager.apiURL)/\(identifier)")
         self.synonyms = synonyms
     }
@@ -74,7 +78,7 @@ public struct SpeciesRef: Decodable, CustomStringConvertible {
         case familyName = "family"
         case genusId = "genus_id"
         case genusName = "genus"
-        case imageURL = "image_url"
+        case imageURLString = "image_url"
         case links
         case synonyms
     }
