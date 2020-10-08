@@ -18,7 +18,7 @@ public struct ImageRef: Decodable, CustomStringConvertible {
     public let copyright: String?
     
     public var description: String {
-        "PlantRef(identifier: \(identifier), urlString: \(urlString))"
+        "ImageRef(identifier: \(identifier), urlString: \(urlString))"
     }
     
     // MARK: - Init

@@ -20,7 +20,7 @@ public struct ImageCollection: Decodable, CustomStringConvertible {
     public let other: [ImageRef]
     
     public var description: String {
-        "Images(flower: \(flower), leaf: \(leaf), habit: \(habit), fruit: \(fruit), bark: \(bark), other: \(other))"
+        "ImageCollection(flower: \(flower), leaf: \(leaf), habit: \(habit), fruit: \(fruit), bark: \(bark), other: \(other))"
     }
     
     // MARK: - Init
