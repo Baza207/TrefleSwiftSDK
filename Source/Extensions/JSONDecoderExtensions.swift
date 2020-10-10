@@ -23,7 +23,10 @@ extension JSONDecoder {
     internal static var customJSONDecoder: JSONDecoder {
         
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss.SSS'Z'"
+        dateFormatter.calendar = Calendar(identifier: .iso8601)
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         return decoder
     }
     

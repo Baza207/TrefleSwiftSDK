@@ -19,7 +19,7 @@ public struct Source: Decodable, CustomStringConvertible {
         guard let urlString = urlString else { return nil }
         return URL(string: urlString)
     }
-    public let lastUpdate: String // FIXME: Change to date
+    public let lastUpdate: Date
     public let citation: String?
     
     public var description: String {
@@ -28,7 +28,7 @@ public struct Source: Decodable, CustomStringConvertible {
     
     // MARK: - Init
     
-    public init(identifier: String? = nil, name: String, urlString: String? = nil, lastUpdate: String, citation: String? = nil) {
+    public init(identifier: String? = nil, name: String, urlString: String? = nil, lastUpdate: Date, citation: String? = nil) {
         self.identifier = identifier
         self.name = name
         self.urlString = urlString
@@ -37,7 +37,7 @@ public struct Source: Decodable, CustomStringConvertible {
     }
     
     internal static var blank: Self {
-        Self(name: "", lastUpdate: "")
+        Self(name: "", lastUpdate: Date.distantPast)
     }
     
     // MARK: - Coding
