@@ -92,7 +92,7 @@ public class FamiliesManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<FamilyRef>?
             do {
                 result = try decoder.decode(ResponseList<FamilyRef>.self, from: data)
@@ -156,7 +156,7 @@ public class FamiliesManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseSingle<Family>
             do {
                 result = try decoder.decode(ResponseSingle<Family>.self, from: data)

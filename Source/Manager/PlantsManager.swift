@@ -117,7 +117,7 @@ public class PlantsManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<PlantRef>?
             do {
                 result = try decoder.decode(ResponseList<PlantRef>.self, from: data)
@@ -271,7 +271,7 @@ public class PlantsManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseSingle<Plant>
             do {
                 result = try decoder.decode(ResponseSingle<Plant>.self, from: data)

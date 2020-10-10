@@ -80,7 +80,7 @@ public class SubkingdomsManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<SubkingdomRef>?
             do {
                 result = try decoder.decode(ResponseList<SubkingdomRef>.self, from: data)
@@ -144,7 +144,7 @@ public class SubkingdomsManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseSingle<Subkingdom>
             do {
                 result = try decoder.decode(ResponseSingle<Subkingdom>.self, from: data)

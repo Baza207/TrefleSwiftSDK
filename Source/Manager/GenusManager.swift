@@ -83,7 +83,7 @@ public class GenusManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<GenusRef>?
             do {
                 result = try decoder.decode(ResponseList<GenusRef>.self, from: data)
@@ -147,7 +147,7 @@ public class GenusManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseSingle<Genus>
             do {
                 result = try decoder.decode(ResponseSingle<Genus>.self, from: data)

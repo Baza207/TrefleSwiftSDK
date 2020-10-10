@@ -80,7 +80,7 @@ public class DivisionOrdersManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<DivisionOrderRef>?
             do {
                 result = try decoder.decode(ResponseList<DivisionOrderRef>.self, from: data)
@@ -145,7 +145,7 @@ public class DivisionOrdersManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseSingle<DivisionOrder>
             do {
                 result = try decoder.decode(ResponseSingle<DivisionOrder>.self, from: data)

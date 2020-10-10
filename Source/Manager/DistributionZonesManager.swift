@@ -80,7 +80,7 @@ public class DistributionZonesManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<Zone>?
             do {
                 result = try decoder.decode(ResponseList<Zone>.self, from: data)
@@ -144,7 +144,7 @@ public class DistributionZonesManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseSingle<Zone>
             do {
                 result = try decoder.decode(ResponseSingle<Zone>.self, from: data)

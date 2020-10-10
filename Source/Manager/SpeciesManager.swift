@@ -113,7 +113,7 @@ public class SpeciesManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<SpeciesRef>?
             do {
                 result = try decoder.decode(ResponseList<SpeciesRef>.self, from: data)
@@ -177,7 +177,7 @@ public class SpeciesManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseSingle<Species>
             do {
                 result = try decoder.decode(ResponseSingle<Species>.self, from: data)
