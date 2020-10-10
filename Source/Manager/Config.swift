@@ -8,12 +8,16 @@
 
 import Foundation
 
-public struct Config {
+extension Trefle {
     
-    public static let `default` = Config(forceHttpsImageUrls: false)
-    
-    // MARK: - Properties
-    
-    public let forceHttpsImageUrls: Bool
+    public struct Config {
+        
+        public static let `default` = Config(forceHttpsImageUrls: false)
+        
+        // MARK: - Properties
+        
+        public let forceHttpsImageUrls: Bool
+        
+    }
     
 }
