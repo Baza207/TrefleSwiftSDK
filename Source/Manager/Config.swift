@@ -12,11 +12,17 @@ extension Trefle {
     
     public struct Config {
         
-        public static let `default` = Config(forceHttpsImageUrls: false)
+        public static let `default` = Config()
         
         // MARK: - Properties
         
         public let forceHttpsImageUrls: Bool
+        
+        // MARK: - Init
+        
+        public init(forceHttpsImageUrls: Bool = false) {
+            self.forceHttpsImageUrls = forceHttpsImageUrls
+        }
         
     }
     
