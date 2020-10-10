@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181CAAC025323C89009A252C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAABF25323C89009A252C /* Config.swift */; };
+		181CAAC425323CDC009A252C /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAAC325323CDC009A252C /* URLExtensions.swift */; };
 		183B16932529E281007C7A72 /* PlantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16922529E281007C7A72 /* PlantFilter.swift */; };
 		183B1697252A4D3E007C7A72 /* PlantExclude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B1696252A4D3E007C7A72 /* PlantExclude.swift */; };
 		183B169B252A5271007C7A72 /* PlantSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B169A252A5271007C7A72 /* PlantSortOrder.swift */; };
@@ -108,6 +110,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		181CAABF25323C89009A252C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		181CAAC325323CDC009A252C /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		183B16922529E281007C7A72 /* PlantFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantFilter.swift; sourceTree = "<group>"; };
 		183B1696252A4D3E007C7A72 /* PlantExclude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantExclude.swift; sourceTree = "<group>"; };
 		183B169A252A5271007C7A72 /* PlantSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantSortOrder.swift; sourceTree = "<group>"; };
@@ -247,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				186105BE244F14BF008A863B /* Trefle.swift */,
+				181CAABF25323C89009A252C /* Config.swift */,
 				186105C3244F1B92008A863B /* Authentication.swift */,
 				183B16A6252A5877007C7A72 /* KingdomsManager.swift */,
 				183B16B0252A5D56007C7A72 /* SubkingdomsManager.swift */,
@@ -301,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				186105CC244F8C1E008A863B /* URLRequestExtensions.swift */,
+				181CAAC325323CDC009A252C /* URLExtensions.swift */,
 				186105CB244F8C1E008A863B /* JSONDecoderExtensions.swift */,
 			);
 			path = Extensions;
@@ -708,6 +714,7 @@
 				18D11800252B9D210004DC72 /* DivisionOrdersManager.swift in Sources */,
 				184BB2C624E5E1D6007DED03 /* Response.swift in Sources */,
 				18E787FE24562E560064F78D /* Division.swift in Sources */,
+				181CAAC425323CDC009A252C /* URLExtensions.swift in Sources */,
 				18D11842252C6BBC0004DC72 /* SpeciesManager.swift in Sources */,
 				183B169F252A54F2007C7A72 /* PlantRange.swift in Sources */,
 				188CA1662528942600C26F55 /* Texture.swift in Sources */,
@@ -725,6 +732,7 @@
 				18E787F624562C760064F78D /* Subkingdom.swift in Sources */,
 				18E7880624562F5B0064F78D /* DivisionOrder.swift in Sources */,
 				18E7880124562F4B0064F78D /* DivisionClassRef.swift in Sources */,
+				181CAAC025323C89009A252C /* Config.swift in Sources */,
 				18E787FC24562E050064F78D /* DivisionRef.swift in Sources */,
 				183B16A7252A5877007C7A72 /* KingdomsManager.swift in Sources */,
 				18E787EA2456278F0064F78D /* ImageRef.swift in Sources */,

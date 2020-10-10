@@ -27,7 +27,13 @@ public struct Species: Decodable, CustomStringConvertible {
     public let genusName: String
     private let imageURLString: String?
     public var imageURL: URL? {
-        guard let urlString = imageURLString else { return nil }
+        guard let imageURLString = self.imageURLString else { return nil }
+        let urlString: String
+        if Trefle.shared.config.forceHttpsImageUrls == true {
+            urlString = imageURLString.forceHttps()
+        } else {
+            urlString = imageURLString
+        }
         return URL(string: urlString)
     }
     public let links: Links

@@ -63,6 +63,7 @@ public class Trefle {
     
     // MARK: - Properties
     
+    public var config: Config
     internal var accessToken: String = ""
     internal var uri: String = ""
     internal var jwt: String?
@@ -88,9 +89,13 @@ public class Trefle {
     
     // MARK: - Lifecycle
     
-    private init() { }
+    private init(config: Config = .default) {
+        self.config = config
+    }
     
-    public static func configure(accessToken: String, uri: String) {
+    public static func configure(accessToken: String, uri: String, config: Config = .default) {
+        
+        shared.config = config
         
         // Set access token and URI
         shared.accessToken = accessToken

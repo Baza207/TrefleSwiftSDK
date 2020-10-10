@@ -14,7 +14,15 @@ public struct ImageRef: Decodable, CustomStringConvertible {
     
     public let identifier: Int
     public let urlString: String
-    public var url: URL? { URL(string: urlString) }
+    public var url: URL? {
+        let imageURLString: String
+        if Trefle.shared.config.forceHttpsImageUrls == true {
+            imageURLString = urlString.forceHttps()
+        } else {
+            imageURLString = urlString
+        }
+        return URL(string: imageURLString)
+    }
     public let copyright: String?
     
     public var description: String {
