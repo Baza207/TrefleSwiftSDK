@@ -66,8 +66,9 @@ public class Trefle {
     public var config: Config
     internal var accessToken: String = ""
     internal var uri: String = ""
-    internal var jwt: String?
-    internal var expires: Date?
+    internal var jwtState: JWTState?
+    internal var jwt: String? { jwtState?.jwt }
+    internal var expires: Date? { jwtState?.expires }
     internal var isValid: Bool {
         guard let expires = self.expires else { return false }
         return Date() < expires
@@ -127,8 +128,7 @@ public class Trefle {
         }
         
         // Set returned JWT state
-        shared.jwt = keychainAuthState.jwt
-        shared.expires = keychainAuthState.expires
+        shared.jwtState = keychainAuthState
         
         // Check if JWT state is valid, otherwise refresh token
         guard keychainAuthState.isValid == false else {

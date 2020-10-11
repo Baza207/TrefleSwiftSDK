@@ -27,8 +27,7 @@ public extension Trefle {
             
             switch result {
             case .success(let state):
-                shared.jwt = state.jwt
-                shared.expires = state.expires
+                shared.jwtState = state
                 shared.authState = .authorized
                 
                 guard let stateUUID = shared.stateUUID else {
@@ -120,8 +119,7 @@ public extension Trefle {
         
         manager.removeStateUUID()
         
-        manager.jwt = nil
-        manager.expires = nil
+        manager.jwtState = nil
         manager.stateUUID = nil
         
         manager.authState = .unauthorized
