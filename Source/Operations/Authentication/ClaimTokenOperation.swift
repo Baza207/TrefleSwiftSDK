@@ -30,6 +30,11 @@ public class ClaimTokenOperation: Operation {
     
     internal init(_ completionBlock: ((_ result: Result<JWTState, Error>) -> Void)? = nil) {
         claimTokenCompletionBlock = completionBlock
+        
+        super.init()
+        
+        name = "com.TrefleSwiftSDK.Operation.ClaimToken"
+        queuePriority = .veryHigh
     }
     
     public override func start() {
