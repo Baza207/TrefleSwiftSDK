@@ -22,6 +22,20 @@ public struct Subkingdom: Codable, CustomStringConvertible {
         "Subkingdom(identifier: \(identifier), name: \(name), slug: \(slug), kingdom: \(kingdom))"
     }
     
+    // MARK: - Init
+    
+    public init(identifier: Int, name: String, slug: String, kingdom: Kingdom? = nil) {
+        self.identifier = identifier
+        self.name = name
+        self.slug = slug
+        self.kingdom = kingdom ?? Kingdom.blank
+        self.links = Links(current: "\(SubkingdomsManager.apiURL)/\(identifier)")
+    }
+    
+    internal static var blank: Self {
+        Self(identifier: -1, name: "", slug: "")
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

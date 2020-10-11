@@ -10,7 +10,7 @@ import Foundation
 
 public class SubkingdomsManager {
     
-    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/subkingdoms"
+    internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/subkingdoms"
     
     // MARK: - Subkingdoms URLs
     
@@ -80,7 +80,7 @@ public class SubkingdomsManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<SubkingdomRef>?
             do {
                 result = try decoder.decode(ResponseList<SubkingdomRef>.self, from: data)
@@ -101,7 +101,7 @@ public class SubkingdomsManager {
     
     // MARK: - Fetch Subkingdom
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Subkingdom>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Subkingdom>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -129,7 +129,7 @@ public class SubkingdomsManager {
         }
     }
     
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Subkingdom>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<Subkingdom>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -144,10 +144,10 @@ public class SubkingdomsManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseSingle<Subkingdom>
+            let decoder = JSONDecoder.customJSONDecoder
+            let result: ResponseItem<Subkingdom>
             do {
-                result = try decoder.decode(ResponseSingle<Subkingdom>.self, from: data)
+                result = try decoder.decode(ResponseItem<Subkingdom>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

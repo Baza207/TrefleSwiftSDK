@@ -52,7 +52,8 @@ class DivisionClassesTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionClassesManager.listURL(page: 2) else {
+        let requstedPage = 2
+        guard let url = DivisionClassesManager.listURL(page: requstedPage) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -64,19 +65,12 @@ class DivisionClassesTests: XCTestCase {
             switch result {
             case .success(let response):
                 
-                guard let comps = URLComponents(string: response.links.current) else {
-                    XCTFail("Couldn't get components from current URL link.")
-                    return
-                }
-                
-                guard let pageItem = comps.queryItems?.first(where: { (item) -> Bool in
-                    item.name == "page"
-                }), let pageString = pageItem.value, let page = Int(pageString) else {
+                guard let page = response.links.currentPage else {
                     XCTFail("Couldn't get page query from current URL link.")
                     return
                 }
                 
-                XCTAssert(page == 2, "Wrong page returned!")
+                XCTAssert(page == requstedPage, "Wrong page returned!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

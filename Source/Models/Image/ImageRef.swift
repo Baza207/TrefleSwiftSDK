@@ -14,11 +14,31 @@ public struct ImageRef: Decodable, CustomStringConvertible {
     
     public let identifier: Int
     public let urlString: String
-    public var url: URL? { URL(string: urlString) }
+    public var url: URL? {
+        let imageURLString: String
+        if Trefle.shared.config.forceHttpsImageUrls == true {
+            imageURLString = urlString.forceHttps()
+        } else {
+            imageURLString = urlString
+        }
+        return URL(string: imageURLString)
+    }
     public let copyright: String?
     
     public var description: String {
-        "PlantRef(identifier: \(identifier), urlString: \(urlString))"
+        "ImageRef(identifier: \(identifier), urlString: \(urlString))"
+    }
+    
+    // MARK: - Init
+    
+    public init(identifier: Int, urlString: String, copyright: String? = nil) {
+        self.identifier = identifier
+        self.urlString = urlString
+        self.copyright = copyright
+    }
+    
+    internal static var blank: Self {
+        Self(identifier: -1, urlString: "")
     }
     
     // MARK: - Coding

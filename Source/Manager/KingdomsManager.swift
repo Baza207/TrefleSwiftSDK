@@ -10,7 +10,7 @@ import Foundation
 
 public class KingdomsManager {
     
-    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/kingdoms"
+    internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/kingdoms"
     
     // MARK: - Kingdoms URLs
     
@@ -80,7 +80,7 @@ public class KingdomsManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<KingdomRef>?
             do {
                 result = try decoder.decode(ResponseList<KingdomRef>.self, from: data)
@@ -101,7 +101,7 @@ public class KingdomsManager {
     
     // MARK: - Fetch Kingdom
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Kingdom>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Kingdom>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -129,7 +129,7 @@ public class KingdomsManager {
         }
     }
     
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Kingdom>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<Kingdom>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -144,10 +144,10 @@ public class KingdomsManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseSingle<Kingdom>
+            let decoder = JSONDecoder.customJSONDecoder
+            let result: ResponseItem<Kingdom>
             do {
-                result = try decoder.decode(ResponseSingle<Kingdom>.self, from: data)
+                result = try decoder.decode(ResponseItem<Kingdom>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

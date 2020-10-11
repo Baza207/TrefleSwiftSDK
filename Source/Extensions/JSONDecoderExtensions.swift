@@ -10,11 +10,21 @@ import Foundation
 
 extension JSONDecoder {
     
-    internal static var customDateJSONDecoder: JSONDecoder {
+    internal static var jwtJSONDecoder: JSONDecoder {
         
         let decoder = JSONDecoder()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy hh:mm"
+        dateFormatter.calendar = Calendar(identifier: .iso8601)
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        return decoder
+    }
+    
+    internal static var customJSONDecoder: JSONDecoder {
+        
+        let decoder = JSONDecoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss.SSS'Z'"
         dateFormatter.calendar = Calendar(identifier: .iso8601)
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         return decoder

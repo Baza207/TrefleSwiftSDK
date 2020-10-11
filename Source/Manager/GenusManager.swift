@@ -13,7 +13,7 @@ public class GenusManager {
     public typealias Filter = [GenusFilter: [String]]
     public typealias SortOrder = [(field: GenusSortOrder, order: Order)]
     
-    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/genus"
+    internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/genus"
     
     // MARK: - Genus URLs
     
@@ -83,7 +83,7 @@ public class GenusManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<GenusRef>?
             do {
                 result = try decoder.decode(ResponseList<GenusRef>.self, from: data)
@@ -104,7 +104,7 @@ public class GenusManager {
     
     // MARK: - Fetch Genus
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Genus>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Genus>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -132,7 +132,7 @@ public class GenusManager {
         }
     }
 
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Genus>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<Genus>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -147,10 +147,10 @@ public class GenusManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseSingle<Genus>
+            let decoder = JSONDecoder.customJSONDecoder
+            let result: ResponseItem<Genus>
             do {
-                result = try decoder.decode(ResponseSingle<Genus>.self, from: data)
+                result = try decoder.decode(ResponseItem<Genus>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

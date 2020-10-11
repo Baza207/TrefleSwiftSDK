@@ -19,11 +19,25 @@ public struct Source: Decodable, CustomStringConvertible {
         guard let urlString = urlString else { return nil }
         return URL(string: urlString)
     }
-    public let lastUpdate: String // FIXME: Change to date
+    public let lastUpdate: Date
     public let citation: String?
     
     public var description: String {
         "Source(identifier: \(identifier ?? "-"), name: \(name), citation: \(citation ?? "-"), url: \(urlString ?? "-"), lastUpdate: \(lastUpdate))"
+    }
+    
+    // MARK: - Init
+    
+    public init(identifier: String? = nil, name: String, urlString: String? = nil, lastUpdate: Date, citation: String? = nil) {
+        self.identifier = identifier
+        self.name = name
+        self.urlString = urlString
+        self.lastUpdate = lastUpdate
+        self.citation = citation
+    }
+    
+    internal static var blank: Self {
+        Self(name: "", lastUpdate: Date.distantPast)
     }
     
     // MARK: - Coding

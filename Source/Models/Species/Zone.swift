@@ -27,20 +27,6 @@ public struct Zone: Decodable, CustomStringConvertible {
         "Zone(identifier: \(identifier), name: \(name), tdwgCode: \(tdwgCode), tdwgLevel: \(tdwgLevel), speciesCount: \(speciesCount), links: \(links))"
     }
     
-    // MARK: - Coding
-    
-    private enum CodingKeys: String, CodingKey {
-        case identifier = "id"
-        case name
-        case slug
-        case tdwgCode = "tdwg_code"
-        case tdwgLevel = "tdwg_level"
-        case speciesCount = "species_count"
-        case links
-        case parent
-        case children
-    }
-    
     // MARK: - Init
     
     public init(from decoder: Decoder) throws {
@@ -58,6 +44,40 @@ public struct Zone: Decodable, CustomStringConvertible {
             parents = []
         }
         children = try container.decodeIfPresent([Zone].self, forKey: .children)
+    }
+    
+    public init(identifier: Int, name: String, slug: String, tdwgCode: String, tdwgLevel: Int, speciesCount: Int, parent: Zone? = nil, children: [Zone]? = nil) {
+        self.identifier = identifier
+        self.name = name
+        self.slug = slug
+        self.tdwgCode = tdwgCode
+        self.tdwgLevel = tdwgLevel
+        self.speciesCount = speciesCount
+        self.links = Links(current: "\(DistributionZonesManager.apiURL)/\(identifier)")
+        if let parent = parent {
+            self.parents = [parent]
+        } else {
+            self.parents = nil
+        }
+        self.children = children
+    }
+    
+    internal static var blank: Self {
+        Self(identifier: -1, name: "", slug: "", tdwgCode: "", tdwgLevel: -1, speciesCount: 0)
+    }
+    
+    // MARK: - Coding
+    
+    private enum CodingKeys: String, CodingKey {
+        case identifier = "id"
+        case name
+        case slug
+        case tdwgCode = "tdwg_code"
+        case tdwgLevel = "tdwg_level"
+        case speciesCount = "species_count"
+        case links
+        case parent
+        case children
     }
     
 }

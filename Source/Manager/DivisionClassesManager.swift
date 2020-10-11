@@ -10,7 +10,7 @@ import Foundation
 
 public class DivisionClassesManager {
     
-    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/division_classes"
+    internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/division_classes"
     
     // MARK: - Division Classes URLs
     
@@ -80,7 +80,7 @@ public class DivisionClassesManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<DivisionClassRef>?
             do {
                 result = try decoder.decode(ResponseList<DivisionClassRef>.self, from: data)
@@ -101,7 +101,7 @@ public class DivisionClassesManager {
     
     // MARK: - Fetch Division Class
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<DivisionClass>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<DivisionClass>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -129,7 +129,7 @@ public class DivisionClassesManager {
         }
     }
     
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<DivisionClass>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<DivisionClass>, Error>) -> Void) {
         
         print(url)
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
@@ -145,10 +145,10 @@ public class DivisionClassesManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseSingle<DivisionClass>
+            let decoder = JSONDecoder.customJSONDecoder
+            let result: ResponseItem<DivisionClass>
             do {
-                result = try decoder.decode(ResponseSingle<DivisionClass>.self, from: data)
+                result = try decoder.decode(ResponseItem<DivisionClass>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

@@ -15,7 +15,7 @@ public class SpeciesManager {
     public typealias SortOrder = [(field: SpeciesSortOrder, order: Order)]
     public typealias Range = [SpeciesRange: String]
     
-    private static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/species"
+    internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/species"
     
     // MARK: - Species URLs
     
@@ -113,7 +113,7 @@ public class SpeciesManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
+            let decoder = JSONDecoder.customJSONDecoder
             let result: ResponseList<SpeciesRef>?
             do {
                 result = try decoder.decode(ResponseList<SpeciesRef>.self, from: data)
@@ -134,7 +134,7 @@ public class SpeciesManager {
     
     // MARK: - Fetch Species
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Species>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Species>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -162,7 +162,7 @@ public class SpeciesManager {
         }
     }
     
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Species>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<Species>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -177,10 +177,10 @@ public class SpeciesManager {
                 return
             }
             
-            let decoder = JSONDecoder.customDateJSONDecoder
-            let result: ResponseSingle<Species>
+            let decoder = JSONDecoder.customJSONDecoder
+            let result: ResponseItem<Species>
             do {
-                result = try decoder.decode(ResponseSingle<Species>.self, from: data)
+                result = try decoder.decode(ResponseItem<Species>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

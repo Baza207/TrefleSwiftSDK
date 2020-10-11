@@ -32,6 +32,30 @@ public struct Plant: Decodable, CustomStringConvertible {
         "Plant(identifier: \(identifier), commonName: \(commonName ?? "-"), slug: \(slug), scientificName: \(scientificName), familyCommonName: \(familyCommonName ?? "-"))"
     }
     
+    // MARK: - Init
+    
+    public init(identifier: Int, commonName: String? = nil, slug: String, scientificName: String, year: Int? = nil, bibliography: String? = nil, author: String? = nil, familyCommonName: String? = nil, genusId: Int, mainSpeciesId: Int? = nil, vegetable: Bool? = nil, observations: String? = nil, mainSpecies: Species, sources: [Source]) {
+        self.identifier = identifier
+        self.commonName = commonName
+        self.slug = slug
+        self.scientificName = scientificName
+        self.year = year
+        self.bibliography = bibliography
+        self.author = author
+        self.familyCommonName = familyCommonName
+        self.genusId = genusId
+        self.mainSpeciesId = mainSpeciesId
+        self.vegetable = vegetable
+        self.observations = observations
+        self.mainSpecies = mainSpecies
+        self.sources = sources
+        self.links = Links(current: "\(PlantsManager.apiURL)/\(identifier)")
+    }
+    
+    internal static var blank: Self {
+        Self(identifier: -1, slug: "", scientificName: "", genusId: -1, mainSpecies: Species.blank, sources: [])
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

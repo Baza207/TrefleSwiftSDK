@@ -23,6 +23,21 @@ public struct FamilyRef: Codable, CustomStringConvertible {
         "FamilyRef(identifier: \(identifier), name: \(name), slug: \(slug))"
     }
     
+    // MARK: - Init
+    
+    public init(identifier: Int, name: String, commonName: String? = nil, slug: String, divisionOrder: DivisionOrder? = nil) {
+        self.identifier = identifier
+        self.name = name
+        self.commonName = commonName
+        self.slug = slug
+        self.divisionOrder = divisionOrder
+        self.links = Links(current: "\(FamiliesManager.apiURL)/\(identifier)")
+    }
+    
+    internal static var blank: Self {
+        Self(identifier: -1, name: "", slug: "")
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

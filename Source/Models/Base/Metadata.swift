@@ -13,10 +13,17 @@ public struct Metadata: Codable, CustomStringConvertible {
     // MARK: - Properties
     
     public let total: Int?
-    public let lastModified: String? // FIXME: Change to date
+    public let lastModified: Date?
     
     public var description: String {
-        "Metadata(total: \(total ?? -1), lastModified: \(lastModified ?? "-")"
+        "Metadata(total: \(total ?? -1), lastModified: \(lastModified ?? Date.distantPast)"
+    }
+    
+    // MARK: - Init
+    
+    public init(total: Int? = nil, lastModified: Date? = nil) {
+        self.total = total
+        self.lastModified = lastModified
     }
     
     // MARK: - Coding

@@ -21,6 +21,19 @@ public struct FruitOrSeed: Decodable, CustomStringConvertible {
         "FruitOrSeed(color: \(color ?? []), shape: \(shape ?? "-"))"
     }
     
+    // MARK: - Init
+    
+    public init(conspicuous: Bool? = nil, color: [Color]? = nil, shape: String? = nil, seedPersistence: Bool? = nil) {
+        self.conspicuous = conspicuous
+        self.color = color
+        self.shape = shape
+        self.seedPersistence = seedPersistence
+    }
+    
+    internal static var blank: Self {
+        Self()
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {

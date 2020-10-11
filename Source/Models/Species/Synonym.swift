@@ -20,6 +20,18 @@ public struct Synonym: Decodable, CustomStringConvertible {
         "Synonym(identifier: \(identifier), name: \(name), author: \(author ?? "-"))"
     }
     
+    // MARK: - Init
+    
+    public init(identifier: Int, name: String, author: String? = nil) {
+        self.identifier = identifier
+        self.name = name
+        self.author = author
+    }
+    
+    internal static var blank: Self {
+        Self(identifier: -1, name: "")
+    }
+    
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
