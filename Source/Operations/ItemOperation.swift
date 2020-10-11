@@ -10,11 +10,11 @@ import Foundation
 
 public class ItemOperation<T: Decodable>: Operation {
     
-    public var fetchCompleted: ((_ result: Result<ResponseSingle<T>, Error>) -> Void)?
+    public var fetchCompleted: ((_ result: Result<ResponseItem<T>, Error>) -> Void)?
     
     private let url: URL
     private var task: URLSessionTask?
-    public var response: ResponseSingle<T>?
+    public var response: ResponseItem<T>?
     public var error: Error?
     public override var isAsynchronous: Bool { true }
     public override var isConcurrent: Bool { true }
@@ -29,7 +29,7 @@ public class ItemOperation<T: Decodable>: Operation {
     }
     public override var isFinished: Bool { _isFinished }
     
-    internal init(url: URL, completionBlock: ((_ result: Result<ResponseSingle<T>, Error>) -> Void)? = nil) {
+    internal init(url: URL, completionBlock: ((_ result: Result<ResponseItem<T>, Error>) -> Void)? = nil) {
         self.url = url
         fetchCompleted = completionBlock
     }
@@ -94,9 +94,9 @@ public class ItemOperation<T: Decodable>: Operation {
             }
             
             let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseSingle<T>?
+            let result: ResponseItem<T>?
             do {
-                result = try decoder.decode(ResponseSingle<T>.self, from: data)
+                result = try decoder.decode(ResponseItem<T>.self, from: data)
             } catch {
                 self.error = error
                 
