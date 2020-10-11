@@ -101,7 +101,7 @@ public class DivisionsManager {
     
     // MARK: - Fetch Division
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Division>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Division>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -129,7 +129,7 @@ public class DivisionsManager {
         }
     }
     
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Division>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<Division>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -145,9 +145,9 @@ public class DivisionsManager {
             }
             
             let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseSingle<Division>
+            let result: ResponseItem<Division>
             do {
-                result = try decoder.decode(ResponseSingle<Division>.self, from: data)
+                result = try decoder.decode(ResponseItem<Division>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

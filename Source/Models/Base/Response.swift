@@ -30,7 +30,7 @@ public struct ResponseList<T: Decodable>: Decodable, CustomStringConvertible {
     
 }
 
-public struct ResponseSingle<T: Decodable>: Decodable, CustomStringConvertible {
+public struct ResponseItem<T: Decodable>: Decodable, CustomStringConvertible {
     
     // MARK: - Properties
     
@@ -38,7 +38,7 @@ public struct ResponseSingle<T: Decodable>: Decodable, CustomStringConvertible {
     public let meta: Metadata
     
     public var description: String {
-        "ResponseSingle(data: \(item), meta: \(meta))"
+        "ResponseItem(data: \(item), meta: \(meta))"
     }
     
     // MARK: - Coding

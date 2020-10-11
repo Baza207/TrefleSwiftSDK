@@ -101,7 +101,7 @@ public class DivisionOrdersManager {
     
     // MARK: - Fetch Division Order
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<DivisionOrder>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<DivisionOrder>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -129,7 +129,7 @@ public class DivisionOrdersManager {
         }
     }
     
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<DivisionOrder>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<DivisionOrder>, Error>) -> Void) {
         
         print(url)
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
@@ -146,9 +146,9 @@ public class DivisionOrdersManager {
             }
             
             let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseSingle<DivisionOrder>
+            let result: ResponseItem<DivisionOrder>
             do {
-                result = try decoder.decode(ResponseSingle<DivisionOrder>.self, from: data)
+                result = try decoder.decode(ResponseItem<DivisionOrder>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

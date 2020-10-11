@@ -113,7 +113,7 @@ public class FamiliesManager {
     
     // MARK: - Fetch Family
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Family>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Family>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -141,7 +141,7 @@ public class FamiliesManager {
         }
     }
     
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Family>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<Family>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -157,9 +157,9 @@ public class FamiliesManager {
             }
             
             let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseSingle<Family>
+            let result: ResponseItem<Family>
             do {
-                result = try decoder.decode(ResponseSingle<Family>.self, from: data)
+                result = try decoder.decode(ResponseItem<Family>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

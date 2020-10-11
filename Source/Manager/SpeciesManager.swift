@@ -134,7 +134,7 @@ public class SpeciesManager {
     
     // MARK: - Fetch Species
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Species>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Species>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -162,7 +162,7 @@ public class SpeciesManager {
         }
     }
     
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Species>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<Species>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -178,9 +178,9 @@ public class SpeciesManager {
             }
             
             let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseSingle<Species>
+            let result: ResponseItem<Species>
             do {
-                result = try decoder.decode(ResponseSingle<Species>.self, from: data)
+                result = try decoder.decode(ResponseItem<Species>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return
