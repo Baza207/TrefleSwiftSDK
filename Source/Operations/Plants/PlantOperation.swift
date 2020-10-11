@@ -10,10 +10,10 @@ import Foundation
 
 public class PlantOperation: Operation {
     
-    public var plantCompletionBlock: ((_ result: Result<ResponseSingle<Plant>, Error>) -> Void)?
+    public var plantCompletionBlock: ((_ result: Result<ResponseItem<Plant>, Error>) -> Void)?
     
     public var identifier: String
-    public var response: ResponseSingle<Plant>?
+    public var response: ResponseItem<Plant>?
     public var error: Error?
     public override var isAsynchronous: Bool {
         return true
@@ -36,7 +36,7 @@ public class PlantOperation: Operation {
         return _isFinished
     }
     
-    public init(identifier: String, completionBlock: ((_ result: Result<ResponseSingle<Plant>, Error>) -> Void)? = nil) {
+    public init(identifier: String, completionBlock: ((_ result: Result<ResponseItem<Plant>, Error>) -> Void)? = nil) {
         self.identifier = identifier
         self.plantCompletionBlock = completionBlock
     }

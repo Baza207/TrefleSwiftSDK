@@ -101,7 +101,7 @@ public class DistributionZonesManager {
     
     // MARK: - Fetch Distribution Zone
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Zone>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Zone>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -129,7 +129,7 @@ public class DistributionZonesManager {
         }
     }
     
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Zone>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<Zone>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -145,9 +145,9 @@ public class DistributionZonesManager {
             }
             
             let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseSingle<Zone>
+            let result: ResponseItem<Zone>
             do {
-                result = try decoder.decode(ResponseSingle<Zone>.self, from: data)
+                result = try decoder.decode(ResponseItem<Zone>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return

@@ -101,7 +101,7 @@ public class SubkingdomsManager {
     
     // MARK: - Fetch Subkingdom
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseSingle<Subkingdom>, Error>) -> Void) {
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Subkingdom>, Error>) -> Void) {
         
         guard let jwt = Trefle.shared.jwt else {
             completed(Result.failure(TrefleError.noJWT))
@@ -129,7 +129,7 @@ public class SubkingdomsManager {
         }
     }
     
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseSingle<Subkingdom>, Error>) -> Void) {
+    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<Subkingdom>, Error>) -> Void) {
         
         let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
         let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
@@ -145,9 +145,9 @@ public class SubkingdomsManager {
             }
             
             let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseSingle<Subkingdom>
+            let result: ResponseItem<Subkingdom>
             do {
-                result = try decoder.decode(ResponseSingle<Subkingdom>.self, from: data)
+                result = try decoder.decode(ResponseItem<Subkingdom>.self, from: data)
             } catch {
                 completed(Result.failure(error))
                 return
