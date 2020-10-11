@@ -12,6 +12,7 @@ public class ItemOperation<T: Decodable>: Operation {
     
     public var fetchItemCompleted: ((_ result: Result<ResponseItem<T>, Error>) -> Void)?
     
+    private let jwt: String?
     private let url: URL
     private var task: URLSessionTask?
     public var response: ResponseItem<T>?
@@ -29,7 +30,8 @@ public class ItemOperation<T: Decodable>: Operation {
     }
     public override var isFinished: Bool { _isFinished }
     
-    internal init(url: URL, completionBlock: ((_ result: Result<ResponseItem<T>, Error>) -> Void)? = nil) {
+    internal init(jwt: String? = nil, url: URL, completionBlock: ((_ result: Result<ResponseItem<T>, Error>) -> Void)? = nil) {
+        self.jwt = jwt
         self.url = url
         fetchItemCompleted = completionBlock
     }
@@ -50,7 +52,19 @@ public class ItemOperation<T: Decodable>: Operation {
         
         _isExecuting = true
         
-        guard Trefle.shared.isValid == true, let jwt = Trefle.shared.jwt else {
+        guard let jwt = self.jwt ?? Trefle.shared.jwt else {
+            let error = TrefleError.noJWT
+            self.error = error
+            
+            fetchItemCompleted?(Result.failure(error))
+            
+            // Finish
+            self._isExecuting = false
+            self._isFinished = true
+            return
+        }
+        
+        if jwt == Trefle.shared.jwt && Trefle.shared.isValid == false {
             let error = TrefleError.noJWT
             self.error = error
             
