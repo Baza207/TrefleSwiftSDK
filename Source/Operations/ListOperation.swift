@@ -51,7 +51,10 @@ public class ListOperation<T: Decodable>: Operation {
         _isExecuting = true
         
         guard Trefle.shared.isValid == true, let jwt = Trefle.shared.jwt else {
-            error = TrefleError.noJWT
+            let error = TrefleError.noJWT
+            self.error = error
+            
+            fetchCompleted?(Result.failure(error))
             
             // Finish
             self._isExecuting = false
@@ -78,6 +81,8 @@ public class ListOperation<T: Decodable>: Operation {
             if let error = error {
                 self.error = error
                 
+                self.fetchCompleted?(Result.failure(error))
+                
                 // Finish
                 self._isExecuting = false
                 self._isFinished = true
@@ -85,7 +90,10 @@ public class ListOperation<T: Decodable>: Operation {
             }
             
             guard let data = data else {
-                self.error = TrefleError.noData
+                let error = TrefleError.noData
+                self.error = error
+                
+                self.fetchCompleted?(Result.failure(error))
                 
                 // Finish
                 self._isExecuting = false
@@ -99,6 +107,8 @@ public class ListOperation<T: Decodable>: Operation {
                 result = try decoder.decode(ResponseList<T>.self, from: data)
             } catch {
                 self.error = error
+                
+                self.fetchCompleted?(Result.failure(error))
                 
                 // Finish
                 self._isExecuting = false
@@ -116,7 +126,10 @@ public class ListOperation<T: Decodable>: Operation {
             }
             
             guard let responseResult = result else {
-                self.error = TrefleError.generalError
+                let error = TrefleError.generalError
+                self.error = error
+                
+                self.fetchCompleted?(Result.failure(error))
                 
                 // Finish
                 self._isExecuting = false
@@ -125,6 +138,8 @@ public class ListOperation<T: Decodable>: Operation {
             }
             
             self.response = responseResult
+            
+            self.fetchCompleted?(Result.success(responseResult))
             
             // Finish
             self._isExecuting = false

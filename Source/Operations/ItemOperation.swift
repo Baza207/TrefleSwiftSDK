@@ -10,7 +10,7 @@ import Foundation
 
 public class ItemOperation<T: Decodable>: Operation {
     
-    public var fetchCompleted: ((_ result: Result<ResponseItem<T>, Error>) -> Void)?
+    public var fetchItemCompleted: ((_ result: Result<ResponseItem<T>, Error>) -> Void)?
     
     private let url: URL
     private var task: URLSessionTask?
@@ -31,7 +31,7 @@ public class ItemOperation<T: Decodable>: Operation {
     
     internal init(url: URL, completionBlock: ((_ result: Result<ResponseItem<T>, Error>) -> Void)? = nil) {
         self.url = url
-        fetchCompleted = completionBlock
+        fetchItemCompleted = completionBlock
     }
     
     public override func start() {
@@ -51,7 +51,10 @@ public class ItemOperation<T: Decodable>: Operation {
         _isExecuting = true
         
         guard Trefle.shared.isValid == true, let jwt = Trefle.shared.jwt else {
-            error = TrefleError.noJWT
+            let error = TrefleError.noJWT
+            self.error = error
+            
+            fetchItemCompleted?(Result.failure(error))
             
             // Finish
             self._isExecuting = false
@@ -78,6 +81,8 @@ public class ItemOperation<T: Decodable>: Operation {
             if let error = error {
                 self.error = error
                 
+                self.fetchItemCompleted?(Result.failure(error))
+                
                 // Finish
                 self._isExecuting = false
                 self._isFinished = true
@@ -85,7 +90,10 @@ public class ItemOperation<T: Decodable>: Operation {
             }
             
             guard let data = data else {
-                self.error = TrefleError.noData
+                let error = TrefleError.noData
+                self.error = error
+                
+                self.fetchItemCompleted?(Result.failure(error))
                 
                 // Finish
                 self._isExecuting = false
@@ -99,6 +107,8 @@ public class ItemOperation<T: Decodable>: Operation {
                 result = try decoder.decode(ResponseItem<T>.self, from: data)
             } catch {
                 self.error = error
+                
+                self.fetchItemCompleted?(Result.failure(error))
                 
                 // Finish
                 self._isExecuting = false
@@ -116,7 +126,10 @@ public class ItemOperation<T: Decodable>: Operation {
             }
             
             guard let responseResult = result else {
-                self.error = TrefleError.generalError
+                let error = TrefleError.generalError
+                self.error = error
+                
+                self.fetchItemCompleted?(Result.failure(error))
                 
                 // Finish
                 self._isExecuting = false
@@ -125,6 +138,8 @@ public class ItemOperation<T: Decodable>: Operation {
             }
             
             self.response = responseResult
+            
+            self.fetchItemCompleted?(Result.success(responseResult))
             
             // Finish
             self._isExecuting = false

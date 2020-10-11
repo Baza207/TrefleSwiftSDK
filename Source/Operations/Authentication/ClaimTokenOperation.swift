@@ -63,7 +63,10 @@ public class ClaimTokenOperation: Operation {
         }
         
         guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/auth/claim") else {
-            error = TrefleError.badURL
+            let error = TrefleError.badURL
+            self.error = error
+            
+            claimTokenCompletionBlock?(Result.failure(error))
             
             // Finish
             self._isExecuting = false
@@ -77,7 +80,10 @@ public class ClaimTokenOperation: Operation {
         ]
         
         guard let url = urlComponents.url else {
-            error = TrefleError.badURL
+            let error = TrefleError.badURL
+            self.error = error
+            
+            claimTokenCompletionBlock?(Result.failure(error))
             
             // Finish
             self._isExecuting = false
@@ -109,6 +115,8 @@ public class ClaimTokenOperation: Operation {
             if let error = error {
                 self.error = error
                 
+                self.claimTokenCompletionBlock?(Result.failure(error))
+                
                 // Finish
                 self._isExecuting = false
                 self._isFinished = true
@@ -116,7 +124,10 @@ public class ClaimTokenOperation: Operation {
             }
             
             guard let data = data else {
-                self.error = TrefleError.noData
+                let error = TrefleError.noData
+                self.error = error
+                
+                self.claimTokenCompletionBlock?(Result.failure(error))
                 
                 // Finish
                 self._isExecuting = false
@@ -130,6 +141,8 @@ public class ClaimTokenOperation: Operation {
                 result = try decoder.decode(JWTState.self, from: data)
             } catch {
                 self.error = error
+                
+                self.claimTokenCompletionBlock?(Result.failure(error))
                 
                 // Finish
                 self._isExecuting = false
@@ -147,7 +160,10 @@ public class ClaimTokenOperation: Operation {
             }
             
             guard let jwtState = result else {
-                self.error = TrefleError.generalError
+                let error = TrefleError.generalError
+                self.error = error
+                
+                self.claimTokenCompletionBlock?(Result.failure(error))
                 
                 // Finish
                 self._isExecuting = false
@@ -156,7 +172,10 @@ public class ClaimTokenOperation: Operation {
             }
             
             guard jwtState.isValid == true else {
-                self.error = TrefleError.invalidToken
+                let error = TrefleError.invalidToken
+                self.error = error
+                
+                self.claimTokenCompletionBlock?(Result.failure(error))
                 
                 // Finish
                 self._isExecuting = false
@@ -165,6 +184,12 @@ public class ClaimTokenOperation: Operation {
             }
             
             self.jwtState = jwtState
+            
+            self.claimTokenCompletionBlock?(Result.success(jwtState))
+            
+            // Finish
+            self._isExecuting = false
+            self._isFinished = true
         }
         task?.resume()
     }
