@@ -27,7 +27,7 @@ class DivisionClassesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DivisionClassesManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<DivisionClassRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -39,6 +39,7 @@ class DivisionClassesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -60,7 +61,7 @@ class DivisionClassesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DivisionClassesManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<DivisionClassRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -78,6 +79,7 @@ class DivisionClassesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -98,7 +100,7 @@ class DivisionClassesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DivisionClassesManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
+        let operation = ItemOperation<DivisionClass>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -110,6 +112,7 @@ class DivisionClassesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")

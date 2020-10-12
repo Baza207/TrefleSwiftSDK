@@ -27,7 +27,7 @@ class DivisionOrdersTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DivisionOrdersManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<DivisionOrderRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -39,6 +39,7 @@ class DivisionOrdersTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -60,7 +61,7 @@ class DivisionOrdersTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DivisionOrdersManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<DivisionOrderRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -78,6 +79,7 @@ class DivisionOrdersTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -98,7 +100,7 @@ class DivisionOrdersTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DivisionOrdersManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
+        let operation = ItemOperation<DivisionOrder>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -110,6 +112,7 @@ class DivisionOrdersTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")

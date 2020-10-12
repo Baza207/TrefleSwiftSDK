@@ -27,7 +27,7 @@ class DistributionZonesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DistributionZonesManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<Zone>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -39,6 +39,7 @@ class DistributionZonesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -59,7 +60,7 @@ class DistributionZonesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DistributionZonesManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
+        let operation = ItemOperation<Zone>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -71,6 +72,7 @@ class DistributionZonesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")

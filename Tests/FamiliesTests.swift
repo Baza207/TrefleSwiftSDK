@@ -27,7 +27,7 @@ class FamiliesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        FamiliesManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<FamilyRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -39,6 +39,7 @@ class FamiliesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -59,7 +60,7 @@ class FamiliesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        FamiliesManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<FamilyRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -71,6 +72,7 @@ class FamiliesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -92,7 +94,7 @@ class FamiliesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        FamiliesManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<FamilyRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -110,6 +112,7 @@ class FamiliesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -130,7 +133,7 @@ class FamiliesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        FamiliesManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
+        let operation = ItemOperation<Family>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -142,6 +145,7 @@ class FamiliesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
