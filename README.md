@@ -20,9 +20,9 @@ This is currently a work in progress. There is a list of currently supported fea
 - [x] Plants  
 - [x] Species  
 - [x] Distribution Zones  
-- [ ] Operations for all types
+- [x] Operation support
 - [ ] Combine support
-- [ ] Error Handling
+- [ ] Full error handling
 - [x] Basic test suite
 - [ ] Deep test suite
 
