@@ -27,7 +27,7 @@ class KingdomsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        KingdomsManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<KingdomRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -39,6 +39,7 @@ class KingdomsTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -59,7 +60,7 @@ class KingdomsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        KingdomsManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
+        let operation = ItemOperation<Kingdom>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -71,6 +72,7 @@ class KingdomsTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")

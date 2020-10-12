@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		181CAAC025323C89009A252C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAABF25323C89009A252C /* Config.swift */; };
 		181CAAC425323CDC009A252C /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAAC325323CDC009A252C /* URLExtensions.swift */; };
+		181CAAD12533234A009A252C /* ClaimTokenOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAAD02533234A009A252C /* ClaimTokenOperation.swift */; };
+		181CAAD5253329F5009A252C /* ListOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAAD4253329F5009A252C /* ListOperation.swift */; };
+		181CAADB25338DC6009A252C /* ItemOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAADA25338DC6009A252C /* ItemOperation.swift */; };
 		183B16932529E281007C7A72 /* PlantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16922529E281007C7A72 /* PlantFilter.swift */; };
 		183B1697252A4D3E007C7A72 /* PlantExclude.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B1696252A4D3E007C7A72 /* PlantExclude.swift */; };
 		183B169B252A5271007C7A72 /* PlantSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B169A252A5271007C7A72 /* PlantSortOrder.swift */; };
@@ -47,7 +50,6 @@
 		188CA1622528941200C26F55 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CA1612528941200C26F55 /* Color.swift */; };
 		188CA1662528942600C26F55 /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CA1652528942600C26F55 /* Texture.swift */; };
 		1893393C252C80280099AADF /* GenusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893393B252C80280099AADF /* GenusManager.swift */; };
-		18933944252CE75F0099AADF /* PlantOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18933943252CE75F0099AADF /* PlantOperation.swift */; };
 		18C3D77A25260B69006B6413 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D77925260B69006B6413 /* Order.swift */; };
 		18C3D77E2526636F006B6413 /* ImageCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D77D2526636F006B6413 /* ImageCollection.swift */; };
 		18C3D78225266BC9006B6413 /* Synonym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D78125266BC9006B6413 /* Synonym.swift */; };
@@ -73,7 +75,6 @@
 		18D1185F252C6ED90004DC72 /* SpeciesRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1185E252C6ED90004DC72 /* SpeciesRange.swift */; };
 		18D11863252C77810004DC72 /* DistributionZonesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11862252C77810004DC72 /* DistributionZonesManager.swift */; };
 		18D11869252C78DA0004DC72 /* DistributionZonesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11868252C78DA0004DC72 /* DistributionZonesTests.swift */; };
-		18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF92652454D9800034A058 /* PlantRefsOperation.swift */; };
 		18E787E7245623B80064F78D /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E6245623B80064F78D /* Plant.swift */; };
 		18E787EA2456278F0064F78D /* ImageRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E92456278F0064F78D /* ImageRef.swift */; };
 		18E787F224562BAF0064F78D /* Kingdom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787F124562BAF0064F78D /* Kingdom.swift */; };
@@ -112,6 +113,9 @@
 /* Begin PBXFileReference section */
 		181CAABF25323C89009A252C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		181CAAC325323CDC009A252C /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
+		181CAAD02533234A009A252C /* ClaimTokenOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimTokenOperation.swift; sourceTree = "<group>"; };
+		181CAAD4253329F5009A252C /* ListOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOperation.swift; sourceTree = "<group>"; };
+		181CAADA25338DC6009A252C /* ItemOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemOperation.swift; sourceTree = "<group>"; };
 		183B16922529E281007C7A72 /* PlantFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantFilter.swift; sourceTree = "<group>"; };
 		183B1696252A4D3E007C7A72 /* PlantExclude.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantExclude.swift; sourceTree = "<group>"; };
 		183B169A252A5271007C7A72 /* PlantSortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantSortOrder.swift; sourceTree = "<group>"; };
@@ -156,7 +160,6 @@
 		188CA1612528941200C26F55 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		188CA1652528942600C26F55 /* Texture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
 		1893393B252C80280099AADF /* GenusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenusManager.swift; sourceTree = "<group>"; };
-		18933943252CE75F0099AADF /* PlantOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantOperation.swift; sourceTree = "<group>"; };
 		18C3D77925260B69006B6413 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		18C3D77D2526636F006B6413 /* ImageCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollection.swift; sourceTree = "<group>"; };
 		18C3D78125266BC9006B6413 /* Synonym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synonym.swift; sourceTree = "<group>"; };
@@ -182,7 +185,6 @@
 		18D1185E252C6ED90004DC72 /* SpeciesRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesRange.swift; sourceTree = "<group>"; };
 		18D11862252C77810004DC72 /* DistributionZonesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionZonesManager.swift; sourceTree = "<group>"; };
 		18D11868252C78DA0004DC72 /* DistributionZonesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionZonesTests.swift; sourceTree = "<group>"; };
-		18DF92652454D9800034A058 /* PlantRefsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRefsOperation.swift; sourceTree = "<group>"; };
 		18E787E6245623B80064F78D /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		18E787E92456278F0064F78D /* ImageRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRef.swift; sourceTree = "<group>"; };
 		18E787F124562BAF0064F78D /* Kingdom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kingdom.swift; sourceTree = "<group>"; };
@@ -227,6 +229,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		181CAACF2533232E009A252C /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				181CAAD02533234A009A252C /* ClaimTokenOperation.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		183B16BB252A5F7D007C7A72 /* Plants */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,18 +449,11 @@
 		18DF92632454D94B0034A058 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				18DF92642454D9640034A058 /* Plants */,
+				181CAAD4253329F5009A252C /* ListOperation.swift */,
+				181CAADA25338DC6009A252C /* ItemOperation.swift */,
+				181CAACF2533232E009A252C /* Authentication */,
 			);
 			path = Operations;
-			sourceTree = "<group>";
-		};
-		18DF92642454D9640034A058 /* Plants */ = {
-			isa = PBXGroup;
-			children = (
-				18DF92652454D9800034A058 /* PlantRefsOperation.swift */,
-				18933943252CE75F0099AADF /* PlantOperation.swift */,
-			);
-			path = Plants;
 			sourceTree = "<group>";
 		};
 		18E787E8245627750064F78D /* Image */ = {
@@ -676,6 +679,7 @@
 				188CA15E2528940600C26F55 /* Month.swift in Sources */,
 				18E7880424562F530064F78D /* DivisionClass.swift in Sources */,
 				18D11838252BAF110004DC72 /* GenusSortOrder.swift in Sources */,
+				181CAAD5253329F5009A252C /* ListOperation.swift in Sources */,
 				186105D024507687008A863B /* PlantsManager.swift in Sources */,
 				18E787F224562BAF0064F78D /* Kingdom.swift in Sources */,
 				18C3D78E2527A9F3006B6413 /* SpeciesRef.swift in Sources */,
@@ -686,12 +690,12 @@
 				186105C2244F1AD1008A863B /* KeychainPasswordItem.swift in Sources */,
 				18E7881224563AA80064F78D /* GenusRef.swift in Sources */,
 				183B1697252A4D3E007C7A72 /* PlantExclude.swift in Sources */,
+				181CAAD12533234A009A252C /* ClaimTokenOperation.swift in Sources */,
 				18D11834252BAF080004DC72 /* GenusFilter.swift in Sources */,
 				188CA1442528933000C26F55 /* Status.swift in Sources */,
 				18C3D78A252674FE006B6413 /* Zone.swift in Sources */,
 				187A8FA424E704510021B640 /* Metadata.swift in Sources */,
 				18E7882424576B1D0064F78D /* FruitOrSeed.swift in Sources */,
-				18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */,
 				18D11853252C6EB80004DC72 /* SpeciesFilter.swift in Sources */,
 				18E787F424562C700064F78D /* SubkingdomRef.swift in Sources */,
 				18E7880E245631FB0064F78D /* Genus.swift in Sources */,
@@ -703,7 +707,6 @@
 				18D11815252BA3EB0004DC72 /* FamilyFilter.swift in Sources */,
 				18C3D77A25260B69006B6413 /* Order.swift in Sources */,
 				18C3D77E2526636F006B6413 /* ImageCollection.swift in Sources */,
-				18933944252CE75F0099AADF /* PlantOperation.swift in Sources */,
 				18D1185B252C6ED00004DC72 /* SpeciesSortOrder.swift in Sources */,
 				1893393C252C80280099AADF /* GenusManager.swift in Sources */,
 				183B16C2252A6006007C7A72 /* DivisionsManager.swift in Sources */,
@@ -714,6 +717,7 @@
 				18D11800252B9D210004DC72 /* DivisionOrdersManager.swift in Sources */,
 				184BB2C624E5E1D6007DED03 /* Response.swift in Sources */,
 				18E787FE24562E560064F78D /* Division.swift in Sources */,
+				181CAADB25338DC6009A252C /* ItemOperation.swift in Sources */,
 				181CAAC425323CDC009A252C /* URLExtensions.swift in Sources */,
 				18D11842252C6BBC0004DC72 /* SpeciesManager.swift in Sources */,
 				183B169F252A54F2007C7A72 /* PlantRange.swift in Sources */,
@@ -898,7 +902,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = M5BBZ59SV2;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -912,7 +916,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.PigonaHill.TrefleSwiftSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -928,7 +932,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = M5BBZ59SV2;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -942,7 +946,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.PigonaHill.TrefleSwiftSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

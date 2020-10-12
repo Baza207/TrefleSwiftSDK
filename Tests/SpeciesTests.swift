@@ -27,7 +27,7 @@ class SpeciesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        SpeciesManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<SpeciesRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -39,6 +39,7 @@ class SpeciesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -59,7 +60,7 @@ class SpeciesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        SpeciesManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<SpeciesRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -71,6 +72,7 @@ class SpeciesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -92,7 +94,7 @@ class SpeciesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        SpeciesManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<SpeciesRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -110,6 +112,7 @@ class SpeciesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -130,7 +133,7 @@ class SpeciesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        SpeciesManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<SpeciesRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -142,6 +145,7 @@ class SpeciesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -162,7 +166,7 @@ class SpeciesTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        SpeciesManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
+        let operation = ItemOperation<Species>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -174,6 +178,7 @@ class SpeciesTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")

@@ -27,7 +27,7 @@ class DivisionsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DivisionsManager.fetch(jwt: config.accessToken, url: url) { (result) in
+        let operation = ListOperation<DivisionRef>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let page):
@@ -39,6 +39,7 @@ class DivisionsTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
@@ -59,7 +60,7 @@ class DivisionsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        DivisionsManager.fetchItem(jwt: config.accessToken, url: url) { (result) in
+        let operation = ItemOperation<Division>(jwt: config.accessToken, url: url) { (result) in
             
             switch result {
             case .success(let response):
@@ -71,6 +72,7 @@ class DivisionsTests: XCTestCase {
             
             expectation.fulfill()
         }
+        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
             XCTAssertNil(error, error?.localizedDescription ?? "")
