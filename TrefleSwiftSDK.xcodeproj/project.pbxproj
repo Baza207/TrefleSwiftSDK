@@ -50,7 +50,6 @@
 		188CA1622528941200C26F55 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CA1612528941200C26F55 /* Color.swift */; };
 		188CA1662528942600C26F55 /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CA1652528942600C26F55 /* Texture.swift */; };
 		1893393C252C80280099AADF /* GenusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893393B252C80280099AADF /* GenusManager.swift */; };
-		18933944252CE75F0099AADF /* PlantOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18933943252CE75F0099AADF /* PlantOperation.swift */; };
 		18C3D77A25260B69006B6413 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D77925260B69006B6413 /* Order.swift */; };
 		18C3D77E2526636F006B6413 /* ImageCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D77D2526636F006B6413 /* ImageCollection.swift */; };
 		18C3D78225266BC9006B6413 /* Synonym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3D78125266BC9006B6413 /* Synonym.swift */; };
@@ -76,7 +75,6 @@
 		18D1185F252C6ED90004DC72 /* SpeciesRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1185E252C6ED90004DC72 /* SpeciesRange.swift */; };
 		18D11863252C77810004DC72 /* DistributionZonesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11862252C77810004DC72 /* DistributionZonesManager.swift */; };
 		18D11869252C78DA0004DC72 /* DistributionZonesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11868252C78DA0004DC72 /* DistributionZonesTests.swift */; };
-		18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF92652454D9800034A058 /* PlantRefsOperation.swift */; };
 		18E787E7245623B80064F78D /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E6245623B80064F78D /* Plant.swift */; };
 		18E787EA2456278F0064F78D /* ImageRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E92456278F0064F78D /* ImageRef.swift */; };
 		18E787F224562BAF0064F78D /* Kingdom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787F124562BAF0064F78D /* Kingdom.swift */; };
@@ -162,7 +160,6 @@
 		188CA1612528941200C26F55 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		188CA1652528942600C26F55 /* Texture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
 		1893393B252C80280099AADF /* GenusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenusManager.swift; sourceTree = "<group>"; };
-		18933943252CE75F0099AADF /* PlantOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantOperation.swift; sourceTree = "<group>"; };
 		18C3D77925260B69006B6413 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		18C3D77D2526636F006B6413 /* ImageCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollection.swift; sourceTree = "<group>"; };
 		18C3D78125266BC9006B6413 /* Synonym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synonym.swift; sourceTree = "<group>"; };
@@ -188,7 +185,6 @@
 		18D1185E252C6ED90004DC72 /* SpeciesRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesRange.swift; sourceTree = "<group>"; };
 		18D11862252C77810004DC72 /* DistributionZonesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionZonesManager.swift; sourceTree = "<group>"; };
 		18D11868252C78DA0004DC72 /* DistributionZonesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionZonesTests.swift; sourceTree = "<group>"; };
-		18DF92652454D9800034A058 /* PlantRefsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantRefsOperation.swift; sourceTree = "<group>"; };
 		18E787E6245623B80064F78D /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		18E787E92456278F0064F78D /* ImageRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRef.swift; sourceTree = "<group>"; };
 		18E787F124562BAF0064F78D /* Kingdom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kingdom.swift; sourceTree = "<group>"; };
@@ -456,18 +452,8 @@
 				181CAAD4253329F5009A252C /* ListOperation.swift */,
 				181CAADA25338DC6009A252C /* ItemOperation.swift */,
 				181CAACF2533232E009A252C /* Authentication */,
-				18DF92642454D9640034A058 /* Plants */,
 			);
 			path = Operations;
-			sourceTree = "<group>";
-		};
-		18DF92642454D9640034A058 /* Plants */ = {
-			isa = PBXGroup;
-			children = (
-				18DF92652454D9800034A058 /* PlantRefsOperation.swift */,
-				18933943252CE75F0099AADF /* PlantOperation.swift */,
-			);
-			path = Plants;
 			sourceTree = "<group>";
 		};
 		18E787E8245627750064F78D /* Image */ = {
@@ -710,7 +696,6 @@
 				18C3D78A252674FE006B6413 /* Zone.swift in Sources */,
 				187A8FA424E704510021B640 /* Metadata.swift in Sources */,
 				18E7882424576B1D0064F78D /* FruitOrSeed.swift in Sources */,
-				18DF92662454D9800034A058 /* PlantRefsOperation.swift in Sources */,
 				18D11853252C6EB80004DC72 /* SpeciesFilter.swift in Sources */,
 				18E787F424562C700064F78D /* SubkingdomRef.swift in Sources */,
 				18E7880E245631FB0064F78D /* Genus.swift in Sources */,
@@ -722,7 +707,6 @@
 				18D11815252BA3EB0004DC72 /* FamilyFilter.swift in Sources */,
 				18C3D77A25260B69006B6413 /* Order.swift in Sources */,
 				18C3D77E2526636F006B6413 /* ImageCollection.swift in Sources */,
-				18933944252CE75F0099AADF /* PlantOperation.swift in Sources */,
 				18D1185B252C6ED00004DC72 /* SpeciesSortOrder.swift in Sources */,
 				1893393C252C80280099AADF /* GenusManager.swift in Sources */,
 				183B16C2252A6006007C7A72 /* DivisionsManager.swift in Sources */,
