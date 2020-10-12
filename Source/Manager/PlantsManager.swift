@@ -99,6 +99,7 @@ public class PlantsManager {
     
     // MARK: - Search Plants
     
+    @discardableResult
     public static func search(query: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
         
         guard let url = listURL(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
@@ -123,6 +124,7 @@ public class PlantsManager {
     
     // MARK: - Fetch Plants in Distribution Zone
     
+    @discardableResult
     public static func fetchInDistributionZone(with zoneId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
         
         guard let url = listURL(zoneId: zoneId, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
@@ -147,6 +149,7 @@ public class PlantsManager {
     
     // MARK: - Fetch Plants of a Genus
     
+    @discardableResult
     public static func fetchOfGenus(with genusId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
         
         guard let url = listURL(genusId: genusId, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
@@ -179,19 +182,19 @@ public class PlantsManager {
             return nil
         }
         
-        let listOperation = ItemOperation<Plant>(url: url, completionBlock: completed)
+        let itemOperation = ItemOperation<Plant>(url: url, completionBlock: completed)
         
         guard Trefle.shared.isValid == false else {
             
-            Trefle.operationQueue.addOperation(listOperation)
-            return listOperation
+            Trefle.operationQueue.addOperation(itemOperation)
+            return itemOperation
         }
         
         let claimTokenOperation = ClaimTokenOperation()
-        listOperation.addDependency(claimTokenOperation)
+        itemOperation.addDependency(claimTokenOperation)
         
-        Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
-        return listOperation
+        Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
+        return itemOperation
     }
     
 }

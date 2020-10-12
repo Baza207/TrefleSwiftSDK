@@ -37,126 +37,52 @@ public class DivisionOrdersManager {
     
     // MARK: - Fetch Divisions
     
-    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<DivisionOrderRef>, Error>) -> Void) {
-        
-        guard let jwt = Trefle.shared.jwt else {
-            completed(Result.failure(TrefleError.noJWT))
-            return
-        }
+    @discardableResult
+    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<DivisionOrderRef>, Error>) -> Void) -> ListOperation<DivisionOrderRef>? {
         
         guard let url = listURL(page: page) else {
             completed(Result.failure(TrefleError.badURL))
-            return
+            return nil
         }
+        
+        let listOperation = ListOperation<DivisionOrderRef>(url: url, completionBlock: completed)
         
         guard Trefle.shared.isValid == false else {
-            fetch(jwt: jwt, url: url, completed: completed)
-            return
+            
+            Trefle.operationQueue.addOperation(listOperation)
+            return listOperation
         }
         
-        Trefle.claimToken { (result) in
-            
-            switch result {
-            case .success:
-                fetch(jwt: jwt, url: url, completed: completed)
-            case .failure(let error):
-                completed(Result.failure(error))
-            }
-        }
-    }
-    
-    internal static func fetch(jwt: String, url: URL, completed: @escaping (Result<ResponseList<DivisionOrderRef>, Error>) -> Void) {
+        let claimTokenOperation = ClaimTokenOperation()
+        listOperation.addDependency(claimTokenOperation)
         
-        let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
-        let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
-            
-            if let error = error {
-                completed(Result.failure(error))
-                return
-            }
-            
-            guard let data = data else {
-                completed(Result.failure(TrefleError.noData))
-                return
-            }
-            
-            let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseList<DivisionOrderRef>?
-            do {
-                result = try decoder.decode(ResponseList<DivisionOrderRef>.self, from: data)
-            } catch {
-                completed(Result.failure(error))
-                return
-            }
-            
-            guard let responseResult = result else {
-                completed(Result.failure(TrefleError.generalError))
-                return
-            }
-            
-            completed(Result.success(responseResult))
-        }
-        downloadTask.resume()
+        Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
+        return listOperation
     }
     
     // MARK: - Fetch Division Order
     
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<DivisionOrder>, Error>) -> Void) {
-        
-        guard let jwt = Trefle.shared.jwt else {
-            completed(Result.failure(TrefleError.noJWT))
-            return
-        }
+    @discardableResult
+    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<DivisionOrder>, Error>) -> Void) -> ItemOperation<DivisionOrder>? {
         
         guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
-            return
+            return nil
         }
+        
+        let itemOperation = ItemOperation<DivisionOrder>(url: url, completionBlock: completed)
         
         guard Trefle.shared.isValid == false else {
-            fetchItem(jwt: jwt, url: url, completed: completed)
-            return
+            
+            Trefle.operationQueue.addOperation(itemOperation)
+            return itemOperation
         }
         
-        Trefle.claimToken { (result) in
-            
-            switch result {
-            case .success:
-                fetchItem(jwt: jwt, url: url, completed: completed)
-            case .failure(let error):
-                completed(Result.failure(error))
-            }
-        }
-    }
-    
-    internal static func fetchItem(jwt: String, url: URL, completed: @escaping (Result<ResponseItem<DivisionOrder>, Error>) -> Void) {
+        let claimTokenOperation = ClaimTokenOperation()
+        itemOperation.addDependency(claimTokenOperation)
         
-        print(url)
-        let urlRequest = URLRequest.jsonRequest(url: url, jwt: jwt)
-        let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
-            
-            if let error = error {
-                completed(Result.failure(error))
-                return
-            }
-            
-            guard let data = data else {
-                completed(Result.failure(TrefleError.noData))
-                return
-            }
-            
-            let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseItem<DivisionOrder>
-            do {
-                result = try decoder.decode(ResponseItem<DivisionOrder>.self, from: data)
-            } catch {
-                completed(Result.failure(error))
-                return
-            }
-            
-            completed(Result.success(result))
-        }
-        downloadTask.resume()
+        Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
+        return itemOperation
     }
     
 }
