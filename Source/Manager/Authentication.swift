@@ -27,8 +27,7 @@ public extension Trefle {
             
             switch result {
             case .success(let state):
-                shared.jwt = state.jwt
-                shared.expires = state.expires
+                shared.jwtState = state
                 shared.authState = .authorized
                 
                 guard let stateUUID = shared.stateUUID else {
@@ -48,63 +47,12 @@ public extension Trefle {
     
     // MARK: - Token
     
-    internal static func claimToken(_ completed: @escaping (Result<JWTState, Error>) -> Void) {
+    @discardableResult
+    internal static func claimToken(_ completed: @escaping (Result<JWTState, Error>) -> Void) -> ClaimTokenOperation {
         
-        guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/auth/claim") else {
-            completed(Result.failure(TrefleError.badURL))
-            return
-        }
-        
-        urlComponents.queryItems = [
-            URLQueryItem(name: "token", value: shared.accessToken),
-            URLQueryItem(name: "origin", value: shared.uri)
-        ]
-        
-        guard let url = urlComponents.url else {
-            completed(Result.failure(TrefleError.badURL))
-            return
-        }
-        
-        if shared.stateUUID == nil {
-            shared.stateUUID = UUID().uuidString
-        }
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        let downloadTask = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
-            
-            if let error = error {
-                completed(Result.failure(error))
-                return
-            }
-            
-            guard let data = data else {
-                completed(Result.failure(TrefleError.noData))
-                return
-            }
-            
-            let decoder = JSONDecoder.jwtJSONDecoder
-            let result: JWTState?
-            do {
-                result = try decoder.decode(JWTState.self, from: data)
-            } catch {
-                completed(Result.failure(error))
-                return
-            }
-            
-            guard let state = result else {
-                completed(Result.failure(TrefleError.generalError))
-                return
-            }
-            
-            guard state.isValid == true else {
-                completed(Result.failure(TrefleError.invalidToken))
-                return
-            }
-            
-            completed(Result.success(state))
-        }
-        downloadTask.resume()
+        let operation = ClaimTokenOperation(completed)
+        Trefle.operationQueue.addOperation(operation)
+        return operation
     }
     
     // MARK: - Logout
@@ -120,8 +68,7 @@ public extension Trefle {
         
         manager.removeStateUUID()
         
-        manager.jwt = nil
-        manager.expires = nil
+        manager.jwtState = nil
         manager.stateUUID = nil
         
         manager.authState = .unauthorized
