@@ -92,43 +92,7 @@ public class ListOperation<T: Decodable>: Operation {
                 return
             }
             
-            if let error = error {
-                self.error = error
-                
-                self.fetchCompleted?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
-            }
-            
-            guard let data = data else {
-                let error = TrefleError.noData
-                self.error = error
-                
-                self.fetchCompleted?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
-            }
-            
-            let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseList<T>?
-            do {
-                result = try decoder.decode(ResponseList<T>.self, from: data)
-            } catch {
-                self.error = error
-                
-                self.fetchCompleted?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
-            }
+            let decodeResult = Self.decode(data: data, error: error)
             
             // Check if canceled, if so then return
             if self.isCancelled == true {
@@ -139,27 +103,45 @@ public class ListOperation<T: Decodable>: Operation {
                 return
             }
             
-            guard let responseResult = result else {
-                let error = TrefleError.generalError
+            switch decodeResult {
+            case .success(let response):
+                self.response = response
+                self.fetchCompleted?(Result.success(response))
+            case .failure(let error):
                 self.error = error
-                
                 self.fetchCompleted?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
             }
-            
-            self.response = responseResult
-            
-            self.fetchCompleted?(Result.success(responseResult))
             
             // Finish
             self._isExecuting = false
             self._isFinished = true
         }
         task?.resume()
+    }
+    
+    internal static func decode(data: Data?, error: Error?) -> Result<ResponseList<T>, Error> {
+        
+        if let error = error {
+            return .failure(error)
+        }
+        
+        guard let data = data else {
+            return .failure(TrefleError.noData)
+        }
+        
+        let decoder = JSONDecoder.customJSONDecoder
+        let result: ResponseList<T>?
+        do {
+            result = try decoder.decode(ResponseList<T>.self, from: data)
+        } catch {
+            return .failure(error)
+        }
+        
+        guard let responseResult = result else {
+            return .failure(TrefleError.generalError)
+        }
+        
+        return .success(responseResult)
     }
     
     public override func cancel() {
