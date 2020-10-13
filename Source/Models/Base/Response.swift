@@ -35,17 +35,17 @@ public struct ResponseItem<T: Decodable>: Decodable, CustomStringConvertible {
     // MARK: - Properties
     
     public let item: T
-    public let meta: Metadata
+    public let metadata: Metadata
     
     public var description: String {
-        "ResponseItem(data: \(item), meta: \(meta))"
+        "ResponseItem(data: \(item), meta: \(metadata))"
     }
     
     // MARK: - Coding
     
     private enum CodingKeys: String, CodingKey {
         case item = "data"
-        case meta
+        case metadata = "meta"
     }
     
 }
