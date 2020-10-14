@@ -79,6 +79,28 @@ class PlantsTests: XCTestCase {
         }
     }
     
+    func testGetPlantRefsExcludeURL() throws {
+        
+        guard let url = PlantsManager.listURL(exclude: [.toxicity]) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
+        dump(url)
+        
+        guard
+            let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true),
+            let queryItems = urlComponents.queryItems
+        else {
+            XCTAssert(false, "Couldn't get URL components from URL!")
+            return
+        }
+        
+        let queryItem = URLQueryItem(name: "filter_not[\(PlantExclude.toxicity.rawValue)]", value: "null")
+        let item = queryItems.first(where: { $0 == queryItem })
+        
+        XCTAssert(item != nil && item?.value == "null", "Query `filter_not` should contain `null` string as a value.")
+    }
+    
     func testGetPlantRefsPage() throws {
         
         guard let config = self.config else {
