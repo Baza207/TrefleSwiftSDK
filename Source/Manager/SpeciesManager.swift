@@ -44,7 +44,7 @@ public class SpeciesManager {
         }
         
         exclude?.forEach { (field) in
-            queryItems.append(URLQueryItem(name: "filter_not[\(field.rawValue)]", value: nil))
+            queryItems.append(URLQueryItem(name: "filter_not[\(field.rawValue)]", value: "null"))
         }
         
         order?.forEach { (field, order) in
