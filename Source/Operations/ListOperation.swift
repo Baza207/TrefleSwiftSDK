@@ -65,7 +65,7 @@ public class ListOperation<T: Decodable>: Operation {
         }
         
         if jwt == Trefle.shared.jwt && Trefle.shared.isValid == false {
-            let error = TrefleError.noJWT
+            let error = TrefleError.invalidJWT
             self.error = error
             
             fetchCompleted?(Result.failure(error))
