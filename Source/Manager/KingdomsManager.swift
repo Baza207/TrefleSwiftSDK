@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 public class KingdomsManager {
     
@@ -34,6 +35,12 @@ public class KingdomsManager {
     internal static func itemURL(identifier: String) -> URL? {
         URL(string: "\(apiURL)/\(identifier)")
     }
+    
+}
+
+// MARK: - Operations
+
+extension KingdomsManager {
     
     // MARK: - Fetch Kingdoms
     
@@ -83,6 +90,44 @@ public class KingdomsManager {
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
+    }
+    
+}
+
+// MARK: - Publishers
+
+extension KingdomsManager {
+    
+    // MARK: - Fetch Kingdoms
+    
+    public static func fetchPublisher(page: Int? = nil) -> AnyPublisher<ResponseList<KingdomRef>, Error> {
+        Future<URL, Error> { (promise) in
+            if let url = listURL(page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<KingdomRef>, Error> in
+            ResponseList<KingdomRef>.publisher(url)
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    // MARK: - Fetch Kingdom
+    
+    public static func fetchItemPublisher(identifier: String) -> AnyPublisher<ResponseItem<Kingdom>, Error> {
+        Future<URL, Error> { (promise) in
+            if let url = itemURL(identifier: identifier) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseItem<Kingdom>, Error> in
+            ResponseItem<Kingdom>.publisher(url)
+        }
+        .eraseToAnyPublisher()
     }
     
 }
