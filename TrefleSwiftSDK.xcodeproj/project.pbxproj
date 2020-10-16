@@ -75,9 +75,9 @@
 		18D1185F252C6ED90004DC72 /* SpeciesRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1185E252C6ED90004DC72 /* SpeciesRange.swift */; };
 		18D11863252C77810004DC72 /* DistributionZonesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11862252C77810004DC72 /* DistributionZonesManager.swift */; };
 		18D11869252C78DA0004DC72 /* DistributionZonesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11868252C78DA0004DC72 /* DistributionZonesTests.swift */; };
-		18D7FBC82535941C000F7C00 /* ListPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7FBC72535941C000F7C00 /* ListPublisher.swift */; };
+		18D7FBC82535941C000F7C00 /* ResponseListPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7FBC72535941C000F7C00 /* ResponseListPublisher.swift */; };
 		18D7FBCC2535F8B8000F7C00 /* JWTStatePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7FBCB2535F8B8000F7C00 /* JWTStatePublisher.swift */; };
-		18D7FBD22535F9DB000F7C00 /* ItemPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7FBD12535F9DB000F7C00 /* ItemPublisher.swift */; };
+		18D7FBD22535F9DB000F7C00 /* ResponseItemPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7FBD12535F9DB000F7C00 /* ResponseItemPublisher.swift */; };
 		18E787E7245623B80064F78D /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E6245623B80064F78D /* Plant.swift */; };
 		18E787EA2456278F0064F78D /* ImageRef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787E92456278F0064F78D /* ImageRef.swift */; };
 		18E787F224562BAF0064F78D /* Kingdom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E787F124562BAF0064F78D /* Kingdom.swift */; };
@@ -188,9 +188,9 @@
 		18D1185E252C6ED90004DC72 /* SpeciesRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesRange.swift; sourceTree = "<group>"; };
 		18D11862252C77810004DC72 /* DistributionZonesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionZonesManager.swift; sourceTree = "<group>"; };
 		18D11868252C78DA0004DC72 /* DistributionZonesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistributionZonesTests.swift; sourceTree = "<group>"; };
-		18D7FBC72535941C000F7C00 /* ListPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPublisher.swift; sourceTree = "<group>"; };
+		18D7FBC72535941C000F7C00 /* ResponseListPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseListPublisher.swift; sourceTree = "<group>"; };
 		18D7FBCB2535F8B8000F7C00 /* JWTStatePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTStatePublisher.swift; sourceTree = "<group>"; };
-		18D7FBD12535F9DB000F7C00 /* ItemPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPublisher.swift; sourceTree = "<group>"; };
+		18D7FBD12535F9DB000F7C00 /* ResponseItemPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseItemPublisher.swift; sourceTree = "<group>"; };
 		18E787E6245623B80064F78D /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
 		18E787E92456278F0064F78D /* ImageRef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRef.swift; sourceTree = "<group>"; };
 		18E787F124562BAF0064F78D /* Kingdom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kingdom.swift; sourceTree = "<group>"; };
@@ -457,8 +457,8 @@
 			isa = PBXGroup;
 			children = (
 				18D7FBD52535FA75000F7C00 /* Authentication */,
-				18D7FBC72535941C000F7C00 /* ListPublisher.swift */,
-				18D7FBD12535F9DB000F7C00 /* ItemPublisher.swift */,
+				18D7FBC72535941C000F7C00 /* ResponseListPublisher.swift */,
+				18D7FBD12535F9DB000F7C00 /* ResponseItemPublisher.swift */,
 			);
 			path = Publishers;
 			sourceTree = "<group>";
@@ -735,7 +735,7 @@
 				18C3D77E2526636F006B6413 /* ImageCollection.swift in Sources */,
 				18D1185B252C6ED00004DC72 /* SpeciesSortOrder.swift in Sources */,
 				1893393C252C80280099AADF /* GenusManager.swift in Sources */,
-				18D7FBD22535F9DB000F7C00 /* ItemPublisher.swift in Sources */,
+				18D7FBD22535F9DB000F7C00 /* ResponseItemPublisher.swift in Sources */,
 				183B16C2252A6006007C7A72 /* DivisionsManager.swift in Sources */,
 				186105D324507C37008A863B /* PlantRef.swift in Sources */,
 				183B16932529E281007C7A72 /* PlantFilter.swift in Sources */,
@@ -747,7 +747,7 @@
 				181CAADB25338DC6009A252C /* ItemOperation.swift in Sources */,
 				181CAAC425323CDC009A252C /* URLExtensions.swift in Sources */,
 				18D11842252C6BBC0004DC72 /* SpeciesManager.swift in Sources */,
-				18D7FBC82535941C000F7C00 /* ListPublisher.swift in Sources */,
+				18D7FBC82535941C000F7C00 /* ResponseListPublisher.swift in Sources */,
 				183B169F252A54F2007C7A72 /* PlantRange.swift in Sources */,
 				188CA1662528942600C26F55 /* Texture.swift in Sources */,
 				188CA14E2528935600C26F55 /* Duration.swift in Sources */,
