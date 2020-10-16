@@ -96,6 +96,7 @@ extension KingdomsManager {
 
 // MARK: - Publishers
 
+@available(iOS 13, *)
 extension KingdomsManager {
     
     // MARK: - Fetch Kingdoms

@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 
+@available(iOS 13, *)
 internal extension JWTState {
     
     static func publisher(_ urlRequest: URLRequest) -> AnyPublisher<JWTState, Error> {

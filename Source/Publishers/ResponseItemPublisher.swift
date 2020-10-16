@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 
+@available(iOS 13, *)
 public extension ResponseItem {
     
     static func publisher<T: Decodable>(_ urlRequest: URLRequest) -> AnyPublisher<ResponseItem<T>, Error> {
