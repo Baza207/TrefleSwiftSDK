@@ -9,8 +9,16 @@
 import Foundation
 import Combine
 
-typealias KingdomRefPublisher = AnyPublisher<ResponseList<KingdomRef>, Error>
-typealias KingdomPublisher = AnyPublisher<ResponseItem<Kingdom>, Error>
+public typealias KingdomRefPublisher = AnyPublisher<ResponseList<KingdomRef>, Error>
+public typealias KingdomPublisher = AnyPublisher<ResponseItem<Kingdom>, Error>
+public typealias SubkingdomRefPublisher = AnyPublisher<ResponseList<SubkingdomRef>, Error>
+public typealias SubkingdomPublisher = AnyPublisher<ResponseItem<Subkingdom>, Error>
+public typealias DivisionRefPublisher = AnyPublisher<ResponseList<DivisionRef>, Error>
+public typealias DivisionPublisher = AnyPublisher<ResponseItem<Division>, Error>
+public typealias DivisionClassRefPublisher = AnyPublisher<ResponseList<DivisionClassRef>, Error>
+public typealias DivisionClassPublisher = AnyPublisher<ResponseItem<DivisionClass>, Error>
+public typealias DivisionOrderRefPublisher = AnyPublisher<ResponseList<DivisionOrderRef>, Error>
+public typealias DivisionOrderPublisher = AnyPublisher<ResponseItem<DivisionOrder>, Error>
 
 public protocol TrefleManagers {
     static func listURL(page: Int?) -> URL?
@@ -20,7 +28,7 @@ public protocol TrefleManagers {
 @available(iOS 13, *)
 public extension TrefleManagers {
     
-    // MARK: - Fetch Kingdoms
+    // MARK: - Fetch List
     
     static func fetchPublisher<T: Decodable>(page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
         Future<URL, Error> { (promise) in
@@ -36,7 +44,7 @@ public extension TrefleManagers {
         .eraseToAnyPublisher()
     }
     
-    // MARK: - Fetch Kingdom
+    // MARK: - Fetch Item
     
     static func fetchItemPublisher<T: Decodable>(identifier: String) -> AnyPublisher<ResponseItem<T>, Error> {
         Future<URL, Error> { (promise) in
