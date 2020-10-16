@@ -65,7 +65,7 @@ public class FamiliesManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
@@ -90,7 +90,7 @@ public class FamiliesManager {
             return itemOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         itemOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)

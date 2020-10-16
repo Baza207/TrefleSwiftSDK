@@ -1,5 +1,5 @@
 //
-//  ClaimTokenOperation.swift
+//  JWTStateOperation.swift
 //  TrefleSwiftSDK
 //
 //  Created by James Barrow on 2020-10-11.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ClaimTokenOperation: Operation {
+public class JWTStateOperation: Operation {
     
     internal var claimTokenCompletionBlock: ((_ result: Result<JWTState, Error>) -> Void)?
     

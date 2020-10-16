@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		181CAAC025323C89009A252C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAABF25323C89009A252C /* Config.swift */; };
 		181CAAC425323CDC009A252C /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAAC325323CDC009A252C /* URLExtensions.swift */; };
-		181CAAD12533234A009A252C /* ClaimTokenOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAAD02533234A009A252C /* ClaimTokenOperation.swift */; };
+		181CAAD12533234A009A252C /* JWTStateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAAD02533234A009A252C /* JWTStateOperation.swift */; };
 		181CAAD5253329F5009A252C /* ListOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAAD4253329F5009A252C /* ListOperation.swift */; };
 		181CAADB25338DC6009A252C /* ItemOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAADA25338DC6009A252C /* ItemOperation.swift */; };
 		183B16932529E281007C7A72 /* PlantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B16922529E281007C7A72 /* PlantFilter.swift */; };
@@ -116,7 +116,7 @@
 /* Begin PBXFileReference section */
 		181CAABF25323C89009A252C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		181CAAC325323CDC009A252C /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
-		181CAAD02533234A009A252C /* ClaimTokenOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimTokenOperation.swift; sourceTree = "<group>"; };
+		181CAAD02533234A009A252C /* JWTStateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTStateOperation.swift; sourceTree = "<group>"; };
 		181CAAD4253329F5009A252C /* ListOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOperation.swift; sourceTree = "<group>"; };
 		181CAADA25338DC6009A252C /* ItemOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemOperation.swift; sourceTree = "<group>"; };
 		183B16922529E281007C7A72 /* PlantFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantFilter.swift; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 		181CAACF2533232E009A252C /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				181CAAD02533234A009A252C /* ClaimTokenOperation.swift */,
+				181CAAD02533234A009A252C /* JWTStateOperation.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -716,7 +716,7 @@
 				186105C2244F1AD1008A863B /* KeychainPasswordItem.swift in Sources */,
 				18E7881224563AA80064F78D /* GenusRef.swift in Sources */,
 				183B1697252A4D3E007C7A72 /* PlantExclude.swift in Sources */,
-				181CAAD12533234A009A252C /* ClaimTokenOperation.swift in Sources */,
+				181CAAD12533234A009A252C /* JWTStateOperation.swift in Sources */,
 				18D11834252BAF080004DC72 /* GenusFilter.swift in Sources */,
 				188CA1442528933000C26F55 /* Status.swift in Sources */,
 				18C3D78A252674FE006B6413 /* Zone.swift in Sources */,

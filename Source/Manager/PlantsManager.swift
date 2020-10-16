@@ -90,7 +90,7 @@ public class PlantsManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
@@ -115,7 +115,7 @@ public class PlantsManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
@@ -140,7 +140,7 @@ public class PlantsManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
@@ -165,7 +165,7 @@ public class PlantsManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
@@ -190,7 +190,7 @@ public class PlantsManager {
             return itemOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         itemOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
