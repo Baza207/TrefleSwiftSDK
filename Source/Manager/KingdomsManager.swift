@@ -7,15 +7,14 @@
 //
 
 import Foundation
-import Combine
 
-public class KingdomsManager {
+public class KingdomsManager: TrefleManagers {
     
     internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/kingdoms"
     
     // MARK: - Kingdoms URLs
     
-    internal static func listURL(page: Int? = nil) -> URL? {
+    public static func listURL(page: Int? = nil) -> URL? {
         
         guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
@@ -32,7 +31,7 @@ public class KingdomsManager {
         return urlComponents.url
     }
     
-    internal static func itemURL(identifier: String) -> URL? {
+    public static func itemURL(identifier: String) -> URL? {
         URL(string: "\(apiURL)/\(identifier)")
     }
     
@@ -90,45 +89,6 @@ public extension KingdomsManager {
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
-    }
-    
-}
-
-// MARK: - Publishers
-
-@available(iOS 13, *)
-public extension KingdomsManager {
-    
-    // MARK: - Fetch Kingdoms
-    
-    static func fetchPublisher(page: Int? = nil) -> AnyPublisher<ResponseList<KingdomRef>, Error> {
-        Future<URL, Error> { (promise) in
-            if let url = listURL(page: page) {
-                promise(.success(url))
-            } else {
-                promise(.failure(TrefleError.badURL))
-            }
-        }
-        .flatMap { (url) -> AnyPublisher<ResponseList<KingdomRef>, Error> in
-            ResponseList<KingdomRef>.publisher(url)
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    // MARK: - Fetch Kingdom
-    
-    static func fetchItemPublisher(identifier: String) -> AnyPublisher<ResponseItem<Kingdom>, Error> {
-        Future<URL, Error> { (promise) in
-            if let url = itemURL(identifier: identifier) {
-                promise(.success(url))
-            } else {
-                promise(.failure(TrefleError.badURL))
-            }
-        }
-        .flatMap { (url) -> AnyPublisher<ResponseItem<Kingdom>, Error> in
-            ResponseItem<Kingdom>.publisher(url)
-        }
-        .eraseToAnyPublisher()
     }
     
 }
