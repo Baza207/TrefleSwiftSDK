@@ -40,12 +40,12 @@ public class KingdomsManager {
 
 // MARK: - Operations
 
-extension KingdomsManager {
+public extension KingdomsManager {
     
     // MARK: - Fetch Kingdoms
     
     @discardableResult
-    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<KingdomRef>, Error>) -> Void) -> ListOperation<KingdomRef>? {
+    static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<KingdomRef>, Error>) -> Void) -> ListOperation<KingdomRef>? {
         
         guard let url = listURL(page: page) else {
             completed(Result.failure(TrefleError.badURL))
@@ -70,7 +70,7 @@ extension KingdomsManager {
     // MARK: - Fetch Kingdom
     
     @discardableResult
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Kingdom>, Error>) -> Void) -> ItemOperation<Kingdom>? {
+    static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Kingdom>, Error>) -> Void) -> ItemOperation<Kingdom>? {
         
         guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
@@ -97,11 +97,11 @@ extension KingdomsManager {
 // MARK: - Publishers
 
 @available(iOS 13, *)
-extension KingdomsManager {
+public extension KingdomsManager {
     
     // MARK: - Fetch Kingdoms
     
-    public static func fetchPublisher(page: Int? = nil) -> AnyPublisher<ResponseList<KingdomRef>, Error> {
+    static func fetchPublisher(page: Int? = nil) -> AnyPublisher<ResponseList<KingdomRef>, Error> {
         Future<URL, Error> { (promise) in
             if let url = listURL(page: page) {
                 promise(.success(url))
@@ -117,7 +117,7 @@ extension KingdomsManager {
     
     // MARK: - Fetch Kingdom
     
-    public static func fetchItemPublisher(identifier: String) -> AnyPublisher<ResponseItem<Kingdom>, Error> {
+    static func fetchItemPublisher(identifier: String) -> AnyPublisher<ResponseItem<Kingdom>, Error> {
         Future<URL, Error> { (promise) in
             if let url = itemURL(identifier: identifier) {
                 promise(.success(url))
