@@ -62,13 +62,10 @@ public class JWTStateOperation: Operation {
             self._isFinished = true
         }
         
-        let urlRequest: URLRequest
-        let urlRequestResult = Self.urlRequest()
-        switch urlRequestResult {
-        case .success(let reuest):
-            urlRequest = reuest
-        case .failure(let error):
+        guard let urlRequest = JWTState.urlRequest else {
+            let error = TrefleError.badURL
             self.error = error
+            claimTokenCompletionBlock?(Result.failure(error))
             
             // Finish
             _isExecuting = false
@@ -145,27 +142,6 @@ public class JWTStateOperation: Operation {
             self._isFinished = true
         }
         task?.resume()
-    }
-    
-    internal static func urlRequest() -> Result<URLRequest, Error> {
-        
-        guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/auth/claim") else {
-            return Result.failure(TrefleError.badURL)
-        }
-        
-        urlComponents.queryItems = [
-            URLQueryItem(name: "token", value: Trefle.shared.accessToken),
-            URLQueryItem(name: "origin", value: Trefle.shared.uri)
-        ]
-        
-        guard let url = urlComponents.url else {
-            return Result.failure(TrefleError.badURL)
-        }
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        
-        return Result.success(urlRequest)
     }
     
     internal static func decode(data: Data?, error: Error?) -> Result<JWTState, Error> {
