@@ -11,6 +11,13 @@ import Combine
 
 internal extension JWTState {
     
+    static func publisher(_ urlRequest: URLRequest) -> AnyPublisher<JWTState, Error> {
+        URLSession.shared.dataTaskPublisher(for: urlRequest)
+            .map(\.data)
+            .decode(type: JWTState.self, decoder: JSONDecoder.jwtJSONDecoder)
+            .eraseToAnyPublisher()
+    }
+    
     static func publisher() -> AnyPublisher<JWTState, Error> {
         
         if Trefle.shared.isValid == true {
@@ -23,22 +30,20 @@ internal extension JWTState {
                 }
             }
             .eraseToAnyPublisher()
-        }
-        
-        return Future<URLRequest, Error> { promise in
-            if let urlRequest = JWTState.urlRequest {
-                promise(.success(urlRequest))
-            }
-            promise(.failure(TrefleError.badURL))
-        }
-        .flatMap { (urlRequest) -> AnyPublisher<JWTState, Error> in
             
-            URLSession.shared.dataTaskPublisher(for: urlRequest)
-                .map(\.data)
-                .decode(type: JWTState.self, decoder: JSONDecoder.jwtJSONDecoder)
-                .eraseToAnyPublisher()
+        } else {
+            
+            return Future<URLRequest, Error> { promise in
+                if let urlRequest = JWTState.urlRequest {
+                    promise(.success(urlRequest))
+                }
+                promise(.failure(TrefleError.badURL))
+            }
+            .flatMap { (urlRequest) -> AnyPublisher<JWTState, Error> in
+                JWTState.publisher(urlRequest)
+            }
+            .eraseToAnyPublisher()
         }
-        .eraseToAnyPublisher()
     }
     
 }
