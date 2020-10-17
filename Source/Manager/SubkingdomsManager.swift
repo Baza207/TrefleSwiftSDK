@@ -35,10 +35,16 @@ public class SubkingdomsManager: TrefleManagers {
         URL(string: "\(apiURL)/\(identifier)")
     }
     
+}
+
+// MARK: - Operations
+
+public extension SubkingdomsManager {
+    
     // MARK: - Fetch Subkingdoms
     
     @discardableResult
-    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<SubkingdomRef>, Error>) -> Void) -> ListOperation<SubkingdomRef>? {
+    static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<SubkingdomRef>, Error>) -> Void) -> ListOperation<SubkingdomRef>? {
         
         guard let url = listURL(page: page) else {
             completed(Result.failure(TrefleError.badURL))
@@ -63,7 +69,7 @@ public class SubkingdomsManager: TrefleManagers {
     // MARK: - Fetch Subkingdom
     
     @discardableResult
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Subkingdom>, Error>) -> Void) -> ItemOperation<Subkingdom>? {
+    static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Subkingdom>, Error>) -> Void) -> ItemOperation<Subkingdom>? {
         
         guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))

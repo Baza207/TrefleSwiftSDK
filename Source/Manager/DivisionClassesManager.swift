@@ -35,10 +35,16 @@ public class DivisionClassesManager: TrefleManagers {
         URL(string: "\(apiURL)/\(identifier)")
     }
     
+}
+
+// MARK: - Operations
+
+public extension DivisionClassesManager {
+    
     // MARK: - Fetch Divisions
     
     @discardableResult
-    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<DivisionClassRef>, Error>) -> Void) -> ListOperation<DivisionClassRef>? {
+    static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<DivisionClassRef>, Error>) -> Void) -> ListOperation<DivisionClassRef>? {
         
         guard let url = listURL(page: page) else {
             completed(Result.failure(TrefleError.badURL))
@@ -63,7 +69,7 @@ public class DivisionClassesManager: TrefleManagers {
     // MARK: - Fetch Division Class
     
     @discardableResult
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<DivisionClass>, Error>) -> Void) -> ItemOperation<DivisionClass>? {
+    static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<DivisionClass>, Error>) -> Void) -> ItemOperation<DivisionClass>? {
         
         guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
