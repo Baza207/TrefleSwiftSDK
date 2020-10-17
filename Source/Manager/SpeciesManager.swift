@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Combine
 
-public class SpeciesManager {
+public class SpeciesManager: TrefleManagers {
     
     public typealias Filter = [SpeciesFilter: [String]]
     public typealias Exclude = [SpeciesExclude]
@@ -19,7 +20,7 @@ public class SpeciesManager {
     
     // MARK: - Species URLs
     
-    internal static func listURL(query: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> URL? {
+    public static func listURL(query: String? = nil, filter: Filter?, exclude: Exclude?, order: SortOrder?, range: Range?, page: Int?) -> URL? {
         
         let urlString: String
         if query != nil {
@@ -64,16 +65,47 @@ public class SpeciesManager {
         return urlComponents.url
     }
     
-    internal static func itemURL(identifier: String) -> URL? {
+    public static func itemURL(identifier: String) -> URL? {
         URL(string: "\(apiURL)/\(identifier)")
     }
     
-    // MARK: - Fetch Species
+}
+
+// MARK: - Operations
+
+public extension SpeciesManager {
+    
+    // MARK: - Fetch Species Refs
     
     @discardableResult
-    public static func fetch(query: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<SpeciesRef>, Error>) -> Void) -> ListOperation<SpeciesRef>? {
+    static func fetch(filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<SpeciesRef>, Error>) -> Void) -> ListOperation<SpeciesRef>? {
         
-        guard let url = listURL(page: page) else {
+        guard let url = listURL(filter: filter, exclude: exclude, order: order, range: range, page: page) else {
+            completed(Result.failure(TrefleError.badURL))
+            return nil
+        }
+        
+        let listOperation = ListOperation<SpeciesRef>(url: url, completionBlock: completed)
+        
+        guard Trefle.shared.isValid == false else {
+            
+            Trefle.operationQueue.addOperation(listOperation)
+            return listOperation
+        }
+        
+        let claimTokenOperation = JWTStateOperation()
+        listOperation.addDependency(claimTokenOperation)
+        
+        Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
+        return listOperation
+    }
+    
+    // MARK: - Search Species
+    
+    @discardableResult
+    static func search(query: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<SpeciesRef>, Error>) -> Void) -> ListOperation<SpeciesRef>? {
+        
+        guard let url = listURL(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return nil
         }
@@ -96,7 +128,7 @@ public class SpeciesManager {
     // MARK: - Fetch Species
     
     @discardableResult
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Species>, Error>) -> Void) -> ItemOperation<Species>? {
+    static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Species>, Error>) -> Void) -> ItemOperation<Species>? {
         
         guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
@@ -116,6 +148,47 @@ public class SpeciesManager {
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
+    }
+    
+}
+
+// MARK: - Publishers
+
+@available(iOS 13, *)
+public extension SpeciesManager {
+    
+    // MARK: - Fetch Species Refs
+    
+    static func fetchPublisher<T: Decodable>(filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(filter: filter, exclude: exclude, order: order, range: range, page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    // MARK: - Search Species
+    
+    static func searchPublisher<T: Decodable>(query: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
     }
     
 }

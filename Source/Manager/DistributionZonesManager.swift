@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 public class DistributionZonesManager: TrefleManagers {
     
@@ -14,7 +15,7 @@ public class DistributionZonesManager: TrefleManagers {
     
     // MARK: - Distribution Zones URLs
     
-    public static func listURL(page: Int? = nil) -> URL? {
+    public static func listURL(page: Int?) -> URL? {
         
         guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
@@ -89,6 +90,28 @@ public extension DistributionZonesManager {
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
+    }
+    
+}
+
+// MARK: - Publishers
+
+@available(iOS 13, *)
+public extension DistributionZonesManager {
+    
+    static func fetchPublisher<T: Decodable>(page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
     }
     
 }

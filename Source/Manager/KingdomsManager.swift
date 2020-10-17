@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 public class KingdomsManager: TrefleManagers {
     
@@ -14,7 +15,7 @@ public class KingdomsManager: TrefleManagers {
     
     // MARK: - Kingdoms URLs
     
-    public static func listURL(page: Int? = nil) -> URL? {
+    public static func listURL(page: Int?) -> URL? {
         
         guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
@@ -41,7 +42,7 @@ public class KingdomsManager: TrefleManagers {
 
 public extension KingdomsManager {
     
-    // MARK: - Fetch Kingdoms
+    // MARK: - Fetch Kingdom Refs
     
     @discardableResult
     static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<KingdomRef>, Error>) -> Void) -> ListOperation<KingdomRef>? {
@@ -89,6 +90,30 @@ public extension KingdomsManager {
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
+    }
+    
+}
+
+// MARK: - Publishers
+
+@available(iOS 13, *)
+public extension KingdomsManager {
+    
+    // MARK: - Fetch Kingdom Refs
+    
+    static func fetchPublisher<T: Decodable>(page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 public class DivisionsManager: TrefleManagers {
     
@@ -14,7 +15,7 @@ public class DivisionsManager: TrefleManagers {
     
     // MARK: - Divisions URLs
     
-    public static func listURL(page: Int? = nil) -> URL? {
+    public static func listURL(page: Int?) -> URL? {
         
         guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
@@ -41,7 +42,7 @@ public class DivisionsManager: TrefleManagers {
 
 public extension DivisionsManager {
     
-    // MARK: - Fetch Divisions
+    // MARK: - Fetch Division Refs
     
     @discardableResult
     static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<DivisionRef>, Error>) -> Void) -> ListOperation<DivisionRef>? {
@@ -89,6 +90,30 @@ public extension DivisionsManager {
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
+    }
+    
+}
+
+// MARK: - Publishers
+
+@available(iOS 13, *)
+public extension DivisionsManager {
+    
+    // MARK: - Fetch Division Refs
+    
+    static func fetchPublisher<T: Decodable>(page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
     }
     
 }

@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Combine
 
-public class FamiliesManager {
+public class FamiliesManager: TrefleManagers {
     
     public typealias Filter = [FamilyFilter: [String]]
     public typealias SortOrder = [(field: FamilySortOrder, order: Order)]
@@ -17,7 +18,7 @@ public class FamiliesManager {
     
     // MARK: - Families URLs
     
-    internal static func listURL(filter: Filter? = nil, order: SortOrder? = nil, page: Int? = nil) -> URL? {
+    public static func listURL(filter: Filter?, order: SortOrder?, page: Int?) -> URL? {
         
         guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
@@ -43,16 +44,22 @@ public class FamiliesManager {
         return urlComponents.url
     }
     
-    internal static func itemURL(identifier: String) -> URL? {
+    public static func itemURL(identifier: String) -> URL? {
         URL(string: "\(apiURL)/\(identifier)")
     }
     
-    // MARK: - Fetch Families
+}
+
+// MARK: - Operations
+
+public extension FamiliesManager {
+    
+    // MARK: - Fetch Family Refs
     
     @discardableResult
-    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<FamilyRef>, Error>) -> Void) -> ListOperation<FamilyRef>? {
+    static func fetch(filter: Filter? = nil, order: SortOrder? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<FamilyRef>, Error>) -> Void) -> ListOperation<FamilyRef>? {
         
-        guard let url = listURL(page: page) else {
+        guard let url = listURL(filter: filter, order: order, page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return nil
         }
@@ -75,7 +82,7 @@ public class FamiliesManager {
     // MARK: - Fetch Family
     
     @discardableResult
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Family>, Error>) -> Void) -> ItemOperation<Family>? {
+    static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Family>, Error>) -> Void) -> ItemOperation<Family>? {
         
         guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
@@ -95,6 +102,30 @@ public class FamiliesManager {
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
+    }
+    
+}
+
+// MARK: - Publishers
+
+@available(iOS 13, *)
+public extension FamiliesManager {
+    
+    // MARK: - Fetch Family Refs
+    
+    static func fetchPublisher<T: Decodable>(filter: Filter? = nil, order: SortOrder? = nil, page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(filter: filter, order: order, page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
     }
     
 }
