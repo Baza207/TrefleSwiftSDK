@@ -20,7 +20,7 @@ class SpeciesTests: XCTestCase {
             return
         }
         
-        guard let url = SpeciesManager.listURL() else {
+        guard let url = SpeciesManager.listURL(filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -53,7 +53,7 @@ class SpeciesTests: XCTestCase {
             return
         }
         
-        guard let url = SpeciesManager.listURL(filter: [.commonName: [config.commonName]]) else {
+        guard let url = SpeciesManager.listURL(filter: [.commonName: [config.commonName]], exclude: nil, order: nil, range: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -81,7 +81,7 @@ class SpeciesTests: XCTestCase {
     
     func testGetSpeciesRefsExcludeURL() throws {
         
-        guard let url = SpeciesManager.listURL(exclude: [.toxicity]) else {
+        guard let url = SpeciesManager.listURL(filter: nil, exclude: [.toxicity], order: nil, range: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -109,7 +109,7 @@ class SpeciesTests: XCTestCase {
         }
         
         let requstedPage = 2
-        guard let url = SpeciesManager.listURL(page: requstedPage) else {
+        guard let url = SpeciesManager.listURL(filter: nil, exclude: nil, order: nil, range: nil, page: requstedPage) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -148,7 +148,7 @@ class SpeciesTests: XCTestCase {
             return
         }
         
-        guard let url = SpeciesManager.listURL(query: config.commonName) else {
+        guard let url = SpeciesManager.listURL(query: config.commonName, filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }

@@ -20,7 +20,7 @@ class KingdomsTests: XCTestCase {
             return
         }
         
-        guard let url = KingdomsManager.listURL() else {
+        guard let url = KingdomsManager.listURL(page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }

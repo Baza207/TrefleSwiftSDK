@@ -20,7 +20,7 @@ class SubkingdomsTests: XCTestCase {
             return
         }
         
-        guard let url = SubkingdomsManager.listURL() else {
+        guard let url = SubkingdomsManager.listURL(page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }

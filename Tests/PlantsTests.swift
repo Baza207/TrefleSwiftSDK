@@ -20,7 +20,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = PlantsManager.listURL() else {
+        guard let url = PlantsManager.listURL(filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -53,7 +53,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = PlantsManager.listURL(filter: [.commonName: [config.commonName]]) else {
+        guard let url = PlantsManager.listURL(filter: [.commonName: [config.commonName]], exclude: nil, order: nil, range: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -81,7 +81,7 @@ class PlantsTests: XCTestCase {
     
     func testGetPlantRefsExcludeURL() throws {
         
-        guard let url = PlantsManager.listURL(exclude: [.toxicity]) else {
+        guard let url = PlantsManager.listURL(filter: nil, exclude: [.toxicity], order: nil, range: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -109,7 +109,7 @@ class PlantsTests: XCTestCase {
         }
         
         let requstedPage = 2
-        guard let url = PlantsManager.listURL(page: requstedPage) else {
+        guard let url = PlantsManager.listURL(filter: nil, exclude: nil, order: nil, range: nil, page: requstedPage) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -148,7 +148,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = PlantsManager.listURL(query: config.commonName) else {
+        guard let url = PlantsManager.listURL(query: config.commonName, filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -181,7 +181,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = PlantsManager.listURL(zoneId: config.twdgCode) else {
+        guard let url = PlantsManager.listURL(zoneId: config.twdgCode, filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -214,7 +214,7 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = PlantsManager.listURL(genusId: config.genusId) else {
+        guard let url = PlantsManager.listURL(genusId: config.genusId, filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }

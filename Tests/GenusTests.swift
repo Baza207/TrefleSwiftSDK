@@ -20,7 +20,7 @@ class GenusTests: XCTestCase {
             return
         }
         
-        guard let url = GenusManager.listURL() else {
+        guard let url = GenusManager.listURL(filter: nil, order: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -53,7 +53,7 @@ class GenusTests: XCTestCase {
             return
         }
         
-        guard let url = GenusManager.listURL(filter: [.name: [config.genusName]]) else {
+        guard let url = GenusManager.listURL(filter: [.name: [config.genusName]], order: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -87,7 +87,7 @@ class GenusTests: XCTestCase {
         }
         
         let requstedPage = 2
-        guard let url = GenusManager.listURL(page: requstedPage) else {
+        guard let url = GenusManager.listURL(filter: nil, order: nil, page: requstedPage) else {
             XCTFail("Failed to create URL!")
             return
         }

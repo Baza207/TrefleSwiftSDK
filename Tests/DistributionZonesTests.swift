@@ -20,7 +20,7 @@ class DistributionZonesTests: XCTestCase {
             return
         }
         
-        guard let url = DistributionZonesManager.listURL() else {
+        guard let url = DistributionZonesManager.listURL(page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
