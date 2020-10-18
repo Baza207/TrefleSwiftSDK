@@ -1,5 +1,5 @@
 //
-//  PlantsTests.swift
+//  PlantsPublisherTests.swift
 //  TrefleSwiftSDKTests
 //
 //  Created by James Barrow on 2020-04-22.
@@ -9,7 +9,8 @@
 import XCTest
 @testable import TrefleSwiftSDK
 
-class PlantsTests: XCTestCase {
+@available(iOS 13, *)
+class PlantsPublisherTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
@@ -28,30 +29,28 @@ class PlantsTests: XCTestCase {
         Trefle.shared.jwtState = nil
     }
     
-    func testGetPlantRefs() throws {
+    func testGetPlantRefsPublisher() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = PlantsManager.fetch { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: PlantRefsPublisher = PlantsManager.fetchPublisher()
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.items.count > 0, "No returned items!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
-    func testGetPlantRefsFilter() throws {
+    func testGetPlantRefsPublisherFilter() throws {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
@@ -60,79 +59,51 @@ class PlantsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = PlantsManager.fetch(filter: [.commonName: [config.commonName]]) { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: PlantRefsPublisher = PlantsManager.fetchPublisher(filter: [.commonName: [config.commonName]])
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.items.contains(where: { $0.commonName?.lowercased() == config.commonName.lowercased() }), "Returned items should have the common name of '\(config.commonName)' but it wasn't found in '\(response.items)'!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
-    func testGetPlantRefsExcludeURL() throws {
-        
-        guard let url = PlantsManager.listURL(filter: nil, exclude: [.toxicity], order: nil, range: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        dump(url)
-        
-        guard
-            let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true),
-            let queryItems = urlComponents.queryItems
-        else {
-            XCTAssert(false, "Couldn't get URL components from URL!")
-            return
-        }
-        
-        let queryItem = URLQueryItem(name: "filter_not[\(PlantExclude.toxicity.rawValue)]", value: "null")
-        let item = queryItems.first(where: { $0 == queryItem })
-        
-        XCTAssert(item != nil && item?.value == "null", "Query `filter_not` should contain `null` string as a value.")
-    }
-    
-    func testGetPlantRefsPage() throws {
+    func testGetPlantRefsPublisherPage() throws {
         
         let requstedPage = 2
         
         let expectation = self.expectation(description: #function)
         
-        let operation = PlantsManager.fetch(page: requstedPage) { (result) in
-            
-            switch result {
-            case .success(let response):
-                
+        let publisher: PlantRefsPublisher = PlantsManager.fetchPublisher(page: requstedPage)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 guard let page = response.links.currentPage else {
                     XCTFail("Couldn't get page query from current URL link.")
                     return
                 }
-                
                 XCTAssert(page == requstedPage, "Wrong page returned!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
-    func testSearchPlantRefs() throws {
+    func testSearchPlantRefsPublisher() throws {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
@@ -141,21 +112,19 @@ class PlantsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = PlantsManager.search(query: config.commonName) { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: PlantRefsPublisher = PlantsManager.searchPublisher(query: config.commonName)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.items.contains(where: { $0.commonName?.lowercased() == config.commonName.lowercased() }), "Returned items should have the common name of '\(config.commonName)' but it wasn't found in '\(response.items)'!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -169,21 +138,19 @@ class PlantsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = PlantsManager.fetchInDistributionZone(with: config.twdgCode) { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: PlantRefsPublisher = PlantsManager.fetchInDistributionZonePublisher(with: config.twdgCode)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.items.count > 0, "No returned items!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -197,21 +164,19 @@ class PlantsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = PlantsManager.fetchOfGenus(with: config.genusId) { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: PlantRefsPublisher = PlantsManager.fetchOfGenusPublisher(with: config.genusId)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.items.count > 0, "No returned items!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -225,21 +190,19 @@ class PlantsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = PlantsManager.fetchItem(identifier: config.plantId) { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: PlantPublisher = PlantsManager.fetchItemPublisher(identifier: config.plantId)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.item.mainSpeciesId == Int(config.plantId), "Returned item should match the fetched plant ID!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

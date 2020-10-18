@@ -87,9 +87,11 @@ public class Trefle {
     }
     internal lazy var authStateDidChangeListeners = [UUID: ((authState: AuthState) -> Void)]()
     internal let authStateListenerQueue = DispatchQueue(label: "com.PigonaHill.TrefleSwiftSDK.AuthStateListenerQueue", attributes: .concurrent)
+    internal static let operationUnderlyingQueue = DispatchQueue(label: "com.PigonaHill.TrefleSwiftSDK.TrefleAPIQueue", attributes: .concurrent)
     public static let operationQueue: OperationQueue = {
         let queue = OperationQueue()
         queue.name = "com.TrefleSwiftSDK.OperationQueue"
+        queue.underlyingQueue = operationUnderlyingQueue
         return queue
     }()
     

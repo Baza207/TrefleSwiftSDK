@@ -13,25 +13,30 @@ class DistributionZonesTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
-    func testFetchDistributionZonesRefs() throws {
+    override func setUp() {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
             return
         }
         
-        guard let url = DistributionZonesManager.listURL() else {
-            XCTFail("Failed to create URL!")
-            return
-        }
+        let state = JWTState(jwt: config.accessToken, expires: Date.distantFuture)
+        Trefle.shared.jwtState = state
+    }
+    
+    override class func tearDown() {
+        Trefle.shared.jwtState = nil
+    }
+    
+    func testFetchDistributionZonesRefs() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<Zone>(jwt: config.accessToken, url: url) { (result) in
+        let operation = DistributionZonesManager.fetch { (result) in
             
             switch result {
-            case .success(let page):
-                XCTAssert(page.items.count > 0, "No returned items!")
+            case .success(let response):
+                XCTAssert(response.items.count > 0, "No returned items!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)
@@ -39,9 +44,9 @@ class DistributionZonesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -53,14 +58,9 @@ class DistributionZonesTests: XCTestCase {
             return
         }
         
-        guard let url = DistributionZonesManager.itemURL(identifier: config.zoneId) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ItemOperation<Zone>(jwt: config.accessToken, url: url) { (result) in
+        let operation = DistributionZonesManager.fetchItem(identifier: config.zoneId) { (result) in
             
             switch result {
             case .success(let response):
@@ -72,9 +72,9 @@ class DistributionZonesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import Combine
 
-public class DistributionZonesManager {
+public class DistributionZonesManager: TrefleManagers {
     
     internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/distributions"
     
     // MARK: - Distribution Zones URLs
     
-    internal static func listURL(page: Int? = nil) -> URL? {
+    public static func listURL(page: Int?) -> URL? {
         
         guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
@@ -31,14 +32,20 @@ public class DistributionZonesManager {
         return urlComponents.url
     }
     
-    internal static func itemURL(identifier: String) -> URL? {
+    public static func itemURL(identifier: String) -> URL? {
         URL(string: "\(apiURL)/\(identifier)")
     }
+    
+}
+
+// MARK: - Operations
+
+public extension DistributionZonesManager {
     
     // MARK: - Fetch Distribution Zones
     
     @discardableResult
-    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<Zone>, Error>) -> Void) -> ListOperation<Zone>? {
+    static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<Zone>, Error>) -> Void) -> ListOperation<Zone>? {
         
         guard let url = listURL(page: page) else {
             completed(Result.failure(TrefleError.badURL))
@@ -53,7 +60,7 @@ public class DistributionZonesManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
@@ -63,7 +70,7 @@ public class DistributionZonesManager {
     // MARK: - Fetch Distribution Zone
     
     @discardableResult
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Zone>, Error>) -> Void) -> ItemOperation<Zone>? {
+    static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Zone>, Error>) -> Void) -> ItemOperation<Zone>? {
         
         guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
@@ -78,11 +85,33 @@ public class DistributionZonesManager {
             return itemOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         itemOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
+    }
+    
+}
+
+// MARK: - Publishers
+
+@available(iOS 13, *)
+public extension DistributionZonesManager {
+    
+    static func fetchPublisher<T: Decodable>(page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
     }
     
 }

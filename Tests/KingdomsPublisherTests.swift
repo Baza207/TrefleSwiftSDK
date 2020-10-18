@@ -1,5 +1,5 @@
 //
-//  SubkingdomsTests.swift
+//  KingdomsPublisherTests.swift
 //  TrefleSwiftSDKTests
 //
 //  Created by James Barrow on 2020-10-04.
@@ -9,7 +9,8 @@
 import XCTest
 @testable import TrefleSwiftSDK
 
-class SubkingdomsTests: XCTestCase {
+@available(iOS 13, *)
+class KingdomsPublisherTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
@@ -28,30 +29,33 @@ class SubkingdomsTests: XCTestCase {
         Trefle.shared.jwtState = nil
     }
     
-    func testFetchSubkingdomRefs() throws {
+    func testFetchKingdomRefsPublisher() throws {
+        
+        guard let url = KingdomsManager.listURL(page: nil) else {
+            XCTFail("Failed to create URL!")
+            return
+        }
         
         let expectation = self.expectation(description: #function)
         
-        let operation = SubkingdomsManager.fetch { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: KingdomRefsPublisher = KingdomsManager.fetchPublisher(url: url)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.items.count > 0, "No returned items!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
-    func testFetchSubkingdom() throws {
+    func testFetchKingdomPublisher() throws {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
@@ -60,21 +64,19 @@ class SubkingdomsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = SubkingdomsManager.fetchItem(identifier: config.kingdomId) { (result) in
-            
-            switch result {
-            case .success(let response):
-                XCTAssert(response.item.identifier == Int(config.subkingdomId), "Returned item '\(response.item.identifier)' should match the fetched subkingdom ID '\(config.subkingdomId)'!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
+        let publisher: KingdomPublisher = KingdomsManager.fetchItemPublisher(identifier: config.kingdomId)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
+                XCTAssert(response.item.identifier == Int(config.kingdomId), "Returned item '\(response.item.identifier)' should match the fetched kingdom ID '\(config.kingdomId)'!")
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

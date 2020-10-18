@@ -1,5 +1,5 @@
 //
-//  GenusTests.swift
+//  FamilyPublisherTests.swift
 //  TrefleSwiftSDKTests
 //
 //  Created by James Barrow on 2020-10-05.
@@ -9,7 +9,8 @@
 import XCTest
 @testable import TrefleSwiftSDK
 
-class GenusTests: XCTestCase {
+@available(iOS 13, *)
+class FamilyPublisherTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
@@ -28,30 +29,28 @@ class GenusTests: XCTestCase {
         Trefle.shared.jwtState = nil
     }
     
-    func testFetchGenusRefs() throws {
+    func testFetchFamilyRefsPublisher() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = GenusManager.fetch { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: FamilyRefsPublisher = FamiliesManager.fetchPublisher()
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.items.count > 0, "No returned items!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
-    func testFetchGenusRefsFilter() throws {
+    func testFetchFamilyRefsPublisherFilter() throws {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
@@ -60,57 +59,51 @@ class GenusTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = GenusManager.fetch(filter: [.name: [config.genusName]]) { (result) in
-            
-            switch result {
-            case .success(let response):
-                XCTAssert(response.items.contains(where: { $0.name.lowercased() == config.genusName.lowercased() }), "Returned items should have the name of '\(config.genusName)' but it wasn't found in '\(response.items)'!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
+        let publisher: FamilyRefsPublisher = FamiliesManager.fetchPublisher(filter: [.name: [config.familyName]])
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
+                XCTAssert(response.items.contains(where: { $0.name.lowercased() == config.familyName.lowercased() }), "Returned items should have the name of '\(config.familyName)' but it wasn't found in '\(response.items)'!")
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
-    func testFetchGenusRefsPage() throws {
+    func testFetchFamilyRefsPublisherPage() throws {
         
         let requstedPage = 2
         
         let expectation = self.expectation(description: #function)
         
-        let operation = GenusManager.fetch(page: requstedPage) { (result) in
-            
-            switch result {
-            case .success(let response):
-                
+        let publisher: FamilyRefsPublisher = FamiliesManager.fetchPublisher(page: requstedPage)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 guard let page = response.links.currentPage else {
                     XCTFail("Couldn't get page query from current URL link.")
                     return
                 }
-                
                 XCTAssert(page == requstedPage, "Wrong page returned!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
-    func testFetchGenus() throws {
+    func testFetchFamilyPublisher() throws {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
@@ -119,21 +112,19 @@ class GenusTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = GenusManager.fetchItem(identifier: config.genusId) { (result) in
-            
-            switch result {
-            case .success(let response):
-                XCTAssert(response.item.identifier == Int(config.genusId), "Returned item '\(response.item.identifier)' should match the fetched genus ID '\(config.genusId)'!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
+        let publisher: FamilyPublisher = FamiliesManager.fetchItemPublisher(identifier: config.familyId)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
+                XCTAssert(response.item.identifier == Int(config.familyId), "Returned item '\(response.item.identifier)' should match the fetched division order ID '\(config.familyId)'!")
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

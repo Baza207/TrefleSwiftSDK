@@ -1,5 +1,5 @@
 //
-//  DivisionOrdersTests.swift
+//  DivisionOrdersPublisherTests.swift
 //  TrefleSwiftSDKTests
 //
 //  Created by James Barrow on 2020-10-05.
@@ -9,7 +9,8 @@
 import XCTest
 @testable import TrefleSwiftSDK
 
-class DivisionOrdersTests: XCTestCase {
+@available(iOS 13, *)
+class DivisionOrdersPublisherTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
@@ -28,61 +29,55 @@ class DivisionOrdersTests: XCTestCase {
         Trefle.shared.jwtState = nil
     }
     
-    func testFetchDivisionOrderRefs() throws {
+    func testFetchDivisionOrderRefsPublisher() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = DivisionOrdersManager.fetch { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: DivisionOrderRefsPublisher = DivisionOrdersManager.fetchPublisher()
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.items.count > 0, "No returned items!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
-    func testFetchDivisionOrderRefsPage() throws {
+    func testFetchDivisionOrderRefsPublisherPage() throws {
         
         let requstedPage = 2
         
         let expectation = self.expectation(description: #function)
         
-        let operation = DivisionOrdersManager.fetch(page: requstedPage) { (result) in
-            
-            switch result {
-            case .success(let response):
-                
+        let publisher: DivisionOrderRefsPublisher = DivisionOrdersManager.fetchPublisher(page: requstedPage)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 guard let page = response.links.currentPage else {
                     XCTFail("Couldn't get page query from current URL link.")
                     return
                 }
-                
                 XCTAssert(page == requstedPage, "Wrong page returned!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
-    func testFetchDivisionOrder() throws {
+    func testFetchDivisionOrderPublisher() throws {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
@@ -91,21 +86,19 @@ class DivisionOrdersTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = DivisionOrdersManager.fetchItem(identifier: config.divisionOrderId) { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: DivisionOrderPublisher = DivisionOrdersManager.fetchItemPublisher(identifier: config.divisionOrderId)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.item.identifier == Int(config.divisionOrderId), "Returned item '\(response.item.identifier)' should match the fetched division order ID '\(config.divisionOrderId)'!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

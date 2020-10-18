@@ -1,15 +1,16 @@
 //
-//  SubkingdomsTests.swift
+//  DistributionZonesPublisherTests.swift
 //  TrefleSwiftSDKTests
 //
-//  Created by James Barrow on 2020-10-04.
+//  Created by James Barrow on 2020-10-06.
 //  Copyright © 2020 Pig on a Hill Productions. All rights reserved.
 //
 
 import XCTest
 @testable import TrefleSwiftSDK
 
-class SubkingdomsTests: XCTestCase {
+@available(iOS 13, *)
+class DistributionZonesPublisherTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
@@ -28,30 +29,28 @@ class SubkingdomsTests: XCTestCase {
         Trefle.shared.jwtState = nil
     }
     
-    func testFetchSubkingdomRefs() throws {
+    func testFetchDistributionZonesRefsPublisher() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = SubkingdomsManager.fetch { (result) in
-            
-            switch result {
-            case .success(let response):
+        let publisher: ZoneRefsPublisher = DistributionZonesManager.fetchPublisher()
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
                 XCTAssert(response.items.count > 0, "No returned items!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
-    func testFetchSubkingdom() throws {
+    func testFetchDistributionZonePublisher() throws {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
@@ -60,21 +59,19 @@ class SubkingdomsTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = SubkingdomsManager.fetchItem(identifier: config.kingdomId) { (result) in
-            
-            switch result {
-            case .success(let response):
-                XCTAssert(response.item.identifier == Int(config.subkingdomId), "Returned item '\(response.item.identifier)' should match the fetched subkingdom ID '\(config.subkingdomId)'!")
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
+        let publisher: ZonePublisher = DistributionZonesManager.fetchItemPublisher(identifier: config.zoneId)
+        let cancelable = publisher
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (response) in
+                XCTAssert(response.item.identifier == Int(config.zoneId), "Returned item '\(response.item.identifier)' should match the fetched zone ID '\(config.zoneId)'!")
             }
-            
-            expectation.fulfill()
-        }
         
         waitForExpectations(timeout: 60) { (error) in
-            operation?.cancel()
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
