@@ -29,6 +29,8 @@ class TrefleSwiftSDKTests: XCTestCase {
         
         try? KeychainPasswordItem(service: Trefle.keychainServiceName, account: stateUUID)
             .deleteItem()
+        
+        Trefle.shared.jwtState = nil
     }
     
     override class func tearDown() {
