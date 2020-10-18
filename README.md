@@ -21,7 +21,7 @@ This is currently a work in progress. There is a list of currently supported fea
 - [x] Species  
 - [x] Distribution Zones  
 - [x] Operation support
-- [ ] Combine support
+- [x] Combine support
 - [ ] Full error handling
 - [x] Basic test suite
 - [ ] Deep test suite
