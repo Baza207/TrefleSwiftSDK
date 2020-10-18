@@ -35,8 +35,8 @@ class SpeciesTests: XCTestCase {
         let operation = SpeciesManager.fetch { (result) in
             
             switch result {
-            case .success(let page):
-                XCTAssert(page.items.count > 0, "No returned items!")
+            case .success(let response):
+                XCTAssert(response.items.count > 0, "No returned items!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)

@@ -35,8 +35,8 @@ class PlantsTests: XCTestCase {
         let operation = PlantsManager.fetch { (result) in
             
             switch result {
-            case .success(let page):
-                XCTAssert(page.items.count > 0, "No returned items!")
+            case .success(let response):
+                XCTAssert(response.items.count > 0, "No returned items!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)
@@ -172,8 +172,8 @@ class PlantsTests: XCTestCase {
         let operation = PlantsManager.fetchInDistributionZone(with: config.twdgCode) { (result) in
             
             switch result {
-            case .success(let page):
-                XCTAssert(page.items.count > 0, "No returned items!")
+            case .success(let response):
+                XCTAssert(response.items.count > 0, "No returned items!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)
@@ -200,8 +200,8 @@ class PlantsTests: XCTestCase {
         let operation = PlantsManager.fetchOfGenus(with: config.genusId) { (result) in
             
             switch result {
-            case .success(let page):
-                XCTAssert(page.items.count > 0, "No returned items!")
+            case .success(let response):
+                XCTAssert(response.items.count > 0, "No returned items!")
                 
             case .failure(let error):
                 XCTFail(error.localizedDescription)
