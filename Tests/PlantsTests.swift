@@ -13,21 +13,26 @@ class PlantsTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
-    func testGetPlantRefs() throws {
+    override func setUp() {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
             return
         }
         
-        guard let url = PlantsManager.listURL(filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
+        let state = JWTState(jwt: config.accessToken, expires: Date.distantFuture)
+        Trefle.shared.jwtState = state
+    }
+    
+    override class func tearDown() {
+        Trefle.shared.jwtState = nil
+    }
+    
+    func testGetPlantRefs() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<PlantRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = PlantsManager.fetch { (result) in
             
             switch result {
             case .success(let page):
@@ -39,9 +44,9 @@ class PlantsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -53,14 +58,9 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = PlantsManager.listURL(filter: [.commonName: [config.commonName]], exclude: nil, order: nil, range: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<PlantRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = PlantsManager.fetch(filter: [.commonName: [config.commonName]]) { (result) in
             
             switch result {
             case .success(let response):
@@ -72,9 +72,9 @@ class PlantsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -103,20 +103,11 @@ class PlantsTests: XCTestCase {
     
     func testGetPlantRefsPage() throws {
         
-        guard let config = self.config else {
-            XCTFail("Requires a test config to be setup before calling login!")
-            return
-        }
-        
         let requstedPage = 2
-        guard let url = PlantsManager.listURL(filter: nil, exclude: nil, order: nil, range: nil, page: requstedPage) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<PlantRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = PlantsManager.fetch(page: requstedPage) { (result) in
             
             switch result {
             case .success(let response):
@@ -134,9 +125,9 @@ class PlantsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -148,14 +139,9 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = PlantsManager.listURL(query: config.commonName, filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<PlantRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = PlantsManager.search(query: config.commonName) { (result) in
             
             switch result {
             case .success(let response):
@@ -167,9 +153,9 @@ class PlantsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -181,14 +167,9 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = PlantsManager.listURL(zoneId: config.twdgCode, filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<PlantRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = PlantsManager.fetchInDistributionZone(with: config.twdgCode) { (result) in
             
             switch result {
             case .success(let page):
@@ -200,9 +181,9 @@ class PlantsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -214,14 +195,9 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = PlantsManager.listURL(genusId: config.genusId, filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<PlantRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = PlantsManager.fetchOfGenus(with: config.genusId) { (result) in
             
             switch result {
             case .success(let page):
@@ -233,9 +209,9 @@ class PlantsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -247,14 +223,9 @@ class PlantsTests: XCTestCase {
             return
         }
         
-        guard let url = PlantsManager.itemURL(identifier: config.plantId) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ItemOperation<Plant>(jwt: config.accessToken, url: url) { (result) in
+        let operation = PlantsManager.fetchItem(identifier: config.plantId) { (result) in
             
             switch result {
             case .success(let response):
@@ -266,9 +237,9 @@ class PlantsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

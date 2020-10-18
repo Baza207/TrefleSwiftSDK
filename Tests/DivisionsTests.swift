@@ -13,21 +13,26 @@ class DivisionsTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
-    func testFetchDivisionRefs() throws {
+    override func setUp() {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
             return
         }
         
-        guard let url = DivisionsManager.listURL(page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
+        let state = JWTState(jwt: config.accessToken, expires: Date.distantFuture)
+        Trefle.shared.jwtState = state
+    }
+    
+    override class func tearDown() {
+        Trefle.shared.jwtState = nil
+    }
+    
+    func testFetchDivisionRefs() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<DivisionRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = DivisionsManager.fetch { (result) in
             
             switch result {
             case .success(let page):
@@ -39,9 +44,9 @@ class DivisionsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -53,14 +58,9 @@ class DivisionsTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionsManager.itemURL(identifier: config.divisionId) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ItemOperation<Division>(jwt: config.accessToken, url: url) { (result) in
+        let operation = DivisionsManager.fetchItem(identifier: config.divisionId) { (result) in
             
             switch result {
             case .success(let response):
@@ -72,9 +72,9 @@ class DivisionsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

@@ -13,21 +13,26 @@ class GenusTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
-    func testFetchGenusRefs() throws {
+    override func setUp() {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
             return
         }
         
-        guard let url = GenusManager.listURL(filter: nil, order: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
+        let state = JWTState(jwt: config.accessToken, expires: Date.distantFuture)
+        Trefle.shared.jwtState = state
+    }
+    
+    override class func tearDown() {
+        Trefle.shared.jwtState = nil
+    }
+    
+    func testFetchGenusRefs() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<GenusRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = GenusManager.fetch { (result) in
             
             switch result {
             case .success(let page):
@@ -39,9 +44,9 @@ class GenusTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -53,14 +58,9 @@ class GenusTests: XCTestCase {
             return
         }
         
-        guard let url = GenusManager.listURL(filter: [.name: [config.genusName]], order: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<GenusRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = GenusManager.fetch(filter: [.name: [config.genusName]]) { (result) in
             
             switch result {
             case .success(let response):
@@ -72,29 +72,20 @@ class GenusTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
     func testFetchGenusRefsPage() throws {
         
-        guard let config = self.config else {
-            XCTFail("Requires a test config to be setup before calling login!")
-            return
-        }
-        
         let requstedPage = 2
-        guard let url = GenusManager.listURL(filter: nil, order: nil, page: requstedPage) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<GenusRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = GenusManager.fetch(page: requstedPage) { (result) in
             
             switch result {
             case .success(let response):
@@ -112,9 +103,9 @@ class GenusTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -126,14 +117,9 @@ class GenusTests: XCTestCase {
             return
         }
         
-        guard let url = GenusManager.itemURL(identifier: config.genusId) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ItemOperation<Genus>(jwt: config.accessToken, url: url) { (result) in
+        let operation = GenusManager.fetchItem(identifier: config.genusId) { (result) in
             
             switch result {
             case .success(let response):
@@ -145,9 +131,9 @@ class GenusTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

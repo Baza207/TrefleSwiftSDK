@@ -13,21 +13,26 @@ class FamiliesTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
-    func testFetchFamilyRefs() throws {
+    override func setUp() {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
             return
         }
         
-        guard let url = FamiliesManager.listURL(filter: nil, order: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
+        let state = JWTState(jwt: config.accessToken, expires: Date.distantFuture)
+        Trefle.shared.jwtState = state
+    }
+    
+    override class func tearDown() {
+        Trefle.shared.jwtState = nil
+    }
+    
+    func testFetchFamilyRefs() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<FamilyRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = FamiliesManager.fetch { (result) in
             
             switch result {
             case .success(let page):
@@ -39,9 +44,9 @@ class FamiliesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -53,14 +58,9 @@ class FamiliesTests: XCTestCase {
             return
         }
         
-        guard let url = FamiliesManager.listURL(filter: [.name: [config.familyName]], order: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<FamilyRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = FamiliesManager.fetch(filter: [.name: [config.familyName]]) { (result) in
             
             switch result {
             case .success(let response):
@@ -72,29 +72,20 @@ class FamiliesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
     func testFetchFamilyRefsPage() throws {
         
-        guard let config = self.config else {
-            XCTFail("Requires a test config to be setup before calling login!")
-            return
-        }
-        
         let requstedPage = 2
-        guard let url = FamiliesManager.listURL(filter: nil, order: nil, page: requstedPage) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<FamilyRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = FamiliesManager.fetch(page: requstedPage) { (result) in
             
             switch result {
             case .success(let response):
@@ -112,9 +103,9 @@ class FamiliesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -126,14 +117,9 @@ class FamiliesTests: XCTestCase {
             return
         }
         
-        guard let url = FamiliesManager.itemURL(identifier: config.familyId) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ItemOperation<Family>(jwt: config.accessToken, url: url) { (result) in
+        let operation = FamiliesManager.fetchItem(identifier: config.familyId) { (result) in
             
             switch result {
             case .success(let response):
@@ -145,9 +131,9 @@ class FamiliesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

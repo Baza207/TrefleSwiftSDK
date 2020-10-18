@@ -13,21 +13,26 @@ class SpeciesTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
-    func testFetchSpeciesRefs() throws {
+    override func setUp() {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
             return
         }
         
-        guard let url = SpeciesManager.listURL(filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
+        let state = JWTState(jwt: config.accessToken, expires: Date.distantFuture)
+        Trefle.shared.jwtState = state
+    }
+    
+    override class func tearDown() {
+        Trefle.shared.jwtState = nil
+    }
+    
+    func testFetchSpeciesRefs() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<SpeciesRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = SpeciesManager.fetch { (result) in
             
             switch result {
             case .success(let page):
@@ -39,9 +44,9 @@ class SpeciesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -53,14 +58,9 @@ class SpeciesTests: XCTestCase {
             return
         }
         
-        guard let url = SpeciesManager.listURL(filter: [.commonName: [config.commonName]], exclude: nil, order: nil, range: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<SpeciesRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = SpeciesManager.fetch(filter: [.commonName: [config.commonName]]) { (result) in
             
             switch result {
             case .success(let response):
@@ -72,9 +72,9 @@ class SpeciesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -103,20 +103,11 @@ class SpeciesTests: XCTestCase {
     
     func testGetSpeciesRefsPage() throws {
         
-        guard let config = self.config else {
-            XCTFail("Requires a test config to be setup before calling login!")
-            return
-        }
-        
         let requstedPage = 2
-        guard let url = SpeciesManager.listURL(filter: nil, exclude: nil, order: nil, range: nil, page: requstedPage) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<SpeciesRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = SpeciesManager.fetch(page: requstedPage) { (result) in
             
             switch result {
             case .success(let response):
@@ -134,9 +125,9 @@ class SpeciesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -148,14 +139,9 @@ class SpeciesTests: XCTestCase {
             return
         }
         
-        guard let url = SpeciesManager.listURL(query: config.commonName, filter: nil, exclude: nil, order: nil, range: nil, page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<SpeciesRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = SpeciesManager.search(query: config.commonName) { (result) in
             
             switch result {
             case .success(let response):
@@ -167,9 +153,9 @@ class SpeciesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -181,14 +167,9 @@ class SpeciesTests: XCTestCase {
             return
         }
         
-        guard let url = SpeciesManager.itemURL(identifier: config.speciesId) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ItemOperation<Species>(jwt: config.accessToken, url: url) { (result) in
+        let operation = SpeciesManager.fetchItem(identifier: config.speciesId) { (result) in
             
             switch result {
             case .success(let response):
@@ -200,9 +181,9 @@ class SpeciesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

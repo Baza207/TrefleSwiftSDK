@@ -13,21 +13,26 @@ class KingdomsTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
-    func testFetchKingdomRefs() throws {
+    override func setUp() {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
             return
         }
         
-        guard let url = KingdomsManager.listURL(page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
+        let state = JWTState(jwt: config.accessToken, expires: Date.distantFuture)
+        Trefle.shared.jwtState = state
+    }
+    
+    override class func tearDown() {
+        Trefle.shared.jwtState = nil
+    }
+    
+    func testFetchKingdomRefs() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<KingdomRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = KingdomsManager.fetch { (result) in
             
             switch result {
             case .success(let page):
@@ -39,9 +44,9 @@ class KingdomsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -53,14 +58,9 @@ class KingdomsTests: XCTestCase {
             return
         }
         
-        guard let url = KingdomsManager.itemURL(identifier: config.kingdomId) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ItemOperation<Kingdom>(jwt: config.accessToken, url: url) { (result) in
+        let operation = KingdomsManager.fetchItem(identifier: config.kingdomId) { (result) in
             
             switch result {
             case .success(let response):
@@ -72,9 +72,9 @@ class KingdomsTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

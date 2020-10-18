@@ -13,21 +13,26 @@ class DivisionClassesTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
-    func testFetchDivisionClassRefs() throws {
+    override func setUp() {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
             return
         }
         
-        guard let url = DivisionClassesManager.listURL(page: nil) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
+        let state = JWTState(jwt: config.accessToken, expires: Date.distantFuture)
+        Trefle.shared.jwtState = state
+    }
+    
+    override class func tearDown() {
+        Trefle.shared.jwtState = nil
+    }
+    
+    func testFetchDivisionClassRefs() throws {
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<DivisionClassRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = DivisionClassesManager.fetch { (result) in
             
             switch result {
             case .success(let page):
@@ -39,29 +44,20 @@ class DivisionClassesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
     
     func testFetchDivisionClassRefsPage() throws {
         
-        guard let config = self.config else {
-            XCTFail("Requires a test config to be setup before calling login!")
-            return
-        }
-        
         let requstedPage = 2
-        guard let url = DivisionClassesManager.listURL(page: requstedPage) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
         
         let expectation = self.expectation(description: #function)
         
-        let operation = ListOperation<DivisionClassRef>(jwt: config.accessToken, url: url) { (result) in
+        let operation = DivisionClassesManager.fetch(page: requstedPage) { (result) in
             
             switch result {
             case .success(let response):
@@ -79,9 +75,9 @@ class DivisionClassesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
@@ -93,14 +89,9 @@ class DivisionClassesTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionClassesManager.itemURL(identifier: config.divisionClassId) else {
-            XCTFail("Failed to create URL!")
-            return
-        }
-        
         let expectation = self.expectation(description: #function)
         
-        let operation = ItemOperation<DivisionClass>(jwt: config.accessToken, url: url) { (result) in
+        let operation = DivisionClassesManager.fetchItem(identifier: config.divisionClassId) { (result) in
             
             switch result {
             case .success(let response):
@@ -112,9 +103,9 @@ class DivisionClassesTests: XCTestCase {
             
             expectation.fulfill()
         }
-        Trefle.operationQueue.addOperation(operation)
         
         waitForExpectations(timeout: 60) { (error) in
+            operation?.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }
