@@ -65,7 +65,7 @@ public class ItemOperation<T: Decodable>: Operation {
         }
         
         if jwt == Trefle.shared.jwt && Trefle.shared.isValid == false {
-            let error = TrefleError.noJWT
+            let error = TrefleError.invalidJWT
             self.error = error
             
             fetchItemCompleted?(Result.failure(error))
@@ -92,43 +92,7 @@ public class ItemOperation<T: Decodable>: Operation {
                 return
             }
             
-            if let error = error {
-                self.error = error
-                
-                self.fetchItemCompleted?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
-            }
-            
-            guard let data = data else {
-                let error = TrefleError.noData
-                self.error = error
-                
-                self.fetchItemCompleted?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
-            }
-            
-            let decoder = JSONDecoder.customJSONDecoder
-            let result: ResponseItem<T>?
-            do {
-                result = try decoder.decode(ResponseItem<T>.self, from: data)
-            } catch {
-                self.error = error
-                
-                self.fetchItemCompleted?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
-            }
+            let decodeResult = Self.decode(data: data, error: error)
             
             // Check if canceled, if so then return
             if self.isCancelled == true {
@@ -139,27 +103,45 @@ public class ItemOperation<T: Decodable>: Operation {
                 return
             }
             
-            guard let responseResult = result else {
-                let error = TrefleError.generalError
+            switch decodeResult {
+            case .success(let response):
+                self.response = response
+                self.fetchItemCompleted?(Result.success(response))
+            case .failure(let error):
                 self.error = error
-                
                 self.fetchItemCompleted?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
             }
-            
-            self.response = responseResult
-            
-            self.fetchItemCompleted?(Result.success(responseResult))
             
             // Finish
             self._isExecuting = false
             self._isFinished = true
         }
         task?.resume()
+    }
+    
+    internal static func decode(data: Data?, error: Error?) -> Result<ResponseItem<T>, Error> {
+        
+        if let error = error {
+            return .failure(error)
+        }
+        
+        guard let data = data else {
+            return .failure(TrefleError.noData)
+        }
+        
+        let decoder = JSONDecoder.customJSONDecoder
+        let result: ResponseItem<T>?
+        do {
+            result = try decoder.decode(ResponseItem<T>.self, from: data)
+        } catch {
+            return .failure(error)
+        }
+        
+        guard let responseResult = result else {
+            return .failure(TrefleError.generalError)
+        }
+        
+        return .success(responseResult)
     }
     
     public override func cancel() {

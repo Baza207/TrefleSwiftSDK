@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import Combine
 
-public class DivisionOrdersManager {
+public class DivisionOrdersManager: TrefleManagers {
     
     internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/division_orders"
     
     // MARK: - Division Orders URLs
     
-    internal static func listURL(page: Int? = nil) -> URL? {
+    public static func listURL(page: Int?) -> URL? {
         
         guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
@@ -31,14 +32,20 @@ public class DivisionOrdersManager {
         return urlComponents.url
     }
     
-    internal static func itemURL(identifier: String) -> URL? {
+    public static func itemURL(identifier: String) -> URL? {
         URL(string: "\(apiURL)/\(identifier)")
     }
     
-    // MARK: - Fetch Divisions
+}
+
+// MARK: - Operations
+
+public extension DivisionOrdersManager {
+    
+    // MARK: - Fetch Division Order Refs
     
     @discardableResult
-    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<DivisionOrderRef>, Error>) -> Void) -> ListOperation<DivisionOrderRef>? {
+    static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<DivisionOrderRef>, Error>) -> Void) -> ListOperation<DivisionOrderRef>? {
         
         guard let url = listURL(page: page) else {
             completed(Result.failure(TrefleError.badURL))
@@ -53,7 +60,7 @@ public class DivisionOrdersManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
@@ -63,7 +70,7 @@ public class DivisionOrdersManager {
     // MARK: - Fetch Division Order
     
     @discardableResult
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<DivisionOrder>, Error>) -> Void) -> ItemOperation<DivisionOrder>? {
+    static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<DivisionOrder>, Error>) -> Void) -> ItemOperation<DivisionOrder>? {
         
         guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
@@ -78,11 +85,35 @@ public class DivisionOrdersManager {
             return itemOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         itemOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
+    }
+    
+}
+
+// MARK: - Publishers
+
+@available(iOS 13, *)
+public extension DivisionOrdersManager {
+    
+    // MARK: - Fetch Division Order Refs
+    
+    static func fetchPublisher<T: Decodable>(page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
     }
     
 }

@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Combine
 
-public class GenusManager {
+public class GenusManager: TrefleManagers {
     
     public typealias Filter = [GenusFilter: [String]]
     public typealias SortOrder = [(field: GenusSortOrder, order: Order)]
@@ -17,7 +18,7 @@ public class GenusManager {
     
     // MARK: - Genus URLs
     
-    internal static func listURL(filter: Filter? = nil, order: SortOrder? = nil, page: Int? = nil) -> URL? {
+    public static func listURL(filter: Filter?, order: SortOrder?, page: Int?) -> URL? {
         
         guard var urlComponents = URLComponents(string: apiURL) else {
             return nil
@@ -34,16 +35,22 @@ public class GenusManager {
         return urlComponents.url
     }
     
-    internal static func itemURL(identifier: String) -> URL? {
+    public static func itemURL(identifier: String) -> URL? {
         URL(string: "\(apiURL)/\(identifier)")
     }
     
-    // MARK: - Fetch Genus
+}
+
+// MARK: - Operations
+
+public extension GenusManager {
+    
+    // MARK: - Fetch Genus Refs
     
     @discardableResult
-    public static func fetch(page: Int? = nil, completed: @escaping (Result<ResponseList<GenusRef>, Error>) -> Void) -> ListOperation<GenusRef>? {
+    static func fetch(filter: Filter? = nil, order: SortOrder? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<GenusRef>, Error>) -> Void) -> ListOperation<GenusRef>? {
         
-        guard let url = listURL(page: page) else {
+        guard let url = listURL(filter: filter, order: order, page: page) else {
             completed(Result.failure(TrefleError.badURL))
             return nil
         }
@@ -56,7 +63,7 @@ public class GenusManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
@@ -66,7 +73,7 @@ public class GenusManager {
     // MARK: - Fetch Genus
     
     @discardableResult
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Genus>, Error>) -> Void) -> ItemOperation<Genus>? {
+    static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Genus>, Error>) -> Void) -> ItemOperation<Genus>? {
         
         guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
@@ -81,11 +88,35 @@ public class GenusManager {
             return itemOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         itemOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
+    }
+    
+}
+
+// MARK: - Publishers
+
+@available(iOS 13, *)
+public extension GenusManager {
+    
+    // MARK: - Fetch Genus Refs
+    
+    static func fetchPublisher<T: Decodable>(filter: Filter? = nil, order: SortOrder? = nil, page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(filter: filter, order: order, page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
     }
     
 }

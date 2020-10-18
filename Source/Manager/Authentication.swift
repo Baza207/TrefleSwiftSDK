@@ -48,9 +48,9 @@ public extension Trefle {
     // MARK: - Token
     
     @discardableResult
-    internal static func claimToken(_ completed: @escaping (Result<JWTState, Error>) -> Void) -> ClaimTokenOperation {
+    internal static func claimToken(_ completed: @escaping (Result<JWTState, Error>) -> Void) -> JWTStateOperation {
         
-        let operation = ClaimTokenOperation(completed)
+        let operation = JWTStateOperation(completed)
         Trefle.operationQueue.addOperation(operation)
         return operation
     }

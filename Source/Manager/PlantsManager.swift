@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Combine
 
-public class PlantsManager {
+public class PlantsManager: TrefleManagers {
     
     public typealias Filter = [PlantFilter: [String]]
     public typealias Exclude = [PlantExclude]
@@ -19,7 +20,7 @@ public class PlantsManager {
     
     // MARK: - Plant URLs
     
-    internal static func listURL(query: String? = nil, zoneId: String? = nil, genusId: String? = nil, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> URL? {
+    public static func listURL(query: String? = nil, zoneId: String? = nil, genusId: String? = nil, filter: Filter?, exclude: Exclude?, order: SortOrder?, range: Range?, page: Int?) -> URL? {
         
         let urlString: String
         if query != nil {
@@ -68,14 +69,20 @@ public class PlantsManager {
         return urlComponents.url
     }
     
-    internal static func itemURL(identifier: String) -> URL? {
+    public static func itemURL(identifier: String) -> URL? {
         URL(string: "\(apiURL)/\(identifier)")
     }
     
-    // MARK: - Fetch Plants
+}
+
+// MARK: - Operations
+
+public extension PlantsManager {
+    
+    // MARK: - Fetch Plant Refs
     
     @discardableResult
-    public static func fetch(filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
+    static func fetch(filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
         
         guard let url = listURL(filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
@@ -90,7 +97,7 @@ public class PlantsManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
@@ -100,7 +107,7 @@ public class PlantsManager {
     // MARK: - Search Plants
     
     @discardableResult
-    public static func search(query: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
+    static func search(query: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
         
         guard let url = listURL(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
@@ -115,17 +122,17 @@ public class PlantsManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
         return listOperation
     }
     
-    // MARK: - Fetch Plants in Distribution Zone
+    // MARK: - Fetch Plant Refs in Distribution Zone
     
     @discardableResult
-    public static func fetchInDistributionZone(with zoneId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
+    static func fetchInDistributionZone(with zoneId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
         
         guard let url = listURL(zoneId: zoneId, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
@@ -140,17 +147,17 @@ public class PlantsManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
         return listOperation
     }
     
-    // MARK: - Fetch Plants of a Genus
+    // MARK: - Fetch Plant Refs of a Genus
     
     @discardableResult
-    public static func fetchOfGenus(with genusId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
+    static func fetchOfGenus(with genusId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil, completed: @escaping (Result<ResponseList<PlantRef>, Error>) -> Void) -> ListOperation<PlantRef>? {
         
         guard let url = listURL(genusId: genusId, filter: filter, exclude: exclude, order: order, range: range, page: page) else {
             completed(Result.failure(TrefleError.badURL))
@@ -165,7 +172,7 @@ public class PlantsManager {
             return listOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         listOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, listOperation], waitUntilFinished: false)
@@ -175,7 +182,7 @@ public class PlantsManager {
     // MARK: - Fetch Plant
     
     @discardableResult
-    public static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Plant>, Error>) -> Void) -> ItemOperation<Plant>? {
+    static func fetchItem(identifier: String, completed: @escaping (Result<ResponseItem<Plant>, Error>) -> Void) -> ItemOperation<Plant>? {
         
         guard let url = itemURL(identifier: identifier) else {
             completed(Result.failure(TrefleError.badURL))
@@ -190,11 +197,86 @@ public class PlantsManager {
             return itemOperation
         }
         
-        let claimTokenOperation = ClaimTokenOperation()
+        let claimTokenOperation = JWTStateOperation()
         itemOperation.addDependency(claimTokenOperation)
         
         Trefle.operationQueue.addOperations([claimTokenOperation, itemOperation], waitUntilFinished: false)
         return itemOperation
+    }
+    
+}
+
+// MARK: - Publishers
+
+@available(iOS 13, *)
+public extension PlantsManager {
+    
+    // MARK: - Fetch Plant Refs
+    
+    static func fetchPublisher<T: Decodable>(filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(filter: filter, exclude: exclude, order: order, range: range, page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    // MARK: - Search Plants
+    
+    static func searchPublisher<T: Decodable>(query: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(query: query, filter: filter, exclude: exclude, order: order, range: range, page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    // MARK: - Fetch Plant Refs in Distribution Zone
+    
+    static func fetchInDistributionZonePublisher<T: Decodable>(with zoneId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(zoneId: zoneId, filter: filter, exclude: exclude, order: order, range: range, page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    // MARK: - Fetch Plant Refs of a Genus
+    
+    static func fetchOfGenusPublisher<T: Decodable>(with genusId: String, filter: Filter? = nil, exclude: Exclude? = nil, order: SortOrder? = nil, range: Range? = nil, page: Int? = nil) -> AnyPublisher<ResponseList<T>, Error> {
+        
+        Future<URL, Error> { (promise) in
+            if let url = listURL(genusId: genusId, filter: filter, exclude: exclude, order: order, range: range, page: page) {
+                promise(.success(url))
+            } else {
+                promise(.failure(TrefleError.badURL))
+            }
+        }
+        .flatMap { (url) -> AnyPublisher<ResponseList<T>, Error> in
+            fetchPublisher(url: url)
+        }
+        .eraseToAnyPublisher()
     }
     
 }

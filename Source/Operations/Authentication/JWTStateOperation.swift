@@ -1,5 +1,5 @@
 //
-//  ClaimTokenOperation.swift
+//  JWTStateOperation.swift
 //  TrefleSwiftSDK
 //
 //  Created by James Barrow on 2020-10-11.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class ClaimTokenOperation: Operation {
+public class JWTStateOperation: Operation {
     
     internal var claimTokenCompletionBlock: ((_ result: Result<JWTState, Error>) -> Void)?
     
@@ -62,32 +62,22 @@ public class ClaimTokenOperation: Operation {
             self._isFinished = true
         }
         
-        guard var urlComponents = URLComponents(string: "\(Trefle.baseAPIURL)/auth/claim") else {
+        guard let urlRequest = JWTState.urlRequest else {
             let error = TrefleError.badURL
             self.error = error
-            
             claimTokenCompletionBlock?(Result.failure(error))
             
             // Finish
-            self._isExecuting = false
-            self._isFinished = true
+            _isExecuting = false
+            _isFinished = true
             return
         }
         
-        urlComponents.queryItems = [
-            URLQueryItem(name: "token", value: Trefle.shared.accessToken),
-            URLQueryItem(name: "origin", value: Trefle.shared.uri)
-        ]
-        
-        guard let url = urlComponents.url else {
-            let error = TrefleError.badURL
-            self.error = error
-            
-            claimTokenCompletionBlock?(Result.failure(error))
+        // Check if canceled, if so then return
+        if isCancelled == true {
             
             // Finish
-            self._isExecuting = false
-            self._isFinished = true
+            _isFinished = true
             return
         }
         
@@ -95,8 +85,6 @@ public class ClaimTokenOperation: Operation {
             Trefle.shared.stateUUID = UUID().uuidString
         }
         
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
         task = URLSession.shared.dataTask(with: urlRequest) { [weak self] (data, _, error) in
             
             guard let self = self else {
@@ -112,43 +100,7 @@ public class ClaimTokenOperation: Operation {
                 return
             }
             
-            if let error = error {
-                self.error = error
-                
-                self.claimTokenCompletionBlock?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
-            }
-            
-            guard let data = data else {
-                let error = TrefleError.noData
-                self.error = error
-                
-                self.claimTokenCompletionBlock?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
-            }
-            
-            let decoder = JSONDecoder.jwtJSONDecoder
-            let result: JWTState?
-            do {
-                result = try decoder.decode(JWTState.self, from: data)
-            } catch {
-                self.error = error
-                
-                self.claimTokenCompletionBlock?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
-                return
-            }
+            let decodeResult = Self.decode(data: data, error: error)
             
             // Check if canceled, if so then return
             if self.isCancelled == true {
@@ -159,15 +111,13 @@ public class ClaimTokenOperation: Operation {
                 return
             }
             
-            guard let jwtState = result else {
-                let error = TrefleError.generalError
+            let jwtState: JWTState
+            switch decodeResult {
+            case .success(let response):
+                jwtState = response
+            case .failure(let error):
                 self.error = error
-                
                 self.claimTokenCompletionBlock?(Result.failure(error))
-                
-                // Finish
-                self._isExecuting = false
-                self._isFinished = true
                 return
             }
             
@@ -192,6 +142,31 @@ public class ClaimTokenOperation: Operation {
             self._isFinished = true
         }
         task?.resume()
+    }
+    
+    internal static func decode(data: Data?, error: Error?) -> Result<JWTState, Error> {
+        
+        if let error = error {
+            return Result.failure(error)
+        }
+        
+        guard let data = data else {
+            return Result.failure(TrefleError.noData)
+        }
+        
+        let decoder = JSONDecoder.jwtJSONDecoder
+        let result: JWTState?
+        do {
+            result = try decoder.decode(JWTState.self, from: data)
+        } catch {
+            return Result.failure(error)
+        }
+        
+        guard let jwtState = result else {
+            return Result.failure(TrefleError.generalError)
+        }
+        
+        return Result.success(jwtState)
     }
     
     public override func cancel() {

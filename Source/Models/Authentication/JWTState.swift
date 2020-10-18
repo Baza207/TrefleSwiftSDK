@@ -24,4 +24,29 @@ struct JWTState: Codable {
         case expires = "expiration"
     }
     
+    // MARK: - URL
+    
+    internal static let urlString = "\(Trefle.baseAPIURL)/auth/claim"
+    internal static let url = URL(string: Self.urlString)
+    internal static var urlRequest: URLRequest? {
+        
+        guard var urlComponents = URLComponents(string: Self.urlString) else {
+            return nil
+        }
+        
+        urlComponents.queryItems = [
+            URLQueryItem(name: "token", value: Trefle.shared.accessToken),
+            URLQueryItem(name: "origin", value: Trefle.shared.uri)
+        ]
+        
+        guard let url = urlComponents.url else {
+            return nil
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        
+        return urlRequest
+    }
+    
 }

@@ -1,5 +1,5 @@
 //
-//  TrefleAuthTests.swift
+//  TrefleAuthPublisherTests.swift
 //  TrefleSwiftSDKTests
 //
 //  Created by James Barrow on 2020-04-21.
@@ -9,7 +9,8 @@
 import XCTest
 @testable import TrefleSwiftSDK
 
-class TrefleSwiftSDKTests: XCTestCase {
+@available(iOS 13, *)
+class TrefleAuthPublisherTests: XCTestCase {
     
     var config = try? TestConfig.load()
     
@@ -35,7 +36,7 @@ class TrefleSwiftSDKTests: XCTestCase {
         Trefle.shared.jwtState = nil
     }
     
-    func testConfigure() throws {
+    func testConfigurePublisher() throws {
         
         guard let config = self.config else {
             XCTFail("Requires a test config to be setup before calling login!")
@@ -51,20 +52,18 @@ class TrefleSwiftSDKTests: XCTestCase {
         
         let expectation = self.expectation(description: #function)
         
-        Trefle.claimToken { (result) in
-            
-            switch result {
-            case .success(let state):
+        let cancelable = JWTState.publisher()
+            .sink { (completion) in
+                if let error = completion as? Error {
+                    XCTFail(error.localizedDescription)
+                }
+                expectation.fulfill()
+            } receiveValue: { (state) in
                 XCTAssertTrue(state.isValid == true)
-                expectation.fulfill()
-                
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
-                expectation.fulfill()
             }
-        }
         
         waitForExpectations(timeout: 60) { (error) in
+            cancelable.cancel()
             XCTAssertNil(error, error?.localizedDescription ?? "")
         }
     }

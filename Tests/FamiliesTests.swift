@@ -20,7 +20,7 @@ class FamiliesTests: XCTestCase {
             return
         }
         
-        guard let url = FamiliesManager.listURL() else {
+        guard let url = FamiliesManager.listURL(filter: nil, order: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -53,7 +53,7 @@ class FamiliesTests: XCTestCase {
             return
         }
         
-        guard let url = FamiliesManager.listURL(filter: [.name: [config.familyName]]) else {
+        guard let url = FamiliesManager.listURL(filter: [.name: [config.familyName]], order: nil, page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
@@ -87,7 +87,7 @@ class FamiliesTests: XCTestCase {
         }
         
         let requstedPage = 2
-        guard let url = FamiliesManager.listURL(page: requstedPage) else {
+        guard let url = FamiliesManager.listURL(filter: nil, order: nil, page: requstedPage) else {
             XCTFail("Failed to create URL!")
             return
         }

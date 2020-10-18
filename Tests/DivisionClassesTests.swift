@@ -20,7 +20,7 @@ class DivisionClassesTests: XCTestCase {
             return
         }
         
-        guard let url = DivisionClassesManager.listURL() else {
+        guard let url = DivisionClassesManager.listURL(page: nil) else {
             XCTFail("Failed to create URL!")
             return
         }
