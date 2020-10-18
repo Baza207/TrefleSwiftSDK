@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		181C8794253A409200D8E463 /* TrefleManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C8793253A409200D8E463 /* TrefleManagers.swift */; };
+		181C87DB253C5C6100D8E463 /* TrefleAuthPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C87DA253C5C6000D8E463 /* TrefleAuthPublisherTests.swift */; };
+		181C87E1253C5CAD00D8E463 /* KingdomsPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C87E0253C5CAD00D8E463 /* KingdomsPublisherTests.swift */; };
+		181C87E9253CBC9700D8E463 /* SubkingdomsPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C87E8253CBC9700D8E463 /* SubkingdomsPublisherTests.swift */; };
+		181C87EF253CC2DF00D8E463 /* DivisionsPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C87EE253CC2DF00D8E463 /* DivisionsPublisherTests.swift */; };
+		181C87F5253CC71200D8E463 /* DivisionClassesPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C87F4253CC71200D8E463 /* DivisionClassesPublisherTests.swift */; };
+		181C87FB253CCA0B00D8E463 /* DivisionOrdersPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C87FA253CCA0B00D8E463 /* DivisionOrdersPublisherTests.swift */; };
+		181C8801253CCDA600D8E463 /* FamilyPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C8800253CCDA600D8E463 /* FamilyPublisherTests.swift */; };
+		181C8807253CD25E00D8E463 /* GenusPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C8806253CD25E00D8E463 /* GenusPublisherTests.swift */; };
+		181C880D253CD4EE00D8E463 /* PlantsPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C880C253CD4EE00D8E463 /* PlantsPublisherTests.swift */; };
+		181C8813253CD6CF00D8E463 /* SpeciesPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C8812253CD6CF00D8E463 /* SpeciesPublisherTests.swift */; };
+		181C8819253CD82B00D8E463 /* DistributionZonesPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C8818253CD82B00D8E463 /* DistributionZonesPublisherTests.swift */; };
 		181CAAC025323C89009A252C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAABF25323C89009A252C /* Config.swift */; };
 		181CAAC425323CDC009A252C /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAAC325323CDC009A252C /* URLExtensions.swift */; };
 		181CAAD12533234A009A252C /* JWTStateOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181CAAD02533234A009A252C /* JWTStateOperation.swift */; };
@@ -116,6 +127,17 @@
 
 /* Begin PBXFileReference section */
 		181C8793253A409200D8E463 /* TrefleManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrefleManagers.swift; sourceTree = "<group>"; };
+		181C87DA253C5C6000D8E463 /* TrefleAuthPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrefleAuthPublisherTests.swift; sourceTree = "<group>"; };
+		181C87E0253C5CAD00D8E463 /* KingdomsPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KingdomsPublisherTests.swift; sourceTree = "<group>"; };
+		181C87E8253CBC9700D8E463 /* SubkingdomsPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubkingdomsPublisherTests.swift; sourceTree = "<group>"; };
+		181C87EE253CC2DF00D8E463 /* DivisionsPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DivisionsPublisherTests.swift; sourceTree = "<group>"; };
+		181C87F4253CC71200D8E463 /* DivisionClassesPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DivisionClassesPublisherTests.swift; sourceTree = "<group>"; };
+		181C87FA253CCA0B00D8E463 /* DivisionOrdersPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DivisionOrdersPublisherTests.swift; sourceTree = "<group>"; };
+		181C8800253CCDA600D8E463 /* FamilyPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyPublisherTests.swift; sourceTree = "<group>"; };
+		181C8806253CD25E00D8E463 /* GenusPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenusPublisherTests.swift; sourceTree = "<group>"; };
+		181C880C253CD4EE00D8E463 /* PlantsPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlantsPublisherTests.swift; sourceTree = "<group>"; };
+		181C8812253CD6CF00D8E463 /* SpeciesPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeciesPublisherTests.swift; sourceTree = "<group>"; };
+		181C8818253CD82B00D8E463 /* DistributionZonesPublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistributionZonesPublisherTests.swift; sourceTree = "<group>"; };
 		181CAABF25323C89009A252C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		181CAAC325323CDC009A252C /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		181CAAD02533234A009A252C /* JWTStateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTStateOperation.swift; sourceTree = "<group>"; };
@@ -392,16 +414,27 @@
 			children = (
 				186105B7244F1332008A863B /* Test Config */,
 				1874837E244F0E0F00120F73 /* TrefleAuthTests.swift */,
+				181C87DA253C5C6000D8E463 /* TrefleAuthPublisherTests.swift */,
 				183B16AA252A5B1B007C7A72 /* KingdomsTests.swift */,
+				181C87E0253C5CAD00D8E463 /* KingdomsPublisherTests.swift */,
 				183B16B4252A5E8C007C7A72 /* SubkingdomsTests.swift */,
+				181C87E8253CBC9700D8E463 /* SubkingdomsPublisherTests.swift */,
 				183B16C5252A610D007C7A72 /* DivisionsTests.swift */,
+				181C87EE253CC2DF00D8E463 /* DivisionsPublisherTests.swift */,
 				18D117F9252B976B0004DC72 /* DivisionClassesTests.swift */,
+				181C87F4253CC71200D8E463 /* DivisionClassesPublisherTests.swift */,
 				18D11803252B9E1F0004DC72 /* DivisionOrdersTests.swift */,
+				181C87FA253CCA0B00D8E463 /* DivisionOrdersPublisherTests.swift */,
 				18D1180B252BA1A90004DC72 /* FamiliesTests.swift */,
+				181C8800253CCDA600D8E463 /* FamilyPublisherTests.swift */,
 				18D1182C252BACD80004DC72 /* GenusTests.swift */,
+				181C8806253CD25E00D8E463 /* GenusPublisherTests.swift */,
 				186105D42450D01A008A863B /* PlantsTests.swift */,
+				181C880C253CD4EE00D8E463 /* PlantsPublisherTests.swift */,
 				18D11849252C6D410004DC72 /* SpeciesTests.swift */,
+				181C8812253CD6CF00D8E463 /* SpeciesPublisherTests.swift */,
 				18D11868252C78DA0004DC72 /* DistributionZonesTests.swift */,
+				181C8818253CD82B00D8E463 /* DistributionZonesPublisherTests.swift */,
 				18748380244F0E0F00120F73 /* Info.plist */,
 			);
 			path = Tests;
@@ -780,18 +813,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				181C87DB253C5C6100D8E463 /* TrefleAuthPublisherTests.swift in Sources */,
+				181C87EF253CC2DF00D8E463 /* DivisionsPublisherTests.swift in Sources */,
 				183B16B5252A5E8C007C7A72 /* SubkingdomsTests.swift in Sources */,
+				181C8807253CD25E00D8E463 /* GenusPublisherTests.swift in Sources */,
+				181C8801253CCDA600D8E463 /* FamilyPublisherTests.swift in Sources */,
 				18D117FA252B976B0004DC72 /* DivisionClassesTests.swift in Sources */,
 				186105D52450D01A008A863B /* PlantsTests.swift in Sources */,
 				18D1180C252BA1A90004DC72 /* FamiliesTests.swift in Sources */,
 				18D11804252B9E1F0004DC72 /* DivisionOrdersTests.swift in Sources */,
 				183B16AB252A5B1C007C7A72 /* KingdomsTests.swift in Sources */,
+				181C8819253CD82B00D8E463 /* DistributionZonesPublisherTests.swift in Sources */,
 				1874837F244F0E0F00120F73 /* TrefleAuthTests.swift in Sources */,
 				18D1182D252BACD80004DC72 /* GenusTests.swift in Sources */,
+				181C87E1253C5CAD00D8E463 /* KingdomsPublisherTests.swift in Sources */,
+				181C87F5253CC71200D8E463 /* DivisionClassesPublisherTests.swift in Sources */,
+				181C87FB253CCA0B00D8E463 /* DivisionOrdersPublisherTests.swift in Sources */,
 				183B16C6252A610D007C7A72 /* DivisionsTests.swift in Sources */,
 				18D11869252C78DA0004DC72 /* DistributionZonesTests.swift in Sources */,
+				181C880D253CD4EE00D8E463 /* PlantsPublisherTests.swift in Sources */,
+				181C87E9253CBC9700D8E463 /* SubkingdomsPublisherTests.swift in Sources */,
 				186105BA244F1332008A863B /* TestConfig.swift in Sources */,
 				18D1184A252C6D410004DC72 /* SpeciesTests.swift in Sources */,
+				181C8813253CD6CF00D8E463 /* SpeciesPublisherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
