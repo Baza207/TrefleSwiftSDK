@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "TrefleSwiftSDK"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "TrefleSwiftSDK is a Swift wrapper around the Trefle API."
   s.homepage     = "https://github.com/Baza207/TrefleSwiftSDK"
   s.license      = { :type => "MIT", :file => "LICENSE" }
