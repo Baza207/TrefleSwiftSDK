@@ -1,5 +1,5 @@
 //
-//  FamiliesTests.swift
+//  FamilyTests.swift
 //  TrefleSwiftSDKTests
 //
 //  Created by James Barrow on 2020-10-05.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import TrefleSwiftSDK
 
-class FamiliesTests: XCTestCase {
+class FamilyTests: XCTestCase {
     
     var config = try? TestConfig.load()
     

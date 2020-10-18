@@ -73,7 +73,7 @@
 		18D11800252B9D210004DC72 /* DivisionOrdersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D117FF252B9D210004DC72 /* DivisionOrdersManager.swift */; };
 		18D11804252B9E1F0004DC72 /* DivisionOrdersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11803252B9E1F0004DC72 /* DivisionOrdersTests.swift */; };
 		18D11808252B9FD20004DC72 /* FamiliesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11807252B9FD20004DC72 /* FamiliesManager.swift */; };
-		18D1180C252BA1A90004DC72 /* FamiliesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1180B252BA1A90004DC72 /* FamiliesTests.swift */; };
+		18D1180C252BA1A90004DC72 /* FamilyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1180B252BA1A90004DC72 /* FamilyTests.swift */; };
 		18D11815252BA3EB0004DC72 /* FamilyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11814252BA3EB0004DC72 /* FamilyFilter.swift */; };
 		18D11819252BA3F50004DC72 /* FamilySortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D11818252BA3F50004DC72 /* FamilySortOrder.swift */; };
 		18D1182D252BACD80004DC72 /* GenusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D1182C252BACD80004DC72 /* GenusTests.swift */; };
@@ -198,7 +198,7 @@
 		18D117FF252B9D210004DC72 /* DivisionOrdersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionOrdersManager.swift; sourceTree = "<group>"; };
 		18D11803252B9E1F0004DC72 /* DivisionOrdersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionOrdersTests.swift; sourceTree = "<group>"; };
 		18D11807252B9FD20004DC72 /* FamiliesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliesManager.swift; sourceTree = "<group>"; };
-		18D1180B252BA1A90004DC72 /* FamiliesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamiliesTests.swift; sourceTree = "<group>"; };
+		18D1180B252BA1A90004DC72 /* FamilyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyTests.swift; sourceTree = "<group>"; };
 		18D11814252BA3EB0004DC72 /* FamilyFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyFilter.swift; sourceTree = "<group>"; };
 		18D11818252BA3F50004DC72 /* FamilySortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilySortOrder.swift; sourceTree = "<group>"; };
 		18D1182C252BACD80004DC72 /* GenusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenusTests.swift; sourceTree = "<group>"; };
@@ -425,7 +425,7 @@
 				181C87F4253CC71200D8E463 /* DivisionClassesPublisherTests.swift */,
 				18D11803252B9E1F0004DC72 /* DivisionOrdersTests.swift */,
 				181C87FA253CCA0B00D8E463 /* DivisionOrdersPublisherTests.swift */,
-				18D1180B252BA1A90004DC72 /* FamiliesTests.swift */,
+				18D1180B252BA1A90004DC72 /* FamilyTests.swift */,
 				181C8800253CCDA600D8E463 /* FamilyPublisherTests.swift */,
 				18D1182C252BACD80004DC72 /* GenusTests.swift */,
 				181C8806253CD25E00D8E463 /* GenusPublisherTests.swift */,
@@ -820,7 +820,7 @@
 				181C8801253CCDA600D8E463 /* FamilyPublisherTests.swift in Sources */,
 				18D117FA252B976B0004DC72 /* DivisionClassesTests.swift in Sources */,
 				186105D52450D01A008A863B /* PlantsTests.swift in Sources */,
-				18D1180C252BA1A90004DC72 /* FamiliesTests.swift in Sources */,
+				18D1180C252BA1A90004DC72 /* FamilyTests.swift in Sources */,
 				18D11804252B9E1F0004DC72 /* DivisionOrdersTests.swift in Sources */,
 				183B16AB252A5B1C007C7A72 /* KingdomsTests.swift in Sources */,
 				181C8819253CD82B00D8E463 /* DistributionZonesPublisherTests.swift in Sources */,
