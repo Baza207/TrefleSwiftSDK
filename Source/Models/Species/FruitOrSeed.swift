@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct FruitOrSeed: Decodable, CustomStringConvertible {
+public struct FruitOrSeed: Codable, Hashable, CustomStringConvertible {
     
     // MARK: - Properties
     

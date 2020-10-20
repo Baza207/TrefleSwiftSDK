@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Distribution: Decodable, CustomStringConvertible {
+public struct Distribution: Codable, Hashable, CustomStringConvertible {
     
     // MARK: - Properties
     

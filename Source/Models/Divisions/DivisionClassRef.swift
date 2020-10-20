@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct DivisionClassRef: Codable, CustomStringConvertible {
+public struct DivisionClassRef: Codable, Hashable, CustomStringConvertible {
     
     // MARK: - Properties
     

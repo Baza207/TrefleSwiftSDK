@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ImageCollection: Decodable, CustomStringConvertible {
+public struct ImageCollection: Codable, Hashable, CustomStringConvertible {
     
     // MARK: - Properties
     

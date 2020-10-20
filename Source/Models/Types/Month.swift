@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Month: String, Decodable {
+public enum Month: String, Codable, Hashable {
     case january = "jan"
     case febuary = "feb"
     case march = "mar"

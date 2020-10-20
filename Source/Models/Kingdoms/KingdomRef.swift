@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct KingdomRef: Codable, CustomStringConvertible {
+public struct KingdomRef: Codable, Hashable, CustomStringConvertible {
     
     // MARK: - Properties
     

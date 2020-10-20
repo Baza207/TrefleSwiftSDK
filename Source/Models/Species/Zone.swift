@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Zone: Decodable, CustomStringConvertible {
+public struct Zone: Codable, Hashable, CustomStringConvertible {
     
     // MARK: - Properties
     
@@ -29,23 +29,6 @@ public struct Zone: Decodable, CustomStringConvertible {
     
     // MARK: - Init
     
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        identifier = try container.decode(Int.self, forKey: .identifier)
-        name = try container.decode(String.self, forKey: .name)
-        slug = try container.decode(String.self, forKey: .slug)
-        tdwgCode = try container.decode(String.self, forKey: .tdwgCode)
-        tdwgLevel = try container.decode(Int.self, forKey: .tdwgLevel)
-        speciesCount = try container.decode(Int.self, forKey: .speciesCount)
-        links = try container.decode(Links.self, forKey: .links)
-        if let parent = try container.decodeIfPresent(Zone.self, forKey: .parent) {
-            parents = [parent]
-        } else {
-            parents = []
-        }
-        children = try container.decodeIfPresent([Zone].self, forKey: .children)
-    }
-    
     public init(identifier: Int, name: String, slug: String, tdwgCode: String, tdwgLevel: Int, speciesCount: Int, parent: Zone? = nil, children: [Zone]? = nil) {
         self.identifier = identifier
         self.name = name
@@ -64,6 +47,36 @@ public struct Zone: Decodable, CustomStringConvertible {
     
     internal static var blank: Self {
         Self(identifier: -1, name: "", slug: "", tdwgCode: "", tdwgLevel: -1, speciesCount: 0)
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        identifier = try container.decode(Int.self, forKey: .identifier)
+        name = try container.decode(String.self, forKey: .name)
+        slug = try container.decode(String.self, forKey: .slug)
+        tdwgCode = try container.decode(String.self, forKey: .tdwgCode)
+        tdwgLevel = try container.decode(Int.self, forKey: .tdwgLevel)
+        speciesCount = try container.decode(Int.self, forKey: .speciesCount)
+        links = try container.decode(Links.self, forKey: .links)
+        if let parent = try container.decodeIfPresent(Zone.self, forKey: .parent) {
+            parents = [parent]
+        } else {
+            parents = []
+        }
+        children = try container.decodeIfPresent([Zone].self, forKey: .children)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(identifier, forKey: .identifier)
+        try container.encode(name, forKey: .name)
+        try container.encode(slug, forKey: .slug)
+        try container.encode(tdwgCode, forKey: .tdwgCode)
+        try container.encode(tdwgLevel, forKey: .tdwgLevel)
+        try container.encode(speciesCount, forKey: .speciesCount)
+        try container.encode(links, forKey: .links)
+        try container.encode(parent, forKey: .parent)
+        try container.encode(children, forKey: .children)
     }
     
     // MARK: - Coding

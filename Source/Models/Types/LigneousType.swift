@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum LigneousType: Decodable {
+public enum LigneousType: Codable, Hashable {
     case liana
     case subshrub
     case shrub
@@ -39,6 +39,11 @@ public enum LigneousType: Decodable {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
         self = LigneousType(rawValue: rawValue)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
     
     // MARK: - Helpers

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Synonym: Decodable, CustomStringConvertible {
+public struct Synonym: Codable, Hashable, CustomStringConvertible {
     
     // MARK: - Properties
     

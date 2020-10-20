@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Status: Decodable {
+public enum Status: Codable, Hashable {
     case accepted
     case unknown
     case other(String)
@@ -30,6 +30,11 @@ public enum Status: Decodable {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
         self = Status(rawValue: rawValue)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
     
     // MARK: - Helpers

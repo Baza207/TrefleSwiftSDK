@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Duration: Decodable {
+public enum Duration: Codable, Hashable {
     case annual
     case biennial
     case perennial
@@ -33,6 +33,11 @@ public enum Duration: Decodable {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
         self = Duration(rawValue: rawValue)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
     
     // MARK: - Helpers

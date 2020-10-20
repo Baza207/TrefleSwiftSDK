@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Toxicity: Decodable {
+public enum Toxicity: Codable, Hashable {
     case none
     case low
     case medium
@@ -36,6 +36,11 @@ public enum Toxicity: Decodable {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
         self = Toxicity(rawValue: rawValue)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
     
     // MARK: - Helpers

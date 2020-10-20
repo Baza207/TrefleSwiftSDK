@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Texture: Decodable {
+public enum Texture: Codable, Hashable {
     case fine
     case medium
     case coarse
@@ -33,6 +33,11 @@ public enum Texture: Decodable {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
         self = Texture(rawValue: rawValue)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
     
     // MARK: - Helpers

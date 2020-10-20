@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum EdiblePart: Decodable {
+public enum EdiblePart: Codable, Hashable {
     case roots
     case stem
     case leaves
@@ -45,6 +45,11 @@ public enum EdiblePart: Decodable {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
         self = EdiblePart(rawValue: rawValue)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
     
     // MARK: - Helpers

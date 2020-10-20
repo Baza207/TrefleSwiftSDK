@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Rank: Decodable {
+public enum Rank: Codable, Hashable {
     case species
     case ssp
     case `var`
@@ -42,6 +42,11 @@ public enum Rank: Decodable {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
         self = Rank(rawValue: rawValue)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
     
     // MARK: - Helpers

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Genus: Codable, CustomStringConvertible {
+public struct Genus: Codable, Hashable, CustomStringConvertible {
     
     // MARK: - Properties
     

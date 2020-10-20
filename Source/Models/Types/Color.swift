@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Color: Decodable {
+public enum Color: Codable, Hashable {
     case white
     case red
     case brown
@@ -63,6 +63,11 @@ public enum Color: Decodable {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
         self = Color(rawValue: rawValue)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
     
     // MARK: - Helpers

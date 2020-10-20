@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Flower: Decodable, CustomStringConvertible {
+public struct Flower: Codable, Hashable, CustomStringConvertible {
     
     // MARK: - Properties
     
