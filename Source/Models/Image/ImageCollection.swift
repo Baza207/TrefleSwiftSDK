@@ -18,6 +18,9 @@ public struct ImageCollection: Codable, Hashable, CustomStringConvertible {
     public let fruit: [ImageRef]
     public let bark: [ImageRef]
     public let other: [ImageRef]
+    public var hasImages: Bool {
+        flower.count > 0 || leaf.count > 0 || habit.count > 0 || fruit.count > 0 || bark.count > 0 || other.count > 0
+    }
     
     public var description: String {
         "ImageCollection(flower: \(flower), leaf: \(leaf), habit: \(habit), fruit: \(fruit), bark: \(bark), other: \(other))"
