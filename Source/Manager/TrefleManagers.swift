@@ -66,6 +66,10 @@ public extension TrefleManagers {
     
     // MARK: - Fetch Item
     
+    static func fetchItemPublisher<T: Decodable>(identifier: Int) -> AnyPublisher<ResponseItem<T>, Error> {
+        fetchItemPublisher(identifier: "\(identifier)")
+    }
+    
     static func fetchItemPublisher<T: Decodable>(identifier: String) -> AnyPublisher<ResponseItem<T>, Error> {
         
         Future<URL, Error> { (promise) in
