@@ -12,7 +12,7 @@ import Combine
 public class GenusManager: TrefleManagers {
     
     public typealias Filter = [GenusFilter: [String]]
-    public typealias SortOrder = [(field: GenusSortOrder, order: Order)]
+    public typealias SortOrder = [SortOrderItem<GenusSortOrder>]
     
     internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/genus"
     

@@ -13,7 +13,7 @@ public class PlantsManager: TrefleManagers {
     
     public typealias Filter = [PlantFilter: [String]]
     public typealias Exclude = [PlantExclude]
-    public typealias SortOrder = [(field: PlantSortOrder, order: Order)]
+    public typealias SortOrder = [SortOrderItem<PlantSortOrder>]
     public typealias Range = [PlantRange: String]
     
     internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/plants"
@@ -52,8 +52,8 @@ public class PlantsManager: TrefleManagers {
             queryItems.append(URLQueryItem(name: "filter_not[\(field.rawValue)]", value: "null"))
         }
         
-        order?.forEach { (field, order) in
-            queryItems.append(URLQueryItem(name: "order[\(field.rawValue)]", value: order.rawValue))
+        order?.forEach { item in
+            queryItems.append(URLQueryItem(name: "order[\(item.field.rawValue)]", value: item.order.rawValue))
         }
         
         range?.forEach { (field, value) in

@@ -12,7 +12,7 @@ import Combine
 public class FamiliesManager: TrefleManagers {
     
     public typealias Filter = [FamilyFilter: [String]]
-    public typealias SortOrder = [(field: FamilySortOrder, order: Order)]
+    public typealias SortOrder = [SortOrderItem<FamilySortOrder>]
     
     internal static let apiURL = "\(Trefle.baseAPIURL)/\(Trefle.apiVersion)/families"
     
@@ -31,8 +31,8 @@ public class FamiliesManager: TrefleManagers {
             queryItems.append(URLQueryItem(name: "filter[\(field.rawValue)]", value: values))
         }
         
-        order?.forEach { (field, order) in
-            queryItems.append(URLQueryItem(name: "order[\(field.rawValue)]", value: order.rawValue))
+        order?.forEach { item in
+            queryItems.append(URLQueryItem(name: "order[\(item.field.rawValue)]", value: item.order.rawValue))
         }
         
         if let page = page {
