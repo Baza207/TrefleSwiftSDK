@@ -50,7 +50,7 @@ public typealias ZoneRefsPublisher = AnyPublisher<ResponseList<Zone>, Error>
 @available(iOS 13, *)
 public typealias ZonePublisher = AnyPublisher<ResponseItem<Zone>, Error>
 
-public struct SortOrderItem<T: Hashable> {
+public struct SortOrderItem<T: Equatable> {
     public let field: T
     public let order: Order
 }
