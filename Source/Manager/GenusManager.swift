@@ -26,6 +26,15 @@ public class GenusManager: TrefleManagers {
         
         var queryItems = [URLQueryItem]()
         
+        filter?.forEach { (field, value) in
+            let values = value.joined(separator: ",")
+            queryItems.append(URLQueryItem(name: "filter[\(field.rawValue)]", value: values))
+        }
+        
+        order?.forEach { item in
+            queryItems.append(URLQueryItem(name: "order[\(item.field.rawValue)]", value: item.order.rawValue))
+        }
+        
         if let page = page {
             queryItems.append(URLQueryItem(name: "page", value: "\(page)"))
         }
