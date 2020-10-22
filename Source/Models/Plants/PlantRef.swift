@@ -89,4 +89,10 @@ public struct PlantRef: Codable, Hashable, CustomStringConvertible {
         case links
     }
     
+    // MARK: - Hashable
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+    }
+    
 }
