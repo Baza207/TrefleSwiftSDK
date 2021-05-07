@@ -1,3 +1,9 @@
+> ⚠️ **Archived! Please Read First!**
+> 
+> Sadly it seems like the Trefle project is over for now, and as I've not had time to work on this SDK myself either I have also decided to archive it. Please visit the main Trefle project for more details: https://github.com/treflehq/trefle-api
+
+----
+
 # TrefleSwiftSDK
 
 ![Swift](https://img.shields.io/badge/Swift-5.1-orange.svg)
